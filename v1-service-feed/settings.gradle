@@ -1,0 +1,4 @@
+rootProject.name = 'v1-service-feed'
+
+include 'feed-infrastructure'
+include 'feed-domain'
