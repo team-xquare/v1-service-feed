@@ -30,9 +30,3 @@ body:
       placeholder: |
         System:
           OS: macOS 11.4
-
-  - type: textarea
-    attributes:
-      label: Additional
-      description: |
-        추가로 할말이 있으신가요?
