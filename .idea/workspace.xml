@@ -4,7 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab78a64c-6081-43f9-b013-201eba7242a1" name="Changes" comment="" />
+    <list default="true" id="ab78a64c-6081-43f9-b013-201eba7242a1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/.github/CODEOWNERS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/.github/ISSUE_TEMPLATE /bug.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/.github/ISSUE_TEMPLATE /todo.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/.github/workflows/CI.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/annotation/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/adpter/outside/persistence/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/adpter/outside/persistence/converter/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/port/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/port/inside/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/port/outside/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/service/converter/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/service/dto/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/feed/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/feedlike/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/V1ServiceFeedApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/comment/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/comment/adpter/in/web/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/comment/application/converter/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/comment/application/dto/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/configuration/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/configuration/adpter/in/web/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/feed/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/feed/adpter/in/web/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/feedlike/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/feedlike/adpter/in/web/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/v1-service-feed/settings.gradle" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +52,18 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -57,28 +107,35 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/jeonsehyeon/Documents/SpringBoot_Project/v1-service-feed&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;33343d3117ee835620c2f53f83402690&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/eogus0103/git/xquare/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/configuration",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "33343d3117ee835620c2f53f83402690"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/configuration" />
+      <recent name="$PROJECT_DIR$/feed-domain/src/main/java/com/xquare/v1servicefeed" />
       <recent name="$PROJECT_DIR$/.github" />
       <recent name="$PROJECT_DIR$/feed-domain/src/main/java" />
       <recent name="$PROJECT_DIR$/feed-infrastructure/src/main/java" />
@@ -98,21 +155,25 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.V1ServiceFeedApplication (1)">
-    <configuration name="V1ServiceFeedApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <component name="RunManager">
+    <configuration name="V1ServiceFeedApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="v1-service-feed.feed-infrastructure.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.xquare.v1servicefeed.V1ServiceFeedApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.xquare.v1servicefeed.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="V1ServiceFeedApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="v1-service-feed.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.xquare.v1servicefeed.V1ServiceFeedApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.V1ServiceFeedApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -131,6 +192,7 @@
       <workItem from="1656575599137" duration="8968000" />
       <workItem from="1656587946403" duration="9712000" />
       <workItem from="1656643759427" duration="9870000" />
+      <workItem from="1656761694760" duration="630000" />
     </task>
     <servers />
   </component>
