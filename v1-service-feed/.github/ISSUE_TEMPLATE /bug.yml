@@ -20,13 +20,4 @@ body:
         2. Click on '....'
         3. Scroll down to '....'
         4. See error
-
-  - type: textarea
-    attributes:
-      label: Environment
-      render: shell
-      description: |
-        버그가 발생한 환경에 대해 설명해주세요!
-      placeholder: |
-        System:
-          OS: macOS 11.4
+        
