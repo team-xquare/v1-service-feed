@@ -4,45 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab78a64c-6081-43f9-b013-201eba7242a1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/.github/CODEOWNERS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/.github/ISSUE_TEMPLATE /bug.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/.github/ISSUE_TEMPLATE /todo.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/.github/workflows/CI.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/annotation/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/adpter/outside/persistence/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/adpter/outside/persistence/converter/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/port/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/port/inside/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/port/outside/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/service/converter/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/comment/application/service/dto/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/feed/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-domain/src/main/java/com/xquare/v1servicefeed/feedlike/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/V1ServiceFeedApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/comment/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/comment/adpter/in/web/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/comment/application/converter/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/comment/application/dto/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/configuration/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/configuration/adpter/in/web/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/feed/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/feed/adpter/in/web/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/feedlike/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/java/com/xquare/v1servicefeed/feedlike/adpter/in/web/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/feed-infrastructure/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/v1-service-feed/settings.gradle" beforeDir="false" />
-    </list>
+    <list default="true" id="ab78a64c-6081-43f9-b013-201eba7242a1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,6 +48,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="5-modify-package-structure" />
+                    <option name="lastUsedInstant" value="1656762510" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="main" />
                     <option name="lastUsedInstant" value="1656670496" />
@@ -144,6 +110,7 @@
       <recent name="com.xquare.v1servicefeed.domain.feed.feed.queryFeed.repository" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.xquare.v1servicefeed.configuration.error" />
       <recent name="com.xquare.v1servicefeed" />
       <recent name="java.com.xquare.v1servicefeed" />
     </key>
@@ -192,7 +159,7 @@
       <workItem from="1656575599137" duration="8968000" />
       <workItem from="1656587946403" duration="9712000" />
       <workItem from="1656643759427" duration="9870000" />
-      <workItem from="1656761694760" duration="630000" />
+      <workItem from="1656761694760" duration="983000" />
     </task>
     <servers />
   </component>
