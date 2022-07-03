@@ -42,6 +42,11 @@ springBoot {
     mainClass = 'com.xquare.v1servicefeed.V1ServiceFeedApplication'
 }
 
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+
 jar {
     enabled = false
 }
