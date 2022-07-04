@@ -1,9 +1,6 @@
 name: v1-service-feed - CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
