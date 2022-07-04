@@ -1,4 +1,4 @@
-package com.xquare.v1servicefeed.attachment;
+package com.xquare.v1servicefeed.comment;
 
 import com.xquare.v1servicefeed.annotation.Aggregate;
 import lombok.Builder;
@@ -9,11 +9,13 @@ import java.util.UUID;
 @Getter
 @Builder
 @Aggregate
-public class Attachment {
+public class Comment {
 
     private final UUID id;
 
+    private final String content;
+
     private final UUID feedId;
 
-    private final String fileName;
+    private final UUID userId;
 }

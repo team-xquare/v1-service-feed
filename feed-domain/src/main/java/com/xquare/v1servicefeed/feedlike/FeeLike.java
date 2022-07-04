@@ -1,4 +1,4 @@
-package com.xquare.v1servicefeed.attachment;
+package com.xquare.v1servicefeed.feedlike;
 
 import com.xquare.v1servicefeed.annotation.Aggregate;
 import lombok.Builder;
@@ -9,11 +9,11 @@ import java.util.UUID;
 @Getter
 @Builder
 @Aggregate
-public class Attachment {
+public class FeeLike {
 
     private final UUID id;
 
-    private final UUID feedId;
+    private UUID feedId;
 
-    private final String fileName;
+    private UUID userId;
 }
