@@ -1,4 +1,4 @@
-package com.xquare.v1servicefeed.entity;
+package com.xquare.v1servicefeed.configuration.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

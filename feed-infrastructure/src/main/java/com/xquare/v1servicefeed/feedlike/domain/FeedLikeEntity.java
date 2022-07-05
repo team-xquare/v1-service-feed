@@ -1,6 +1,6 @@
 package com.xquare.v1servicefeed.feedlike.domain;
 
-import com.xquare.v1servicefeed.entity.BaseUUIDEntity;
+import com.xquare.v1servicefeed.configuration.entity.BaseUUIDEntity;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
