@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class FeedErrorCode implements ExceptionProperty {
+public enum FeedErrorCode implements ExceptionProperty {
 
     ;
 

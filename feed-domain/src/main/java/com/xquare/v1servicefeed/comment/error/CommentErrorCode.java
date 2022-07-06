@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CommentErrorCode implements ExceptionProperty {
+public enum CommentErrorCode implements ExceptionProperty {
 
     ;
 

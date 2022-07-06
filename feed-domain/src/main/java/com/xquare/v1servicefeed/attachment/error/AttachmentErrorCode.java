@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class AttachmentErrorCode implements ExceptionProperty {
+public enum AttachmentErrorCode implements ExceptionProperty {
 
     ;
 
