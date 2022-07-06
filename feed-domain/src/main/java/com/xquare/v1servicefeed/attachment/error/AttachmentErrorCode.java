@@ -2,11 +2,11 @@ package com.xquare.v1servicefeed.attachment.error;
 
 import com.xquare.v1servicefeed.error.ExceptionProperty;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum AttachmentErrorCode implements ExceptionProperty {
 
     ;
