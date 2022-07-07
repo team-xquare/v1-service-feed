@@ -6,6 +6,6 @@ import com.xquare.v1servicefeed.feed.Feed;
 import java.util.UUID;
 
 @Spi
-public interface CommentQueryFeedApi {
+public interface CommentQueryFeedSpi {
     Feed queryFeedById(UUID feedId);
 }
