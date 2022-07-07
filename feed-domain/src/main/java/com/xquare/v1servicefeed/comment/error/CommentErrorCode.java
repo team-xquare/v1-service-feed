@@ -2,12 +2,12 @@ package com.xquare.v1servicefeed.comment.error;
 
 import com.xquare.v1servicefeed.error.ExceptionProperty;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CommentErrorCode implements ExceptionProperty {
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+public enum CommentErrorCode implements ExceptionProperty {
 
     ;
 

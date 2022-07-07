@@ -2,12 +2,12 @@ package com.xquare.v1servicefeed.feed.error;
 
 import com.xquare.v1servicefeed.error.ExceptionProperty;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class FeedErrorCode implements ExceptionProperty {
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+public enum FeedErrorCode implements ExceptionProperty {
 
     ;
 
