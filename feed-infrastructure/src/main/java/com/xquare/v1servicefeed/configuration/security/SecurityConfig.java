@@ -28,6 +28,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
 
+                .anyRequest().authenticated()
+
                 .and()
                 .apply(new FilterConfig(objectMapper))
 
