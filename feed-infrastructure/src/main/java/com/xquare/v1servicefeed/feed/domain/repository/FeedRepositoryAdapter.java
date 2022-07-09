@@ -18,10 +18,11 @@ public class FeedRepositoryAdapter implements FeedSpi {
 
     @Override
     public Feed saveFeed(Feed feed) {
-        feedRepository.save(
-                feedMapper.domainToEntity(feed)
+        return feedMapper.entityToDomain(
+                feedRepository.save(
+                        feedMapper.domainToEntity(feed)
+                )
         );
-        return feed;
     }
 
     @Override
