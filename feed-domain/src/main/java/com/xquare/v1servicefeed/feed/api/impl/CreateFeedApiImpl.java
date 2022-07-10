@@ -24,8 +24,6 @@ public class CreateFeedApiImpl implements CreateFeedApi {
                         .category(request.getCategory())
                         .build());
 
-        return DomainFeedUuidResponse.builder()
-                .feedUuid(feed.getId())
-                .build();
+        return new DomainFeedUuidResponse(feed.getId());
     }
 }
