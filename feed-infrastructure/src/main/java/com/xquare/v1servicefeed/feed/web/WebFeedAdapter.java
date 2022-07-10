@@ -1,17 +1,16 @@
 package com.xquare.v1servicefeed.feed.web;
 
-import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.CreateFeedApi;
-import com.xquare.v1servicefeed.feed.api.dto.DomainCreateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.DomainFeedUuidResponse;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
+import com.xquare.v1servicefeed.feed.web.dto.response.WebFeedUuidResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/feeds")
@@ -22,14 +21,14 @@ public class WebFeedAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public UUID createFeed(WebCreateFeedRequest request) {
-        Feed feed = createFeedApi.execute(
+    public WebFeedUuidResponse createFeed(WebCreateFeedRequest request) {
+        DomainFeedUuidResponse response = createFeedApi.execute(
                 DomainCreateFeedRequest.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
                         .category(request.getCategory())
                         .build());
 
-        return feed.getId();
+        return new WebFeedUuidResponse(response.getFeedUuid());
     }
 }
