@@ -1,4 +1,4 @@
-package com.xquare.v1servicefeed.feed.api.dto;
+package com.xquare.v1servicefeed.feed.api.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
