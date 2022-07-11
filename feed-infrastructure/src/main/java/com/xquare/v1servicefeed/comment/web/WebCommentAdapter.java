@@ -36,9 +36,9 @@ public class WebCommentAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{comment-id}")
-    public void deleteComment(@PathVariable("comment-id") UUID commentId) {
-        deleteCommentApi.execute(commentId);
+    @DeleteMapping("/{comment-uuid}")
+    public void deleteComment(@PathVariable("comment-uuid") UUID commentUuid) {
+        deleteCommentApi.execute(commentUuid);
     }
 
 }
