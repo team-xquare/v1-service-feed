@@ -22,12 +22,6 @@ public class SecurityConfig {
     private static final String SCHOOL = UserRole.SCH.name();
     private static final String DORMITORY = UserRole.DOR.name();
 
-
-    private static final String STUDENT = UserRole.STU.name();
-    private static final String SCHOOL = UserRole.SCH.name();
-    private static final String DORMITORY = UserRole.DOR.name();
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
