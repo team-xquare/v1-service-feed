@@ -17,6 +17,12 @@ public class FeedRepositoryAdapter implements FeedSpi {
     private final FeedRepository feedRepository;
 
     @Override
+    public void saveFeed(Feed feed) {
+
+        feedRepository.save(feedMapper.domainToEntity(feed));
+    }
+
+    @Override
     public Feed queryFeedById(UUID feedId) {
         return feedMapper.entityToDomain(
                 feedRepository.findById(feedId)
