@@ -17,6 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
+    
+    private static final String STUDENT = UserRole.STU.name();
+    private static final String SCHOOL = UserRole.SCH.name();
+    private static final String DORMITORY = UserRole.DOR.name();
 
     private static final String STUDENT = UserRole.STU.name();
     private static final String SCHOOL = UserRole.SCH.name();
@@ -39,7 +43,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/comments").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
 
                 .antMatchers(HttpMethod.DELETE, "/comments/{comment-id}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
-
+                
                 .anyRequest().authenticated()
 
                 .and()
