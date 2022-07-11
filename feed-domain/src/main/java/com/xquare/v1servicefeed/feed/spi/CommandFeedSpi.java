@@ -5,5 +5,5 @@ import com.xquare.v1servicefeed.feed.Feed;
 
 @Spi
 public interface CommandFeedSpi {
-    Feed saveFeed(Feed feed);
+    void saveFeed(Feed feed);
 }

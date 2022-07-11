@@ -2,7 +2,6 @@ package com.xquare.v1servicefeed.feed.web;
 
 import com.xquare.v1servicefeed.feed.api.CreateFeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedUuidResponse;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,14 +19,14 @@ public class WebFeedAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public FeedUuidResponse createFeed(WebCreateFeedRequest request) {
-        FeedUuidResponse response = createFeedApi.execute(
-                DomainCreateFeedRequest.builder()
-                        .title(request.getTitle())
-                        .content(request.getContent())
-                        .category(request.getCategory())
-                        .build());
+    public void createFeed(WebCreateFeedRequest request) {
 
-        return new FeedUuidResponse(response.getFeedUuid());
+        DomainCreateFeedRequest domainRequest = DomainCreateFeedRequest.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .category(request.getCategory())
+                .build();
+
+        createFeedApi.execute(domainRequest);
     }
 }
