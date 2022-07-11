@@ -6,5 +6,5 @@ import java.util.UUID;
 
 @Api
 public interface DeleteCommentApi {
-    void execute(UUID commentId);
+    void execute(UUID commentUuid);
 }
