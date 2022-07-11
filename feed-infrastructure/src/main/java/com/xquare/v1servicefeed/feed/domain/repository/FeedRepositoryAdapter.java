@@ -2,6 +2,7 @@ package com.xquare.v1servicefeed.feed.domain.repository;
 
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
+import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feed.exception.FeedNotFoundException;
 import com.xquare.v1servicefeed.feed.spi.FeedSpi;
@@ -18,11 +19,10 @@ public class FeedRepositoryAdapter implements FeedSpi {
 
     @Override
     public Feed saveFeed(Feed feed) {
-        return feedMapper.entityToDomain(
-                feedRepository.save(
-                        feedMapper.domainToEntity(feed)
-                )
-        );
+
+        FeedEntity feedEntity = feedRepository.save(feedMapper.domainToEntity(feed));
+
+        return feedMapper.entityToDomain(feedEntity);
     }
 
     @Override

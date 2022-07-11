@@ -16,13 +16,13 @@ public class CreateFeedApiImpl implements CreateFeedApi {
 
     @Override
     public FeedUuidResponse execute(DomainCreateFeedRequest request) {
+        Feed feed = Feed.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .category(request.getCategory())
+                .build();
 
-        Feed feed = commandFeedSpi.saveFeed(
-                Feed.builder()
-                        .title(request.getTitle())
-                        .content(request.getContent())
-                        .category(request.getCategory())
-                        .build());
+        commandFeedSpi.saveFeed(feed);
 
         return new FeedUuidResponse(feed.getId());
     }
