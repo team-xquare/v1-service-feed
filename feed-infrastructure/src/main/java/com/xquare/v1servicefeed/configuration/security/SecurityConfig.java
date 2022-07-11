@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
 
+                .antMatchers(HttpMethod.DELETE, "/comments/{comment-id}").hasAuthority("ROLE_STU")
+
                 .antMatchers(HttpMethod.POST, "/comments").hasAuthority("ROLE_STU")
                 .anyRequest().authenticated()
 
