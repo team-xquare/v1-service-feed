@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class WebFeedAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createFeed(WebCreateFeedRequest request) {
+    public void createFeed(@Valid @RequestBody WebCreateFeedRequest request) {
 
         DomainCreateFeedRequest domainRequest = DomainCreateFeedRequest.builder()
                 .title(request.getTitle())
@@ -35,7 +36,7 @@ public class WebFeedAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{feed-uuid}")
-    public void updateFeed(@PathVariable("feed-uuid") UUID feedId, WebUpdateFeedRequest request) {
+    public void updateFeed(@PathVariable("feed-uuid") UUID feedId, @Valid @RequestBody WebUpdateFeedRequest request) {
 
         DomainUpdateFeedRequest domainRequest = DomainUpdateFeedRequest.builder()
                 .title(request.getTitle())
