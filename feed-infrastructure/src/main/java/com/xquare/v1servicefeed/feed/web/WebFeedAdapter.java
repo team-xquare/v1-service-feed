@@ -34,8 +34,8 @@ public class WebFeedAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{subject-uuid}")
-    public void updateFeed(@PathVariable("subject-uuid") UUID feedId, WebUpdateFeedRequest request) {
+    @PatchMapping("/{feed-uuid}")
+    public void updateFeed(@PathVariable("feed-uuid") UUID feedId, WebUpdateFeedRequest request) {
 
         DomainUpdateFeedRequest domainRequest = DomainUpdateFeedRequest.builder()
                 .title(request.getTitle())
