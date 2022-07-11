@@ -29,9 +29,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers(HttpMethod.POST, "/feeds").hasAuthority("ROLE_STU")
+                .antMatchers(HttpMethod.POST, "/feeds").hasAuthority("STU")
 
-                .antMatchers(HttpMethod.POST, "/comments").hasAuthority("ROLE_STU")
+                .antMatchers(HttpMethod.POST, "/comments").hasAuthority("STU")
                 .anyRequest().authenticated()
 
                 .and()
