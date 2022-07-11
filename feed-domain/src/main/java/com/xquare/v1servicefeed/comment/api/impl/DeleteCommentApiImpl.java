@@ -14,8 +14,8 @@ public class DeleteCommentApiImpl implements DeleteCommentApi {
     private final CommandCommentSpi commandCommentSpi;
 
     @Override
-    public void execute(UUID commentId) {
-        Comment comment = commandCommentSpi.findById(commentId);
+    public void execute(UUID commentUuid) {
+        Comment comment = commandCommentSpi.findById(commentUuid);
 
         commandCommentSpi.deleteComment(comment);
     }
