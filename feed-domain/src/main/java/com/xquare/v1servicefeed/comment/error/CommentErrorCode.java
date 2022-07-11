@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum CommentErrorCode implements ExceptionProperty {
 
-    ;
+    COMMENT_NOT_FOUND(404, "Comment not Found");
 
     private final int status;
     private final String message;
