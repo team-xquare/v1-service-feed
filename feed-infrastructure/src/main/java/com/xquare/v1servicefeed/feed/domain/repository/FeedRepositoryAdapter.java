@@ -8,6 +8,7 @@ import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feed.exception.FeedNotFoundException;
 import com.xquare.v1servicefeed.feed.spi.FeedSpi;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -25,6 +26,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
+    @Transactional
     public void updateFeed(UUID feedId, DomainUpdateFeedRequest request) {
 
         FeedEntity feed = getFeedEntityById(feedId);
