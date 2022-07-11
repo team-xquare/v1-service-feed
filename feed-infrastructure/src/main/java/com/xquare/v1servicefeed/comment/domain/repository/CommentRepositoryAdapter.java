@@ -34,9 +34,7 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
     @Override
     public void deleteComment(Comment comment) {
         commentRepository.delete(
-                commentMapper.domainToEntity(
-                        comment
-                )
+                commentMapper.domainToEntity(comment)
         );
     }
 
