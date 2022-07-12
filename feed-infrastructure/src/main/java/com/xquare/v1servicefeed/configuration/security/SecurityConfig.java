@@ -37,6 +37,9 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
 
                 .antMatchers(HttpMethod.POST, "/comments").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+
+                .antMatchers(HttpMethod.DELETE, "/comments/{comment-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                
                 .anyRequest().authenticated()
 
                 .and()
