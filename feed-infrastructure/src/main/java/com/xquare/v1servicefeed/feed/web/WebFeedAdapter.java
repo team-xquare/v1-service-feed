@@ -39,10 +39,11 @@ public class WebFeedAdapter {
     public void updateFeed(@PathVariable("feed-uuid") UUID feedId, @Valid @RequestBody WebUpdateFeedRequest request) {
 
         DomainUpdateFeedRequest domainRequest = DomainUpdateFeedRequest.builder()
+                .feedId(feedId)
                 .title(request.getTitle())
                 .content(request.getContent())
                 .build();
 
-        updateFeedApi.execute(feedId, domainRequest);
+        updateFeedApi.execute(domainRequest);
     }
 }
