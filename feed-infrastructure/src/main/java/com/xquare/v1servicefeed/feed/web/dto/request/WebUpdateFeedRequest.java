@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
-public class WebCreateFeedRequest {
+public class WebUpdateFeedRequest {
 
     @NotBlank
     @Max(255)
@@ -17,8 +17,4 @@ public class WebCreateFeedRequest {
     @NotBlank
     @Max(65535)
     private String content;
-
-    @NotBlank
-    @Max(6)
-    private String category;
 }
