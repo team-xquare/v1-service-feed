@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface CommandCommentSpi {
     void saveComment(Comment comment);
 
-    Comment findById(UUID commentId);
+    Comment findById(UUID commentUuIdd);
 
     void deleteComment(Comment comment);
 }
