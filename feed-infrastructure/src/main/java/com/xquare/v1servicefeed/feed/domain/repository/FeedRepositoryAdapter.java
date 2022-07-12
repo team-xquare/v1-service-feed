@@ -28,9 +28,9 @@ public class FeedRepositoryAdapter implements FeedSpi {
 
     @Override
     @Transactional
-    public void updateFeed(UUID feedId, DomainUpdateFeedRequest request) {
+    public void updateFeed(DomainUpdateFeedRequest request) {
 
-        FeedEntity feed = getFeedEntityById(feedId);
+        FeedEntity feed = getFeedEntityById(request.getFeedId());
 
         feed.updateFeed(request.getTitle(), request.getContent());
     }
