@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RequestMapping("/comments")
 @RestController
@@ -21,7 +23,7 @@ public class WebCommentAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createComment(WebCreateCommentRequest request) {
+    public void createComment(@Valid @RequestBody WebCreateCommentRequest request) {
         commentApi.createComment(
                 DomainCreateCommentRequest.builder()
                         .userId(securityAdapter.getCurrentUserId())
