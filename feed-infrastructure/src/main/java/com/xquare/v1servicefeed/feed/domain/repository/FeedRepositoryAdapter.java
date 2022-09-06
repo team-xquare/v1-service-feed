@@ -34,6 +34,24 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 feedMapper.domainToEntity(queryFeedById(feedUuid))
         );
     }
+    
+    @Transactional
+    public void updateFeed(DomainUpdateFeedRequest request) {
+
+        FeedEntity feed = getFeedEntityById(request.getFeedId());
+
+        feed.updateFeed(request.getTitle(), request.getContent());
+    }
+
+    @Override
+    public Feed queryFeedById(UUID feedId) {
+        return feedMapper.entityToDomain(getFeedEntityById(feedId));
+    }
+
+    private FeedEntity getFeedEntityById(UUID feedId) {
+        return feedRepository.findById(feedId)
+                .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+    }
 
     @Override
     @Transactional
