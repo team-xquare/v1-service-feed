@@ -1,11 +1,47 @@
 package com.xquare.v1servicefeed.feed.web;
 
+import com.xquare.v1servicefeed.feed.api.FeedApi;
+import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
+import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
+import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/feeds")
 @RestController
 public class WebFeedAdapter {
+
+    private final FeedApi feedApi;
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public void createFeed(@Valid @RequestBody WebCreateFeedRequest request) {
+
+        DomainCreateFeedRequest domainRequest = DomainCreateFeedRequest.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .category(request.getCategory())
+                .build();
+
+        feedApi.createFeed(domainRequest);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{feed-uuid}")
+    public void updateFeed(@PathVariable("feed-uuid") UUID feedId, @Valid @RequestBody WebUpdateFeedRequest request) {
+
+        DomainUpdateFeedRequest domainRequest = DomainUpdateFeedRequest.builder()
+                .feedId(feedId)
+                .title(request.getTitle())
+                .content(request.getContent())
+                .build();
+
+        feedApi.updateFeed(domainRequest);
+    }
 }
