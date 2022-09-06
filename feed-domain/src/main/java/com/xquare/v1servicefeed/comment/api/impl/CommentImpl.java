@@ -3,7 +3,7 @@ package com.xquare.v1servicefeed.comment.api.impl;
 import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.comment.Comment;
 import com.xquare.v1servicefeed.comment.api.CommentApi;
-import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommnetRequest;
+import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentRequest;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.comment.spi.CommentQueryFeedSpi;
 import com.xquare.v1servicefeed.feed.Feed;
@@ -22,7 +22,7 @@ public class CommentImpl implements CommentApi {
 
 
     @Override
-    public void createComment(DomainCreateCommnetRequest request) {
+    public void createComment(DomainCreateCommentRequest request) {
         Feed feed = commentQueryFeedSpi.queryFeedById(request.getFeedUuid());
 
         commandCommentSpi.saveComment(
