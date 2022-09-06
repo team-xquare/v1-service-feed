@@ -1,6 +1,7 @@
 package com.xquare.v1servicefeed.comment.web;
 
-import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommnetRequest;
+import com.xquare.v1servicefeed.comment.api.CommentApi;
+import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.WebCreateCommentRequest;
 import com.xquare.v1servicefeed.configuration.security.SecurityAdapter;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,13 @@ public class WebCommentAdapter {
 
     private final SecurityAdapter securityAdapter;
 
-    private final CreateCommentApi createCommentApi;
-
-    private final DeleteCommentApi deleteCommentApi;
+    private final CommentApi commentApi;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void createComment(WebCreateCommentRequest request) {
-        createCommentApi.execute(
-                DomainCreateCommnetRequest.builder()
+        commentApi.createComment(
+                DomainCreateCommentRequest.builder()
                         .userId(securityAdapter.getCurrentUserId())
                         .feedUuid(request.getFeedUuid())
                         .content(request.getContent())
@@ -36,7 +35,7 @@ public class WebCommentAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{comment-uuid}")
     public void deleteComment(@PathVariable("comment-uuid") UUID commentUuid) {
-        deleteCommentApi.execute(commentUuid);
+        commentApi.deleteComment(commentUuid);
     }
 
 }
