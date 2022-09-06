@@ -1,7 +1,6 @@
 package com.xquare.v1servicefeed.feed.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
-import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommnetRequest;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
