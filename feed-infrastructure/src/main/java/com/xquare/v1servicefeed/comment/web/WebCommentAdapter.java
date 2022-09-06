@@ -1,7 +1,5 @@
 package com.xquare.v1servicefeed.comment.web;
 
-import com.xquare.v1servicefeed.comment.api.CreateCommentApi;
-import com.xquare.v1servicefeed.comment.api.DeleteCommentApi;
 import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommnetRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.WebCreateCommentRequest;
 import com.xquare.v1servicefeed.configuration.security.SecurityAdapter;

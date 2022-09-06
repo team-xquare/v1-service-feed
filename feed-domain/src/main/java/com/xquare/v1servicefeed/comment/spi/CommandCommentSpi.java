@@ -12,4 +12,5 @@ public interface CommandCommentSpi {
     Comment findById(UUID commentUuIdd);
 
     void deleteComment(Comment comment);
+
 }

@@ -12,4 +12,6 @@ public class DomainCreateCommnetRequest {
     private final UUID userId;
     private final UUID feedUuid;
     private final String content;
+
+
 }

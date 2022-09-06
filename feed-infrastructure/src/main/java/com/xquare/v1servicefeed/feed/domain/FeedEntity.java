@@ -38,4 +38,9 @@ public class FeedEntity extends BaseUUIDEntity {
 
     @Column(columnDefinition = "CHAR(6)", nullable = false)
     private String category;
+
+    public void updateFeed(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
