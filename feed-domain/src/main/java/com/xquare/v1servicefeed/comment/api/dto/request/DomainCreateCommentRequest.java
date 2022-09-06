@@ -7,11 +7,8 @@ import java.util.UUID;
 
 @Getter
 @Builder
-public class DomainCreateCommnetRequest {
-
+public class DomainCreateCommentRequest {
     private final UUID userId;
     private final UUID feedUuid;
     private final String content;
-
-
 }
