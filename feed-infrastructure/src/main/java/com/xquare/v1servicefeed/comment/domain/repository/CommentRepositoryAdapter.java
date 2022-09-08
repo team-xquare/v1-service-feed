@@ -40,5 +40,4 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
         );
     }
 
-
 }
