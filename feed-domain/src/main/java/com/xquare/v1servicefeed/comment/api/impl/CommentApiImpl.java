@@ -5,7 +5,7 @@ import com.xquare.v1servicefeed.comment.Comment;
 import com.xquare.v1servicefeed.comment.api.CommentApi;
 import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentRequest;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
-import com.xquare.v1servicefeed.comment.spi.CommentQueryFeedSpi;
+import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import lombok.RequiredArgsConstructor;
 
@@ -14,9 +14,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @DomainService
 
-public class CommentImpl implements CommentApi {
+public class CommentApiImpl implements CommentApi {
 
-    private final CommentQueryFeedSpi commentQueryFeedSpi;
+    private final QueryCommentSpi commentQueryFeedSpi;
 
     private final CommandCommentSpi commandCommentSpi;
 
