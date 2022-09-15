@@ -2,22 +2,27 @@ package com.xquare.v1servicefeed.comment.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.comment.Comment;
-import com.xquare.v1servicefeed.comment.api.CreateCommentApi;
-import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommnetRequest;
+import com.xquare.v1servicefeed.comment.api.CommentApi;
+import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentRequest;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
-import com.xquare.v1servicefeed.comment.spi.CommentQueryFeedSpi;
+import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import lombok.RequiredArgsConstructor;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @DomainService
-public class CreateCommentApiImpl implements CreateCommentApi {
 
-    private final CommentQueryFeedSpi commentQueryFeedSpi;
+public class CommentApiImpl implements CommentApi {
+
+    private final QueryCommentSpi commentQueryFeedSpi;
+
     private final CommandCommentSpi commandCommentSpi;
 
+
     @Override
-    public void execute(DomainCreateCommnetRequest request) {
+    public void createComment(DomainCreateCommentRequest request) {
         Feed feed = commentQueryFeedSpi.queryFeedById(request.getFeedUuid());
 
         commandCommentSpi.saveComment(
@@ -27,5 +32,12 @@ public class CreateCommentApiImpl implements CreateCommentApi {
                         .userId(request.getUserId())
                         .build()
         );
+    }
+
+    @Override
+    public void deleteComment(UUID commentUuid) {
+        Comment comment = commandCommentSpi.findById(commentUuid);
+
+        commandCommentSpi.deleteComment(comment);
     }
 }

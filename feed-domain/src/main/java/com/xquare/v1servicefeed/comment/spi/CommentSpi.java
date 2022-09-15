@@ -4,4 +4,6 @@ import com.xquare.v1servicefeed.annotation.Spi;
 
 @Spi
 public interface CommentSpi extends CommandCommentSpi {
+
 }
+

@@ -1,7 +1,6 @@
 package com.xquare.v1servicefeed.feed.web;
 
-import com.xquare.v1servicefeed.feed.api.CreateFeedApi;
-import com.xquare.v1servicefeed.feed.api.UpdateFeedApi;
+import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
@@ -18,8 +17,7 @@ import java.util.UUID;
 @RestController
 public class WebFeedAdapter {
 
-    private final CreateFeedApi createFeedApi;
-    private final UpdateFeedApi updateFeedApi;
+    private final FeedApi feedApi;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -31,7 +29,7 @@ public class WebFeedAdapter {
                 .category(request.getCategory())
                 .build();
 
-        createFeedApi.execute(domainRequest);
+        feedApi.createFeed(domainRequest);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -44,6 +42,6 @@ public class WebFeedAdapter {
                 .content(request.getContent())
                 .build();
 
-        updateFeedApi.execute(domainRequest);
+        feedApi.updateFeed(domainRequest);
     }
 }
