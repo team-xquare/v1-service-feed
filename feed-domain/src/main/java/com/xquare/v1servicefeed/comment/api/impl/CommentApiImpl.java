@@ -4,6 +4,7 @@ import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.comment.Comment;
 import com.xquare.v1servicefeed.comment.api.CommentApi;
 import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentRequest;
+import com.xquare.v1servicefeed.comment.api.dto.request.DomainUpdateCommentRequest;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.feed.Feed;
@@ -23,7 +24,7 @@ public class CommentApiImpl implements CommentApi {
 
     @Override
     public void createComment(DomainCreateCommentRequest request) {
-        Feed feed = commentQueryFeedSpi.queryFeedById(request.getFeedUuid());
+        Feed feed = commentQueryFeedSpi.queryFeedById(request.getFeedId());
 
         commandCommentSpi.saveComment(
                 Comment.builder()
@@ -39,5 +40,10 @@ public class CommentApiImpl implements CommentApi {
         Comment comment = commandCommentSpi.findById(commentUuid);
 
         commandCommentSpi.deleteComment(comment);
+    }
+
+    @Override
+    public void updateComment(DomainUpdateCommentRequest request) {
+        commandCommentSpi.updateComment(request);
     }
 }

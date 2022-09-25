@@ -33,4 +33,8 @@ public class CommentEntity extends BaseUUIDEntity {
 
     @Column(columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
+
+    public void updateComment(String content) {
+        this.content = content;
+    }
 }
