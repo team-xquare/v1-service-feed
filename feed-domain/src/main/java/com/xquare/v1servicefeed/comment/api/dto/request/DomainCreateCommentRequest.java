@@ -9,6 +9,6 @@ import java.util.UUID;
 @Builder
 public class DomainCreateCommentRequest {
     private final UUID userId;
-    private final UUID feedUuid;
+    private final UUID feedId;
     private final String content;
 }
