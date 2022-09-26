@@ -8,6 +8,7 @@ import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.domain.mapper.FeedLikeMapper;
 import com.xquare.v1servicefeed.feedlike.spi.FeedLikeSpi;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Adapter
@@ -18,6 +19,7 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
     private final FeedLikeRepository feedLikeRepository;
 
     @Override
+    @Transactional
     public void saveFeedLike(FeedLike feedLike, Feed feed) {
 
         FeedEntity feedEntity = feedMapper.domainToEntity(feed);

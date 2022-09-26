@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
-public class DomainSaveFeedLikeRequest {
+public class SaveFeedLikeDomainRequest {
     private final UUID feedId;
     private final UUID userId;
 }
