@@ -17,14 +17,14 @@ import java.util.UUID;
 
 public class CommentApiImpl implements CommentApi {
 
-    private QueryCommentSpi commentQueryFeedSpi;
+    private final QueryCommentSpi queryCommentSpi;
 
-    private CommandCommentSpi commandCommentSpi;
+    private final CommandCommentSpi commandCommentSpi;
 
 
     @Override
     public void createComment(CreateCommentDomainRequest request) {
-        Feed feed = commentQueryFeedSpi.queryFeedById(request.getFeedId());
+        Feed feed = queryCommentSpi.queryFeedById(request.getFeedId());
 
         commandCommentSpi.saveComment(
                 Comment.builder()
