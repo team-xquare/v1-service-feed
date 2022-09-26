@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RequestMapping("/likes")
@@ -17,11 +17,11 @@ public class WebFeedLikeAdapter {
     private final FeedLikeApi feedLikeApi;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public void saveFeedLike(@Valid @RequestBody DomainSaveFeedLikeRequest request) {
+    @PostMapping("/feed-uuid")
+    public void saveFeedLike(@PathVariable("feed-uuid") UUID feedId) {
         feedLikeApi.saveFeedLike(
                 DomainSaveFeedLikeRequest.builder()
-                        .feedId(request.getFeedId())
+                        .feedId(feedId)
                         .userId(securityAdapter.getCurrentUserId())
                         .build()
         );
