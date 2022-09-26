@@ -4,15 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-public class WebCreateCommentRequest {
-
-    @NotNull
-    private UUID feedUuid;
+public class UpdateCommentWebRequest {
 
     @NotBlank
     private String content;

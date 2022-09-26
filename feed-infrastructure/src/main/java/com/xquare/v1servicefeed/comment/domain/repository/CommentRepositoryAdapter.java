@@ -1,14 +1,12 @@
 package com.xquare.v1servicefeed.comment.domain.repository;
 
 import com.xquare.v1servicefeed.comment.Comment;
-import com.xquare.v1servicefeed.comment.api.dto.request.DomainUpdateCommentRequest;
+import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.domain.CommentEntity;
 import com.xquare.v1servicefeed.comment.domain.mapper.CommentMapper;
 import com.xquare.v1servicefeed.comment.exception.CommentNotFoundException;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
-import com.xquare.v1servicefeed.feed.domain.FeedEntity;
-import com.xquare.v1servicefeed.feed.exception.FeedNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +43,7 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
     }
 
     @Override
-    public void updateComment(DomainUpdateCommentRequest request) {
+    public void updateComment(UpdateCommentDomainRequest request) {
         CommentEntity comment = getCommentById(request.getCommentId());
 
         comment.updateComment(request.getContent());

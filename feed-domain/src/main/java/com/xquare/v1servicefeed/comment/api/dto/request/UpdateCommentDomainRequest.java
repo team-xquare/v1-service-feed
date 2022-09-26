@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
-public class DomainUpdateCommentRequest {
+public class UpdateCommentDomainRequest {
     private final UUID commentId;
     private final String content;
 }

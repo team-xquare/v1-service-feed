@@ -1,10 +1,10 @@
 package com.xquare.v1servicefeed.comment.web;
 
 import com.xquare.v1servicefeed.comment.api.CommentApi;
-import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentRequest;
-import com.xquare.v1servicefeed.comment.api.dto.request.DomainUpdateCommentRequest;
-import com.xquare.v1servicefeed.comment.web.dto.request.WebCreateCommentRequest;
-import com.xquare.v1servicefeed.comment.web.dto.request.WebUpdateCommentRequest;
+import com.xquare.v1servicefeed.comment.api.dto.request.CreateCommentDomainRequest;
+import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
+import com.xquare.v1servicefeed.comment.web.dto.request.CreateCommentWebRequest;
+import com.xquare.v1servicefeed.comment.web.dto.request.UpdateCommentWebRequest;
 import com.xquare.v1servicefeed.configuration.security.SecurityAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,9 @@ public class WebCommentAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createComment(@Valid @RequestBody WebCreateCommentRequest request) {
+    public void createComment(@Valid @RequestBody CreateCommentWebRequest request) {
         commentApi.createComment(
-                DomainCreateCommentRequest.builder()
+                CreateCommentDomainRequest.builder()
                         .userId(securityAdapter.getCurrentUserId())
                         .feedId(request.getFeedUuid())
                         .content(request.getContent())
@@ -43,9 +43,9 @@ public class WebCommentAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{comment-uuid}")
-    public void updateComment(@PathVariable("comment-uuid") UUID commentId, @Valid @RequestBody WebUpdateCommentRequest request) {
+    public void updateComment(@PathVariable("comment-uuid") UUID commentId, @Valid @RequestBody UpdateCommentWebRequest request) {
 
-        DomainUpdateCommentRequest domainRequest = DomainUpdateCommentRequest.builder()
+        UpdateCommentDomainRequest domainRequest = UpdateCommentDomainRequest.builder()
                 .commentId(commentId)
                 .content(request.getContent())
                 .build();
