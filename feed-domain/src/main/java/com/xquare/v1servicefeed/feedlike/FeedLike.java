@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Builder
 @Aggregate
-public class  FeedLike {
+public class FeedLike {
 
     private final UUID id;
 
