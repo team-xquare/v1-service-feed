@@ -45,8 +45,7 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
     @Override
     public void updateComment(UpdateCommentDomainRequest request) {
         CommentEntity comment = getCommentById(request.getCommentId());
-
-        comment.updateComment(request.getContent());
+        commentRepository.save(comment.updateComment(request.getContent()));
     }
 
     private CommentEntity getCommentById(UUID commentId) {
