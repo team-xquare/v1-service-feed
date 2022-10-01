@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class FeedLikeMapper {
 
     private final FeedRepository feedRepository;
+    
     public FeedLike entityToDomain(FeedLike feedLike) {
         return FeedLike.builder()
                 .id(feedLike.getId())
