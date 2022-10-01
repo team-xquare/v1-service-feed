@@ -17,7 +17,7 @@ public class WebFeedLikeAdapter {
     private final FeedLikeApi feedLikeApi;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/feed-uuid")
+    @PostMapping("/{feed-uuid}")
     public void saveFeedLike(@PathVariable("feed-uuid") UUID feedId) {
         feedLikeApi.saveFeedLike(
                 SaveFeedLikeDomainRequest.builder()
