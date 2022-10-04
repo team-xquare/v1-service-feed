@@ -21,7 +21,7 @@ public class WebFeedAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createFeed(@Valid @RequestBody WebCreateFeedRequest request) {
+    public void saveFeed(@Valid @RequestBody WebCreateFeedRequest request) {
 
         DomainCreateFeedRequest domainRequest = DomainCreateFeedRequest.builder()
                 .title(request.getTitle())
@@ -29,7 +29,7 @@ public class WebFeedAdapter {
                 .category(request.getCategory())
                 .build();
 
-        feedApi.createFeed(domainRequest);
+        feedApi.saveFeed(domainRequest);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
