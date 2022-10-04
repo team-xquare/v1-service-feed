@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Api
 public interface CommentApi {
-    void createComment(CreateCommentDomainRequest request);
+    void saveComment(CreateCommentDomainRequest request);
 
     void deleteComment(UUID commentUuid);
 
