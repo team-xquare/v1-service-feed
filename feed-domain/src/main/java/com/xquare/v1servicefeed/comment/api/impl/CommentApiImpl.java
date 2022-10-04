@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @DomainService
-
 public class CommentApiImpl implements CommentApi {
 
     private final QueryCommentSpi commentQueryFeedSpi;
