@@ -2,13 +2,10 @@ package com.xquare.v1servicefeed.comment.web;
 
 import com.xquare.v1servicefeed.comment.api.CommentApi;
 import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentRequest;
-import com.xquare.v1servicefeed.comment.web.dto.request.WebCreateCommentRequest;
-import com.xquare.v1servicefeed.configuration.api.SecurityApi;
-import com.xquare.v1servicefeed.comment.api.dto.request.CreateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.CreateCommentWebRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.UpdateCommentWebRequest;
-import com.xquare.v1servicefeed.configuration.security.SecurityAdapter;
+import com.xquare.v1servicefeed.configuration.api.SecurityApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +27,7 @@ public class WebCommentAdapter {
         commentApi.createComment(
                 DomainCreateCommentRequest.builder()
                         .userId(securityApi.getCurrentUserId())
-                        .feedUuid(request.getFeedUuid())
+                        .feedId(request.getFeedUuid())
                         .content(request.getContent())
                         .build()
         );
