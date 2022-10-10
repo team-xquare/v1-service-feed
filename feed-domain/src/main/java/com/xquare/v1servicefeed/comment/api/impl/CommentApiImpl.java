@@ -7,6 +7,7 @@ import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentReque
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
+import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ public class CommentApiImpl implements CommentApi {
     private final QueryCommentSpi queryCommentSpi;
 
     private final CommandCommentSpi commandCommentSpi;
+    private final SecuritySpi securitySpi;
 
 
     @Override
@@ -29,7 +31,7 @@ public class CommentApiImpl implements CommentApi {
                 Comment.builder()
                         .content(request.getContent())
                         .feedId(feed.getId())
-                        .userId(request.getUserId())
+                        .userId(securitySpi.getCurrentUserId())
                         .build()
         );
     }

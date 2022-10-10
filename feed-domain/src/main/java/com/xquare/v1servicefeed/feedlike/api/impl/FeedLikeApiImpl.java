@@ -1,6 +1,7 @@
 package com.xquare.v1servicefeed.feedlike.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
+import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class FeedLikeApiImpl implements FeedLikeApi {
     private final CommandFeedLikeSpi commandFeedLikeSpi;
     private final QueryFeedLikeSpi queryFeedLikeSpi;
+    private final SecuritySpi securitySpi;
 
     @Override
     public void saveFeedLike(SaveFeedLikeDomainRequest request) {
@@ -22,7 +24,7 @@ public class FeedLikeApiImpl implements FeedLikeApi {
         commandFeedLikeSpi.saveFeedLike(
                 FeedLike.builder()
                         .feedId(feed.getId())
-                        .userId(request.getUserId())
+                        .userId(securitySpi.getCurrentUserId())
                         .build(),
                 feed
         );

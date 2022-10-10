@@ -1,6 +1,5 @@
 package com.xquare.v1servicefeed.feedlike.web;
 
-import com.xquare.v1servicefeed.configuration.api.SecurityApi;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
 import com.xquare.v1servicefeed.feedlike.api.dto.SaveFeedLikeDomainRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import java.util.UUID;
 @RestController
 public class WebFeedLikeAdapter {
     private final FeedLikeApi feedLikeApi;
-    private final SecurityApi securityApi;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{feed-uuid}")
@@ -22,7 +20,6 @@ public class WebFeedLikeAdapter {
         feedLikeApi.saveFeedLike(
                 SaveFeedLikeDomainRequest.builder()
                         .feedId(feedId)
-                        .userId(securityApi.getCurrentUserId())
                         .build()
         );
     }

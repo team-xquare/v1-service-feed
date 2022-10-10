@@ -9,5 +9,4 @@ import java.util.UUID;
 @Builder
 public class SaveFeedLikeDomainRequest {
     private final UUID feedId;
-    private final UUID userId;
 }
