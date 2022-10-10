@@ -5,7 +5,6 @@ import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentReque
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.CreateCommentWebRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.UpdateCommentWebRequest;
-import com.xquare.v1servicefeed.configuration.api.SecurityApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ import java.util.UUID;
 @RestController
 public class WebCommentAdapter {
 
-    private final SecurityApi securityApi;
     private final CommentApi commentApi;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -26,7 +24,6 @@ public class WebCommentAdapter {
     public void createComment(@Valid @RequestBody CreateCommentWebRequest request) {
         commentApi.createComment(
                 DomainCreateCommentRequest.builder()
-                        .userId(securityApi.getCurrentUserId())
                         .feedId(request.getFeedUuid())
                         .content(request.getContent())
                         .build()
