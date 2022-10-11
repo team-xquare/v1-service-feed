@@ -23,7 +23,7 @@ public class CommentApiImpl implements CommentApi {
 
 
     @Override
-    public void createComment(CreateCommentDomainRequest request) {
+    public void saveComment(CreateCommentDomainRequest request) {
         Feed feed = queryCommentSpi.queryFeedById(request.getFeedId());
 
         commandCommentSpi.saveComment(

@@ -24,8 +24,8 @@ public class WebCommentAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void createComment(@Valid @RequestBody CreateCommentWebRequest request) {
-        commentApi.createComment(
+    public void saveComment(@Valid @RequestBody CreateCommentWebRequest request) {
+        commentApi.saveComment(
                 CreateCommentDomainRequest.builder()
                         .userId(securityAdapter.getCurrentUserId())
                         .feedId(request.getFeedUuid())
