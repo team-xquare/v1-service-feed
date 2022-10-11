@@ -9,6 +9,7 @@ import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
+import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
@@ -17,14 +18,13 @@ import java.util.UUID;
 @DomainService
 public class CommentApiImpl implements CommentApi {
 
-    private final QueryCommentSpi queryCommentSpi;
-
+    private final QueryFeedSpi queryFeedSpi;
     private final CommandCommentSpi commandCommentSpi;
     private final SecuritySpi securitySpi;
 
     @Override
     public void saveComment(CreateCommentDomainRequest request) {
-        Feed feed = queryCommentSpi.queryFeedById(request.getFeedId());
+        Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
 
         commandCommentSpi.saveComment(
                 Comment.builder()
