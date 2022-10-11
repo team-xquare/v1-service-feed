@@ -1,7 +1,7 @@
 package com.xquare.v1servicefeed.comment.web;
 
 import com.xquare.v1servicefeed.comment.api.CommentApi;
-import com.xquare.v1servicefeed.comment.api.dto.request.DomainCreateCommentRequest;
+import com.xquare.v1servicefeed.comment.api.dto.request.CreateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.CreateCommentWebRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.UpdateCommentWebRequest;
