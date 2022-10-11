@@ -17,7 +17,7 @@ public class FeedApiImpl implements FeedApi {
     private final SecuritySpi securitySpi;
 
     @Override
-    public void createFeed(DomainCreateFeedRequest request) {
+    public void saveFeed(DomainCreateFeedRequest request) {
         Feed feed = Feed.builder()
                 .title(request.getTitle())
                 .content(request.getContent())

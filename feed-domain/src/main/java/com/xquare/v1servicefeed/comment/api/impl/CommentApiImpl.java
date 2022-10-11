@@ -22,9 +22,8 @@ public class CommentApiImpl implements CommentApi {
     private final CommandCommentSpi commandCommentSpi;
     private final SecuritySpi securitySpi;
 
-
     @Override
-    public void createComment(DomainCreateCommentRequest request) {
+    public void saveComment(CreateCommentDomainRequest request) {
         Feed feed = queryCommentSpi.queryFeedById(request.getFeedId());
 
         commandCommentSpi.saveComment(

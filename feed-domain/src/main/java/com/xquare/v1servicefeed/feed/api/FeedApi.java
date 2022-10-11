@@ -6,7 +6,7 @@ import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 
 @Api
 public interface FeedApi {
-    void createFeed(DomainCreateFeedRequest request);
+    void saveFeed(DomainCreateFeedRequest request);
 
     void updateFeed(DomainUpdateFeedRequest request);
 
