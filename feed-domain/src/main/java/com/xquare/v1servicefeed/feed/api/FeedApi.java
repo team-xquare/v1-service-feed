@@ -9,4 +9,5 @@ public interface FeedApi {
     void saveFeed(DomainCreateFeedRequest request);
 
     void updateFeed(DomainUpdateFeedRequest request);
+
 }

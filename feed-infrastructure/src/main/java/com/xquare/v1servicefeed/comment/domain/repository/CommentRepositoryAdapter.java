@@ -28,9 +28,9 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
     }
 
     @Override
-    public Comment findById(UUID commentUuid) {
+    public Comment findById(UUID commentId) {
         return commentMapper.entityToDomain(
-                commentRepository.findById(commentUuid)
+                commentRepository.findById(commentId)
                         .orElseThrow(() -> CommentNotFoundException.EXCEPTION)
         );
     }

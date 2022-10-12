@@ -8,7 +8,6 @@ import java.util.UUID;
 @Getter
 @Builder
 public class CreateCommentDomainRequest {
-    private final UUID userId;
     private final UUID feedId;
     private final String content;
 }

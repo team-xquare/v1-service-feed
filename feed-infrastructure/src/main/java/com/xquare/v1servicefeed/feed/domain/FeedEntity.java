@@ -43,4 +43,8 @@ public class FeedEntity extends BaseUUIDEntity {
         this.title = title;
         this.content = content;
     }
+
+    public void plusLikeCount() {
+        this.likeCount += 1;
+    }
 }

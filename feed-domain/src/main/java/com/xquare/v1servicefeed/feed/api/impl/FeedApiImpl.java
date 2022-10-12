@@ -1,6 +1,7 @@
 package com.xquare.v1servicefeed.feed.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
+import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class FeedApiImpl implements FeedApi {
 
     private final CommandFeedSpi commandFeedSpi;
+    private final SecuritySpi securitySpi;
 
     @Override
     public void saveFeed(DomainCreateFeedRequest request) {
@@ -20,6 +22,7 @@ public class FeedApiImpl implements FeedApi {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .category(request.getCategory())
+                .userId(securitySpi.getCurrentUserId())
                 .build();
 
         commandFeedSpi.saveFeed(feed);

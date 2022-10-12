@@ -9,11 +9,11 @@ import java.util.UUID;
 @Getter
 @Builder
 @Aggregate
-public class FeeLike {
+public class FeedLike {
 
     private final UUID id;
 
-    private UUID feedId;
+    private final UUID feedId;
 
-    private UUID userId;
+    private final UUID userId;
 }
