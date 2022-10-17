@@ -1,5 +1,6 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
+import com.xquare.v1servicefeed.comment.domain.mapper.CommentMapper;
 import com.xquare.v1servicefeed.comment.domain.repository.CommentRepository;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
@@ -29,9 +30,9 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
-    public void deleteFeed(UUID feedUuid) {
+    public void deleteFeed(Feed feed) {
         feedRepository.delete(
-                feedMapper.domainToEntity(queryFeedById(feedUuid))
+                feedMapper.domainToEntity(feed)
         );
     }
     
@@ -52,5 +53,4 @@ public class FeedRepositoryAdapter implements FeedSpi {
         return feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
     }
-
 }
