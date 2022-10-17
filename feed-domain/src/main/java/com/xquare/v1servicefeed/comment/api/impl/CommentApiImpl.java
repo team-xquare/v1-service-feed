@@ -6,7 +6,6 @@ import com.xquare.v1servicefeed.comment.api.CommentApi;
 import com.xquare.v1servicefeed.comment.api.dto.request.CreateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
-import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
@@ -36,10 +35,8 @@ public class CommentApiImpl implements CommentApi {
     }
 
     @Override
-    public void deleteComment(UUID commentUuid) {
-        Comment comment = commandCommentSpi.findById(commentUuid);
-
-        commandCommentSpi.deleteComment(comment);
+    public void deleteComment(UUID commentId) {
+        commandCommentSpi.deleteComment(commentId);
     }
 
     @Override
