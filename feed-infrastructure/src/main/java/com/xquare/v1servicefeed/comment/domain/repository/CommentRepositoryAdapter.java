@@ -7,6 +7,7 @@ import com.xquare.v1servicefeed.comment.domain.mapper.CommentMapper;
 import com.xquare.v1servicefeed.comment.exception.CommentNotFoundException;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
+import com.xquare.v1servicefeed.feed.Feed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,18 +29,13 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
     }
 
     @Override
-    public Comment findById(UUID commentId) {
-        return commentMapper.entityToDomain(
-                commentRepository.findById(commentId)
-                        .orElseThrow(() -> CommentNotFoundException.EXCEPTION)
-        );
+    public void deleteComment(UUID commentId) {
+        commentRepository.deleteById(commentId);
     }
 
     @Override
-    public void deleteComment(Comment comment) {
-        commentRepository.delete(
-                commentMapper.domainToEntity(comment)
-        );
+    public void deleteAllComment(Feed feed) {
+        commentRepository.deleteAllById(feed);
     }
 
     @Override
