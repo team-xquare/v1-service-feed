@@ -3,6 +3,7 @@ package com.xquare.v1servicefeed.comment.spi;
 import com.xquare.v1servicefeed.annotation.Spi;
 import com.xquare.v1servicefeed.comment.Comment;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
+import com.xquare.v1servicefeed.feed.Feed;
 
 import java.util.UUID;
 
@@ -10,9 +11,9 @@ import java.util.UUID;
 public interface CommandCommentSpi {
     void saveComment(Comment comment);
 
-    Comment findById(UUID commentId);
+    void deleteComment(UUID commentId);
 
-    void deleteComment(Comment comment);
+    void deleteAllComment(Feed feed);
 
     void updateComment(UpdateCommentDomainRequest request);
 
