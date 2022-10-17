@@ -3,6 +3,7 @@ package com.xquare.v1servicefeed.comment.api;
 import com.xquare.v1servicefeed.annotation.Api;
 import com.xquare.v1servicefeed.comment.api.dto.request.CreateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
+import com.xquare.v1servicefeed.feed.Feed;
 
 import java.util.UUID;
 
@@ -10,7 +11,7 @@ import java.util.UUID;
 public interface CommentApi {
     void saveComment(CreateCommentDomainRequest request);
 
-    void deleteComment(UUID commentUuid);
+    void deleteComment(UUID commentId);
 
     void updateComment(UpdateCommentDomainRequest request);
 }
