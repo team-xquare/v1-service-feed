@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface CommandCommentSpi {
     void saveComment(Comment comment);
 
-    void deleteComment(UUID commentId);
+    void deleteCommentById(UUID commentId);
 
     void deleteAllComment(Feed feed);
 
