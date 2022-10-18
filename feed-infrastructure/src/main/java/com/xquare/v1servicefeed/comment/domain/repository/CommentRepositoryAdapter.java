@@ -29,7 +29,7 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
     }
 
     @Override
-    public void deleteComment(UUID commentId) {
+    public void deleteCommentById(UUID commentId) {
         commentRepository.deleteById(commentId);
     }
 
