@@ -15,13 +15,12 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @DomainService
-public class FeedApiImpl implements FeedApi{
+public class FeedApiImpl implements FeedApi {
 
     private final CommandFeedSpi commandFeedSpi;
     private final CommandCommentSpi commandCommentSpi;
     private final SecuritySpi securitySpi;
     private final QueryFeedSpi queryFeedSpi;
-
 
     @Override
     public void saveFeed(DomainCreateFeedRequest request) {
