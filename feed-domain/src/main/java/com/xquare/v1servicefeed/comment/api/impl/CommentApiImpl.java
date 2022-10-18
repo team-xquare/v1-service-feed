@@ -36,7 +36,7 @@ public class CommentApiImpl implements CommentApi {
 
     @Override
     public void deleteComment(UUID commentId) {
-        commandCommentSpi.deleteComment(commentId);
+        commandCommentSpi.deleteCommentById(commentId);
     }
 
     @Override
