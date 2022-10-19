@@ -1,7 +1,5 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
-import com.xquare.v1servicefeed.comment.domain.mapper.CommentMapper;
-import com.xquare.v1servicefeed.comment.domain.repository.CommentRepository;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
@@ -13,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
-
 
 @RequiredArgsConstructor
 @Adapter
