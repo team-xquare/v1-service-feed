@@ -6,6 +6,7 @@ import com.xquare.v1servicefeed.comment.domain.CommentEntity;
 import com.xquare.v1servicefeed.comment.domain.mapper.CommentMapper;
 import com.xquare.v1servicefeed.comment.exception.CommentNotFoundException;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
+import com.xquare.v1servicefeed.comment.spi.CommentSpi;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Adapter
-public class CommentRepositoryAdapter implements CommandCommentSpi {
+public class CommentRepositoryAdapter implements CommentSpi {
 
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
@@ -34,14 +35,14 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
     }
 
     @Override
-    public void deleteAllComment(Feed feed) {
-        commentRepository.deleteAllById(feed);
-    }
-
-    @Override
     public void updateComment(UpdateCommentDomainRequest request) {
         CommentEntity comment = getCommentById(request.getCommentId());
         commentRepository.save(comment.updateComment(request.getContent()));
+    }
+
+    @Override
+    public void deleteAllCommentByFeedId(UUID feedId) {
+        commentRepository.deleteAllById(feedId);
     }
 
     private CommentEntity getCommentById(UUID commentId) {
