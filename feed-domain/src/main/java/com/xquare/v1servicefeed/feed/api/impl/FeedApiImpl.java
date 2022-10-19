@@ -43,8 +43,9 @@ public class FeedApiImpl implements FeedApi {
     public void deleteFeed(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
 
+        commandCommentSpi.deleteAllCommentByFeedId(feedId);
         commandFeedSpi.deleteFeed(feed);
-        commandCommentSpi.deleteAllComment(feed);
+
     }
 }
 
