@@ -40,7 +40,7 @@ public class FeedApiImpl implements FeedApi {
     }
 
     @Override
-    public void deleteFeed(UUID feedId) {
+    public void deleteFeedById(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
 
         commandCommentSpi.deleteAllCommentByFeedId(feedId);
