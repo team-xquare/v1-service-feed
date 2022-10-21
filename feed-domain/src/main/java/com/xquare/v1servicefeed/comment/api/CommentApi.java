@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface CommentApi {
     void saveComment(CreateCommentDomainRequest request);
 
-    void deleteComment(UUID commentId);
+    void deleteCommentById(UUID commentId);
 
     void updateComment(UpdateCommentDomainRequest request);
 }
