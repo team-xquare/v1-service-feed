@@ -12,5 +12,5 @@ public interface FeedApi {
 
     void updateFeed(DomainUpdateFeedRequest request);
 
-    void deleteFeed(UUID feedId);
+    void deleteFeedById(UUID feedId);
 }
