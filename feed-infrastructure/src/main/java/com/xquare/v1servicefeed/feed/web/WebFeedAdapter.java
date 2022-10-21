@@ -48,6 +48,6 @@ public class WebFeedAdapter {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{feed-uuid}")
     public void deleteFeed(@PathVariable("feed-uuid") UUID feedId) {
-        feedApi.deleteFeed(feedId);
+        feedApi.deleteFeedById(feedId);
     }
 }
