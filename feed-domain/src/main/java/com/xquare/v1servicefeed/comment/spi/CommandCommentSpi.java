@@ -10,10 +10,9 @@ import java.util.UUID;
 public interface CommandCommentSpi {
     void saveComment(Comment comment);
 
-    Comment findById(UUID commentId);
-
-    void deleteComment(Comment comment);
+    void deleteCommentById(UUID commentId);
 
     void updateComment(UpdateCommentDomainRequest request);
 
+    void deleteAllCommentByFeedId(UUID feedId);
 }

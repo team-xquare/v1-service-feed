@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -32,13 +33,13 @@ public class WebCommentAdapter {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{comment-uuid}")
-    public void deleteComment(@PathVariable("comment-uuid") UUID commentId) {
-        commentApi.deleteComment(commentId);
+    public void deleteComment(@PathVariable("comment-uuid") @NotNull UUID commentId) {
+        commentApi.deleteCommentById(commentId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{comment-uuid}")
-    public void updateComment(@PathVariable("comment-uuid") UUID commentId, @Valid @RequestBody UpdateCommentWebRequest request) {
+    public void updateComment(@PathVariable("comment-uuid") @NotNull UUID commentId, @Valid @RequestBody UpdateCommentWebRequest request) {
 
         UpdateCommentDomainRequest domainRequest = UpdateCommentDomainRequest.builder()
                 .commentId(commentId)

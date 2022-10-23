@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface CommandFeedSpi {
     void saveFeed(Feed feed);
 
-    void deleteFeed(UUID feedUuid);
+    void deleteFeed(Feed feed);
 
     void updateFeed(DomainUpdateFeedRequest request);
 }

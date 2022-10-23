@@ -6,7 +6,9 @@ import com.xquare.v1servicefeed.comment.domain.CommentEntity;
 import com.xquare.v1servicefeed.comment.domain.mapper.CommentMapper;
 import com.xquare.v1servicefeed.comment.exception.CommentNotFoundException;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
+import com.xquare.v1servicefeed.comment.spi.CommentSpi;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
+import com.xquare.v1servicefeed.feed.Feed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +16,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Adapter
-public class CommentRepositoryAdapter implements CommandCommentSpi {
+public class CommentRepositoryAdapter implements CommentSpi {
 
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
@@ -28,24 +30,19 @@ public class CommentRepositoryAdapter implements CommandCommentSpi {
     }
 
     @Override
-    public Comment findById(UUID commentId) {
-        return commentMapper.entityToDomain(
-                commentRepository.findById(commentId)
-                        .orElseThrow(() -> CommentNotFoundException.EXCEPTION)
-        );
-    }
-
-    @Override
-    public void deleteComment(Comment comment) {
-        commentRepository.delete(
-                commentMapper.domainToEntity(comment)
-        );
+    public void deleteCommentById(UUID commentId) {
+        commentRepository.deleteById(commentId);
     }
 
     @Override
     public void updateComment(UpdateCommentDomainRequest request) {
         CommentEntity comment = getCommentById(request.getCommentId());
         commentRepository.save(comment.updateComment(request.getContent()));
+    }
+
+    @Override
+    public void deleteAllCommentByFeedId(UUID feedId) {
+        commentRepository.deleteAllById(feedId);
     }
 
     private CommentEntity getCommentById(UUID commentId) {
