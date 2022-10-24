@@ -1,6 +1,5 @@
 package com.xquare.v1servicefeed.feedlike.domain.mapper;
 
-import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.repository.FeedRepository;
 import com.xquare.v1servicefeed.feed.exception.FeedNotFoundException;
@@ -15,11 +14,13 @@ public class FeedLikeMapper {
 
     private final FeedRepository feedRepository;
     
-    public FeedLike entityToDomain(FeedLike feedLike) {
+    public FeedLike entityToDomain(FeedLikeEntity feedLikeEntity) {
+        FeedEntity feedEntity = feedLikeEntity.getFeed();
+
         return FeedLike.builder()
-                .id(feedLike.getId())
-                .feedId(feedLike.getFeedId())
-                .userId(feedLike.getUserId())
+                .id(feedLikeEntity.getId())
+                .feedId(feedEntity.getId())
+                .userId(feedLikeEntity.getUserId())
                 .build();
     }
 
