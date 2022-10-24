@@ -7,14 +7,19 @@ import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
 import com.xquare.v1servicefeed.feedlike.api.dto.SaveFeedLikeDomainRequest;
+import com.xquare.v1servicefeed.feedlike.exception.InvalidUserException;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
+import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import lombok.RequiredArgsConstructor;
+
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @DomainService
 public class FeedLikeApiImpl implements FeedLikeApi {
     private final CommandFeedLikeSpi commandFeedLikeSpi;
     private final QueryFeedSpi queryFeedSpi;
+    private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final SecuritySpi securitySpi;
 
     @Override
@@ -28,5 +33,18 @@ public class FeedLikeApiImpl implements FeedLikeApi {
                         .build(),
                 feed
         );
+    }
+
+    @Override
+    public void deleteFeedLike(UUID feedLikeId) {
+        Feed feed = queryFeedSpi.queryFeedById(feedLikeId);
+        FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeed(feed);
+        UUID userId = securitySpi.getCurrentUserId();
+
+        if (commandFeedLikeSpi.existsUser(userId)) {
+            throw InvalidUserException.EXCEPTION;
+        }
+
+        commandFeedLikeSpi.deleteFeedLike(feed, feedLike);
     }
 }

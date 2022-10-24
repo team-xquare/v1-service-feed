@@ -5,10 +5,14 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
+import com.xquare.v1servicefeed.feedlike.domain.FeedLikeEntity;
 import com.xquare.v1servicefeed.feedlike.domain.mapper.FeedLikeMapper;
+import com.xquare.v1servicefeed.feedlike.exception.FeedLikeNotFoundException;
 import com.xquare.v1servicefeed.feedlike.spi.FeedLikeSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Adapter
@@ -27,4 +31,38 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
         feedLikeRepository.save(feedLikeMapper.domainToEntity(feedLike));
     }
 
+    @Override
+    public void deleteFeedLike(Feed feed, FeedLike feedLike) {
+        FeedEntity feedEntity = feedMapper.domainToEntity(feed);
+        feedEntity.minusLikeCount();
+        feedLikeRepository.delete(feedLikeMapper.domainToEntity(feedLike));
+    }
+
+    @Override
+    public boolean existsUser(UUID userId) {
+        return feedLikeRepository.existsByUserId(userId);
+    }
+
+    @Override
+    public FeedLike queryFeedLikeById(UUID feedLikeId) {
+        return feedLikeMapper.entityToDomain(getFeedLikeEntityById(feedLikeId));
+    }
+
+    @Override
+    public FeedLike queryFeedLikeByFeed(Feed feed) {
+        FeedLikeEntity feedLikeEntity = getFeedLikeEntityByFeed(feed);
+        return feedLikeMapper.entityToDomain(feedLikeEntity);
+    }
+
+    private FeedLikeEntity getFeedLikeEntityById(UUID feedLikeId) {
+        return feedLikeRepository.findById(feedLikeId)
+                .orElseThrow(() -> FeedLikeNotFoundException.EXCEPTION);
+    }
+
+    private FeedLikeEntity getFeedLikeEntityByFeed(Feed feed) {
+        FeedEntity feedEntity = feedMapper.domainToEntity(feed);
+
+        return feedLikeRepository.findByFeed(feedEntity)
+                .orElseThrow(() -> FeedLikeNotFoundException.EXCEPTION);
+    }
 }
