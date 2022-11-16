@@ -11,7 +11,8 @@ public enum FeedLikeErrorCode implements ExceptionProperty {
 
     FEED_LIKE_NOT_FOUND(404, "Feed Like Not Found"),
 
-    INVALID_USER(401, "Invalid User");
+    USER_ALREADY_SAVED(409, "User Already Saved"),
+    USER_ALREADY_DELETE(409, "User Already Delete");
 
     private final int status;
     private final String message;
