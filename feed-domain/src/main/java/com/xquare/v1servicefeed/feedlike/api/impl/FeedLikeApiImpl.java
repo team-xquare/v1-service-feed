@@ -7,7 +7,7 @@ import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
 import com.xquare.v1servicefeed.feedlike.api.dto.SaveFeedLikeDomainRequest;
-import com.xquare.v1servicefeed.feedlike.exception.InvalidUserException;
+import com.xquare.v1servicefeed.feedlike.exception.UserAlreadyPushedException;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class FeedLikeApiImpl implements FeedLikeApi {
         UUID userId = securitySpi.getCurrentUserId();
 
         if (commandFeedLikeSpi.existsUser(userId)) {
-            throw InvalidUserException.EXCEPTION;
+            throw UserAlreadyPushedException.EXCEPTION;
         }
 
         commandFeedLikeSpi.saveFeedLike(
@@ -44,8 +44,8 @@ public class FeedLikeApiImpl implements FeedLikeApi {
         FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeById(feedLikeId);
         UUID userId = securitySpi.getCurrentUserId();
 
-        if (commandFeedLikeSpi.existsUser(userId)) {
-            throw InvalidUserException.EXCEPTION;
+        if (!commandFeedLikeSpi.existsUser(userId)) {
+            throw UserAlreadyPushedException.EXCEPTION;
         }
 
         commandFeedLikeSpi.cancelFeedLike(feedLike);
