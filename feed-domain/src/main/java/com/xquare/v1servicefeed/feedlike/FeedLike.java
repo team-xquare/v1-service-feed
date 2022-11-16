@@ -16,4 +16,6 @@ public class FeedLike {
     private final UUID feedId;
 
     private final UUID userId;
+
+    private final Integer likeCount;
 }

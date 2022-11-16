@@ -30,4 +30,15 @@ public class FeedLikeEntity extends BaseUUIDEntity {
 
     @Column(columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
+
+    @Column(nullable = false)
+    private Integer likeCount;
+
+    public void plusLikeCount() {
+        this.likeCount += 1;
+    }
+
+    public void minusLikeCount() {
+        this.likeCount -= 1;
+    }
 }

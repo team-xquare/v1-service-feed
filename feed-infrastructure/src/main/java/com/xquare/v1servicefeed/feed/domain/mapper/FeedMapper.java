@@ -16,7 +16,6 @@ public class FeedMapper {
                 .title(feedEntity.getTitle())
                 .content(feedEntity.getContent())
                 .createdAt(feedEntity.getCreatedAt())
-                .likeCount(feedEntity.getLikeCount())
                 .category(feedEntity.getCategory())
                 .build();
     }
@@ -28,7 +27,6 @@ public class FeedMapper {
                 .title(feed.getTitle())
                 .content(feed.getContent())
                 .createdAt(feed.getCreatedAt())
-                .likeCount(feed.getLikeCount())
                 .category(feed.getCategory())
                 .build();
     }

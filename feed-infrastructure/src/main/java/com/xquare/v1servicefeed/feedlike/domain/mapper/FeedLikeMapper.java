@@ -21,6 +21,7 @@ public class FeedLikeMapper {
                 .id(feedLikeEntity.getId())
                 .feedId(feedEntity.getId())
                 .userId(feedLikeEntity.getUserId())
+                .likeCount(feedLikeEntity.getLikeCount())
                 .build();
     }
 
@@ -32,6 +33,7 @@ public class FeedLikeMapper {
                 .id(feedLike.getId())
                 .feed(feedEntity)
                 .userId(feedLike.getUserId())
+                .likeCount(feedLike.getLikeCount())
                 .build();
     }
 }

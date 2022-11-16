@@ -33,22 +33,11 @@ public class FeedEntity extends BaseUUIDEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private Integer likeCount;
-
     @Column(columnDefinition = "CHAR(6)", nullable = false)
     private String category;
 
     public void updateFeed(String title, String content) {
         this.title = title;
         this.content = content;
-    }
-
-    public void plusLikeCount() {
-        this.likeCount += 1;
-    }
-
-    public void minusLikeCount() {
-        this.likeCount -= 1;
     }
 }
