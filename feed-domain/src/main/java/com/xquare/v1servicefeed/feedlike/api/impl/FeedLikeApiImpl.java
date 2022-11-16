@@ -25,6 +25,11 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     @Override
     public void saveFeedLike(SaveFeedLikeDomainRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
+        UUID userId = securitySpi.getCurrentUserId();
+
+        if (commandFeedLikeSpi.existsUser(userId)) {
+            throw InvalidUserException.EXCEPTION;
+        }
 
         commandFeedLikeSpi.saveFeedLike(
                 FeedLike.builder()
@@ -37,7 +42,6 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     @Override
     public void cancelFeedLike(UUID feedLikeId) {
         FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeById(feedLikeId);
-
         UUID userId = securitySpi.getCurrentUserId();
 
         if (commandFeedLikeSpi.existsUser(userId)) {
