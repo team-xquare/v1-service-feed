@@ -24,18 +24,19 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
 
     @Override
     @Transactional
-    public void saveFeedLike(FeedLike feedLike, Feed feed) {
+    public void saveFeedLike(FeedLike feedLike) {
 
-        FeedEntity feedEntity = feedMapper.domainToEntity(feed);
-        feedEntity.plusLikeCount();
-        feedLikeRepository.save(feedLikeMapper.domainToEntity(feedLike));
+        FeedLikeEntity feedLikeEntity = feedLikeMapper.domainToEntity(feedLike);
+        feedLikeEntity.plusLikeCount();
+        feedLikeRepository.save(feedLikeEntity);
     }
 
     @Override
-    public void deleteFeedLike(Feed feed, FeedLike feedLike) {
-        FeedEntity feedEntity = feedMapper.domainToEntity(feed);
-        feedEntity.minusLikeCount();
-        feedLikeRepository.delete(feedLikeMapper.domainToEntity(feedLike));
+    @Transactional
+    public void cancelFeedLike(FeedLike feedLike) {
+        FeedLikeEntity feedLikeEntity = feedLikeMapper.domainToEntity(feedLike);
+        feedLikeEntity.minusLikeCount();
+        feedLikeRepository.delete(feedLikeEntity);
     }
 
     @Override

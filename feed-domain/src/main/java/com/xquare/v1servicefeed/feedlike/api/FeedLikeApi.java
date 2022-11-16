@@ -10,5 +10,5 @@ public interface FeedLikeApi {
 
     void saveFeedLike(SaveFeedLikeDomainRequest request);
 
-    void deleteFeedLike(UUID feedLikeId);
+    void cancelFeedLike(UUID feedLikeId);
 }
