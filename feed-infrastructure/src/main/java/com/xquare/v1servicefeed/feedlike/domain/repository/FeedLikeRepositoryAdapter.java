@@ -1,8 +1,6 @@
 package com.xquare.v1servicefeed.feedlike.domain.repository;
 
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
-import com.xquare.v1servicefeed.feed.Feed;
-import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.domain.FeedLikeEntity;
@@ -46,21 +44,8 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
         return feedLikeMapper.entityToDomain(getFeedLikeEntityById(feedLikeId));
     }
 
-    @Override
-    public FeedLike queryFeedLikeByFeed(Feed feed) {
-        FeedLikeEntity feedLikeEntity = getFeedLikeEntityByFeed(feed);
-        return feedLikeMapper.entityToDomain(feedLikeEntity);
-    }
-
     private FeedLikeEntity getFeedLikeEntityById(UUID feedLikeId) {
         return feedLikeRepository.findById(feedLikeId)
-                .orElseThrow(() -> FeedLikeNotFoundException.EXCEPTION);
-    }
-
-    private FeedLikeEntity getFeedLikeEntityByFeed(Feed feed) {
-        FeedEntity feedEntity = feedMapper.domainToEntity(feed);
-
-        return feedLikeRepository.findByFeed(feedEntity)
                 .orElseThrow(() -> FeedLikeNotFoundException.EXCEPTION);
     }
 }
