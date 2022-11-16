@@ -3,11 +3,11 @@ package com.xquare.v1servicefeed.feedlike.exception;
 import com.xquare.v1servicefeed.error.FeedException;
 import com.xquare.v1servicefeed.feedlike.error.FeedLikeErrorCode;
 
-public class UserAlreadyPushedException extends FeedException {
+public class UserAlreadyDeleteException extends FeedException {
     public static final FeedException EXCEPTION =
-            new UserAlreadyPushedException();
+            new UserAlreadyDeleteException();
 
-    private UserAlreadyPushedException() {
-        super(FeedLikeErrorCode.INVALID_USER);
+    private UserAlreadyDeleteException() {
+        super(FeedLikeErrorCode.USER_ALREADY_DELETE);
     }
 }
