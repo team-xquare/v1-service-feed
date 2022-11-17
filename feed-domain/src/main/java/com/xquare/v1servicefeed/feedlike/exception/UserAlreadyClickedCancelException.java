@@ -8,6 +8,6 @@ public class UserAlreadyClickedCancelException extends FeedException {
             new UserAlreadyClickedCancelException();
 
     private UserAlreadyClickedCancelException() {
-        super(FeedLikeErrorCode.USER_ALREADY_DELETED);
+        super(FeedLikeErrorCode.USER_ALREADY_CLICKED_CANCEL);
     }
 }

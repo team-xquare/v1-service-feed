@@ -8,6 +8,6 @@ public class UserAlreadyClickedSaveException extends FeedException {
             new UserAlreadyClickedSaveException();
 
     private UserAlreadyClickedSaveException() {
-        super(FeedLikeErrorCode.USER_ALREADY_SAVED);
+        super(FeedLikeErrorCode.USER_ALREADY_CLICKED_SAVE);
     }
 }
