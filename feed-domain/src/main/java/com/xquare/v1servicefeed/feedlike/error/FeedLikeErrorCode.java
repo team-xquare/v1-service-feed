@@ -11,8 +11,8 @@ public enum FeedLikeErrorCode implements ExceptionProperty {
 
     FEED_LIKE_NOT_FOUND(404, "Feed Like Not Found"),
 
-    USER_ALREADY_CLICKED_SAVE(409, "User Already Clicked Save"),
-    USER_ALREADY_CLICKED_CANCEL(409, "User Already Clicked Delete");
+    FEED_LIKE_EXISTS(409, "Feed Like Exists"),
+    FEED_LIKE_NOT_EXISTS(409, "Feed Like Not Exists");
 
     private final int status;
     private final String message;
