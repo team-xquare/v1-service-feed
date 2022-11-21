@@ -25,7 +25,7 @@ public class WebFeedLikeAdapter {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/{feed-like-uuid}")
+    @DeleteMapping("/{feed-like-uuid}")
     public void cancelFeedLike(@PathVariable("feed-like-uuid") UUID feedLikeId) {
         feedLikeApi.cancelFeedLike(feedLikeId);
     }
