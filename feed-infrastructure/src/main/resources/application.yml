@@ -1,12 +1,25 @@
 server:
   shutdown: graceful
+  servlet:
+    context-path: /feed
 
 spring:
+  application:
+    name: v1-feed-service
+  profiles:
+    active: ${PROFILE}
+  config:
+    import: optional:configserver:https://api.xquare.app/cloud-config/
+  cloud:
+    config:
+      username: ${CLOUD_CONFIG_USERNAME}
+      password: ${CLOUD_CONFIG_PASSWORD}
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
 
   jpa:
     database: mysql
@@ -20,3 +33,12 @@ spring:
 
   lifecycle:
     timeout-per-shutdown-phase: 20s
+
+springdoc:
+  api-docs:
+    path: ${swagger.docs.path}
+  swagger-ui:
+    path: ${swagger.ui.path}
+    display-request-duration: true
+  cache:
+    disabled: true

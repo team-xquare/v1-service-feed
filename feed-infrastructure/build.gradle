@@ -6,6 +6,12 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.1")
+    }
+}
+
 dependencies {
 
     // web
@@ -26,6 +32,9 @@ dependencies {
 
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //spring config
+    implementation 'org.springframework.cloud:spring-cloud-config-client'
 
     implementation(project(":feed-domain"))
 
