@@ -6,12 +6,7 @@ import com.xquare.v1servicefeed.feedlike.FeedLike;
 import java.util.UUID;
 
 @Spi
-public interface CommandFeedLikeSpi {
-
-    void saveFeedLike(FeedLike feedLike);
-
-    void cancelFeedLike(FeedLike feedLike);
-
-    boolean existsUser(UUID userId);
+public interface QueryFeedLikeSpi {
+    FeedLike queryFeedLikeById(UUID feedLikeId);
 
 }
