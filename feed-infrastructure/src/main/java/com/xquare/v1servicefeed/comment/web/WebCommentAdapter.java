@@ -5,6 +5,7 @@ import com.xquare.v1servicefeed.comment.api.dto.request.CreateCommentDomainReque
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.CreateCommentWebRequest;
 import com.xquare.v1servicefeed.comment.web.dto.request.UpdateCommentWebRequest;
+import com.xquare.v1servicefeed.comment.web.dto.response.QueryCommentListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +48,10 @@ public class WebCommentAdapter {
                 .build();
 
         commentApi.updateComment(domainRequest);
+    }
+
+    @GetMapping("/{feed-uuid}")
+    public QueryCommentListResponse queryComment(@PathVariable("feed-uuid") @NotNull UUID feedId) {
+        return new QueryCommentListResponse(commentApi.queryComment(feedId));
     }
 }

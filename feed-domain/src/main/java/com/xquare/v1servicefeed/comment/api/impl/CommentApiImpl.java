@@ -5,12 +5,16 @@ import com.xquare.v1servicefeed.comment.Comment;
 import com.xquare.v1servicefeed.comment.api.CommentApi;
 import com.xquare.v1servicefeed.comment.api.dto.request.CreateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
+import com.xquare.v1servicefeed.comment.api.dto.response.CommentDomainElement;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
+import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -19,6 +23,7 @@ public class CommentApiImpl implements CommentApi {
 
     private final QueryFeedSpi queryFeedSpi;
     private final CommandCommentSpi commandCommentSpi;
+    private final QueryCommentSpi queryCommentSpi;
     private final SecuritySpi securitySpi;
 
     @Override
@@ -30,6 +35,7 @@ public class CommentApiImpl implements CommentApi {
                         .content(request.getContent())
                         .feedId(feed.getId())
                         .userId(securitySpi.getCurrentUserId())
+                        .createAt(LocalDateTime.now())
                         .build()
         );
     }
@@ -42,5 +48,12 @@ public class CommentApiImpl implements CommentApi {
     @Override
     public void updateComment(UpdateCommentDomainRequest request) {
         commandCommentSpi.updateComment(request);
+    }
+
+    @Override
+    public List<CommentDomainElement> queryComment(UUID feedId) {
+        Feed feed = queryFeedSpi.queryFeedById(feedId);
+
+        return queryCommentSpi.findCommentByFeedId(feed.getId());
     }
 }
