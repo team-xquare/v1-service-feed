@@ -77,7 +77,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
                 .content(comment.getContent())
                 .name(response.getName())
                 .profile(response.getProfileFileName())
-                .createAt(comment.getCreatedAt())
+                .updatedAt(comment.getUpdatedAt())
                 .build();
     }
 }

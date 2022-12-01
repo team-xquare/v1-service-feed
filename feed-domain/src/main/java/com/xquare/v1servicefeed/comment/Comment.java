@@ -20,5 +20,5 @@ public class Comment {
 
     private final UUID userId;
 
-    private final LocalDateTime createAt;
+    private final LocalDateTime updatedAt;
 }

@@ -31,11 +31,11 @@ public class CommentEntity extends BaseUUIDEntity {
     private UUID userId;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public CommentEntity updateComment(String content, LocalDateTime createdAt) {
+    public CommentEntity updateComment(String content, LocalDateTime updatedAt) {
         this.content = content;
-        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         return this;
     }
 }

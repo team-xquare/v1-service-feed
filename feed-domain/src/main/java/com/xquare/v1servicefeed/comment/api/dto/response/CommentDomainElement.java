@@ -14,5 +14,5 @@ public class CommentDomainElement {
     private final String content;
     private final String name;
     private final String profile;
-    private final LocalDateTime createAt;
+    private final LocalDateTime updatedAt;
 }
