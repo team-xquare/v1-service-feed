@@ -36,6 +36,12 @@ dependencies {
     //spring config
     implementation 'org.springframework.cloud:spring-cloud-config-client'
 
+    //uuid7
+    implementation 'com.github.f4b6a3:uuid-creator:5.2.0'
+
+    // feign client
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
+
     implementation(project(":feed-domain"))
 
 }
