@@ -8,12 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -34,8 +30,12 @@ public class CommentEntity extends BaseUUIDEntity {
     @Column(columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
 
-    public CommentEntity updateComment(String content) {
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    public CommentEntity updateComment(String content, LocalDateTime createdAt) {
         this.content = content;
+        this.createdAt = createdAt;
         return this;
     }
 }
