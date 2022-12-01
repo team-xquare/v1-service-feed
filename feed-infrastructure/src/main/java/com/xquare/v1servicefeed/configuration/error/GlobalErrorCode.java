@@ -13,6 +13,7 @@ public enum GlobalErrorCode implements ExceptionProperty {
     FEIGN_UN_AUTHORIZED(401, "Feign Unauthorized"),
     FEIGN_FORBIDDEN(403, "Feign Forbidden"),
     FEIGN_EXPIRED_TOKEN(408, "Feign Expired Token"),
+    FEIGN_CLIENT_ERROR(500, "Feign Client Error"),
 
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
