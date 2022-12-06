@@ -3,9 +3,11 @@ package com.xquare.v1servicefeed.feed.web;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +51,10 @@ public class WebFeedAdapter {
     @DeleteMapping("/{feed-uuid}")
     public void deleteFeed(@PathVariable("feed-uuid") UUID feedId) {
         feedApi.deleteFeedById(feedId);
+    }
+
+    @GetMapping
+    public FeedListResponse getAllFeed(@Param("category") String category) {
+        return feedApi.getAllFeed(category);
     }
 }
