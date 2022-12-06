@@ -9,7 +9,6 @@ import java.util.UUID;
 
 @Getter
 @Builder
-@Aggregate
 public class User {
 
     private final UUID id;
