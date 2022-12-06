@@ -12,5 +12,5 @@ import java.util.UUID;
 public interface UserClient {
 
     @GetMapping
-    UserInfoResponse getUser(@RequestParam("id") List<UUID> userIds);
+    UserInfoResponse getUserInfo(@RequestParam("id") List<UUID> userIds);
 }

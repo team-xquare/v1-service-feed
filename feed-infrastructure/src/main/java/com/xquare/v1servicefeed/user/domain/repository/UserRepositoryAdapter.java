@@ -18,7 +18,7 @@ public class UserRepositoryAdapter implements FeedUserSpi {
 
     @Override
     public List<User> queryUserByIds(List<UUID> ids) {
-        List<UserInfoElement> userList = userClient.getUser(ids).getUsers();
+        List<UserInfoElement> userList = userClient.getUserInfo(ids).getUsers();
 
         return userList.stream()
                 .map(userInfoElement -> User.builder()
