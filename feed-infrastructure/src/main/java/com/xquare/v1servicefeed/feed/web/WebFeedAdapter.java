@@ -7,7 +7,6 @@ import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +53,7 @@ public class WebFeedAdapter {
     }
 
     @GetMapping
-    public FeedListResponse getAllFeed(@Param("category") String category) {
+    public FeedListResponse getAllFeed(@RequestParam("category") String category) {
         return feedApi.getAllFeed(category);
     }
 }
