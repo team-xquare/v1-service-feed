@@ -56,7 +56,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
-    public List<Feed> queryFeedAllByCategory(String category) {
+    public List<Feed> queryAllFeedByCategory(String category) {
         List<FeedListVO> voList = query
                 .select(new QFeedListVO(
                         feedEntity.id,

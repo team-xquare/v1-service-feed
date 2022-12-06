@@ -62,7 +62,7 @@ public class FeedApiImpl implements FeedApi {
         Map<UUID, String> map = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, User::getProfileFileName));
 
-        List<FeedListElement> feedList = queryFeedSpi.queryFeedAllByCategory(category)
+        List<FeedListElement> feedList = queryFeedSpi.queryAllFeedByCategory(category)
                 .stream()
                 .map(feed -> FeedListElement.builder()
                         .feedId(feed.getId())

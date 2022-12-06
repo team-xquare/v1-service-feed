@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface QueryFeedSpi {
     Feed queryFeedById(UUID feedId);
 
-    List<Feed> queryFeedAllByCategory(String category);
+    List<Feed> queryAllFeedByCategory(String category);
 
     List<UUID> queryAllFeedUserIdByCategory(String category);
 }
