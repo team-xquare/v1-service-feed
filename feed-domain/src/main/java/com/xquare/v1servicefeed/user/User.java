@@ -1,6 +1,5 @@
 package com.xquare.v1servicefeed.user;
 
-import com.xquare.v1servicefeed.annotation.Aggregate;
 import lombok.Builder;
 import lombok.Getter;
 
