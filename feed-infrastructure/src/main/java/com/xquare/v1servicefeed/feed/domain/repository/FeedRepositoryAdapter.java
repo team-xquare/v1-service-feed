@@ -86,11 +86,10 @@ public class FeedRepositoryAdapter implements FeedSpi {
     @Override
     public List<UUID> queryAllFeedUserIdByCategory(String category) {
         List<FeedEntity> feedList = query
-                .selectFrom(feedEntity)
+                .selectFrom(feedEntity).distinct()
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feed.id))
                 .where(feedEntity.category.eq(category))
-                .groupBy(feedEntity.userId)
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 
