@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,7 @@ public class FeedApiImpl implements FeedApi {
     @Override
     public FeedListResponse getAllFeed(String category) {
         List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(category);
-        HashMap<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
+        Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (a, b) -> b, HashMap::new));
 
         List<FeedListElement> feedList = queryFeedSpi.queryAllFeedByCategory(category)
