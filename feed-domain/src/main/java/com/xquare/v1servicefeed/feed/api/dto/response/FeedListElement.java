@@ -14,5 +14,6 @@ public class FeedListElement {
     private final String content;
     private final LocalDateTime createdAt;
     private final String profile;
+    private final String name;
     private final Integer likeCount;
 }

@@ -15,8 +15,8 @@ import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -59,18 +59,23 @@ public class FeedApiImpl implements FeedApi {
     @Override
     public FeedListResponse getAllFeed(String category) {
         List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(category);
-        Map<UUID, String> map = feedUserSpi.queryUserByIds(userIdList).stream()
-                .collect(Collectors.toMap(User::getId, User::getProfileFileName));
+        HashMap<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
+                .collect(Collectors.toMap(User::getId, user -> user, (a, b) -> b, HashMap::new));
 
         List<FeedListElement> feedList = queryFeedSpi.queryAllFeedByCategory(category)
                 .stream()
-                .map(feed -> FeedListElement.builder()
-                        .feedId(feed.getId())
-                        .content(feed.getContent())
-                        .createdAt(feed.getCreatedAt())
-                        .profile(map.get(feed.getUserId()))
-                        .likeCount(feed.getLikeCount())
-                        .build())
+                .map(feed -> {
+                    User user = hashMap.get(feed.getUserId());
+
+                    return FeedListElement.builder()
+                            .feedId(feed.getId())
+                            .content(feed.getContent())
+                            .createdAt(feed.getCreatedAt())
+                            .profile(user.getProfileFileName())
+                            .name(user.getName())
+                            .likeCount(feed.getLikeCount())
+                            .build();
+                })
                 .toList();
 
         return new FeedListResponse(feedList);
