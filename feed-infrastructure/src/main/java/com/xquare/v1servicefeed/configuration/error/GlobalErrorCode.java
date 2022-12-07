@@ -10,10 +10,12 @@ import lombok.Getter;
 public enum GlobalErrorCode implements ExceptionProperty {
 
     FEIGN_BAD_REQUEST(400, "Feign Bad Request"),
-    FEIGN_UN_AUTHORIZED(401, "Feign Unauthorized"),
+
+    FEIGN_UNAUTHORIZED(401, "Feign Unauthorized"),
+
     FEIGN_FORBIDDEN(403, "Feign Forbidden"),
-    FEIGN_EXPIRED_TOKEN(408, "Feign Expired Token"),
-    FEIGN_CLIENT_ERROR(500, "Feign Client Error"),
+
+    FEIGN_SERVER_ERROR(500, "Feign Server Error"),
 
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 

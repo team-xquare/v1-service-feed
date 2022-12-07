@@ -27,8 +27,8 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
 
     // mapstruct
-    implementation 'org.mapstruct:mapstruct:1.5.1.Final'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -42,6 +42,14 @@ dependencies {
     // feign client
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
 
+
+    // querydsl
+    implementation 'com.querydsl:querydsl-jpa'
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:5.0.0:jpa")
+           
     implementation(project(":feed-domain"))
 
 }
