@@ -3,6 +3,7 @@ package com.xquare.v1servicefeed.feed.api;
 import com.xquare.v1servicefeed.annotation.Api;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 
 import java.util.UUID;
 
@@ -13,4 +14,6 @@ public interface FeedApi {
     void updateFeed(DomainUpdateFeedRequest request);
 
     void deleteFeedById(UUID feedId);
+
+    FeedListResponse getAllFeed(String category);
 }
