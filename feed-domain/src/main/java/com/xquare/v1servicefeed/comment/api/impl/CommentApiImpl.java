@@ -11,17 +11,22 @@ import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
+import com.xquare.v1servicefeed.user.User;
+import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @DomainService
 public class CommentApiImpl implements CommentApi {
 
     private final QueryFeedSpi queryFeedSpi;
+    private final CommentUserSpi commentUserSpi;
     private final CommandCommentSpi commandCommentSpi;
     private final QueryCommentSpi queryCommentSpi;
     private final SecuritySpi securitySpi;
@@ -35,6 +40,7 @@ public class CommentApiImpl implements CommentApi {
                         .content(request.getContent())
                         .feedId(feed.getId())
                         .userId(securitySpi.getCurrentUserId())
+                        .createAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
                         .build()
         );
@@ -54,6 +60,23 @@ public class CommentApiImpl implements CommentApi {
     public List<CommentDomainElement> queryComment(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
 
-        return queryCommentSpi.findCommentByFeedId(feed.getId());
+        List<UUID> userIdList = queryCommentSpi.queryAllCommentUserIdByFeed(feed);
+        Map<UUID, User> map = commentUserSpi.queryUserByIds(userIdList).stream()
+                .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user));
+
+        return queryCommentSpi.queryAllCommentByFeed(feed)
+                .stream()
+                .map(comment -> {
+                    User user = map.get(feed.getUserId());
+
+                    return CommentDomainElement.builder()
+                            .commentId(comment.getId())
+                            .content(comment.getContent())
+                            .name(user.getName())
+                            .profile(user.getProfileFileName())
+                            .updatedAt(comment.getUpdatedAt())
+                            .build();
+                })
+                .toList();
     }
 }

@@ -1,24 +1,26 @@
 package com.xquare.v1servicefeed.comment.domain.repository;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.xquare.v1servicefeed.comment.Comment;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
-import com.xquare.v1servicefeed.comment.api.dto.response.CommentDomainElement;
 import com.xquare.v1servicefeed.comment.domain.CommentEntity;
 import com.xquare.v1servicefeed.comment.domain.mapper.CommentMapper;
+import com.xquare.v1servicefeed.comment.domain.repository.vo.CommentListVO;
+import com.xquare.v1servicefeed.comment.domain.repository.vo.QCommentListVO;
 import com.xquare.v1servicefeed.comment.exception.CommentNotFoundException;
 import com.xquare.v1servicefeed.comment.spi.CommentSpi;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
-import com.xquare.v1servicefeed.configuration.feign.client.UserInfoClient;
-import com.xquare.v1servicefeed.configuration.feign.dto.response.UserInfoResponse;
-import com.xquare.v1servicefeed.feed.domain.FeedEntity;
-import com.xquare.v1servicefeed.feed.domain.repository.FeedRepository;
-import com.xquare.v1servicefeed.feed.exception.FeedNotFoundException;
+import com.xquare.v1servicefeed.feed.Feed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static com.xquare.v1servicefeed.comment.domain.QCommentEntity.commentEntity;
+import static com.xquare.v1servicefeed.feed.domain.QFeedEntity.feedEntity;
 
 @RequiredArgsConstructor
 @Adapter
@@ -26,8 +28,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
 
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
-    private final FeedRepository feedRepository;
-    private final UserInfoClient userInfoClient;
+    private final JPAQueryFactory query;
 
     @Override
     @Transactional
@@ -54,30 +55,44 @@ public class CommentRepositoryAdapter implements CommentSpi {
     }
 
     @Override
-    public List<CommentDomainElement> findCommentByFeedId(UUID feedId) {
-        FeedEntity feed = feedRepository.findById(feedId)
-                .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+    public List<UUID> queryAllCommentUserIdByFeed(Feed feed) {
+        List<CommentEntity> commentList = query
+                .selectFrom(commentEntity)
+                .leftJoin(feedEntity)
+                .on(feedEntity.id.eq(feed.getId()))
+                .where(feedEntity.id.eq(feed.getId()))
+                .orderBy(commentEntity.createAt.desc())
+                .fetch();
 
-        return commentRepository.findAllByFeed(feed)
-                .stream()
-                .map(this::commentBuilder)
+        return commentList.stream()
+                .map(CommentEntity::getUserId)
                 .toList();
+    }
+
+    @Override
+    public List<Comment> queryAllCommentByFeed(Feed feed) {
+        List<CommentListVO> voList = query
+                .select(new QCommentListVO(
+                        commentEntity.id,
+                        commentEntity.content,
+                        commentEntity.updatedAt
+                ))
+                .from(commentEntity)
+                .where(commentEntity.feed.id.eq(feed.getId()))
+                .orderBy(feedEntity.createdAt.desc())
+                .fetch();
+
+        return voList.stream()
+                .map(commentListVO -> Comment.builder()
+                        .id(commentListVO.getCommentId())
+                        .content(commentListVO.getContent())
+                        .updatedAt(commentListVO.getUpdatedAt())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     private CommentEntity getCommentById(UUID commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
-    }
-
-    private CommentDomainElement commentBuilder(CommentEntity comment) {
-        UserInfoResponse response = userInfoClient.getUserInfo(comment.getUserId());
-
-        return CommentDomainElement.builder()
-                .commentId(comment.getId())
-                .content(comment.getContent())
-                .name(response.getName())
-                .profile(response.getProfileFileName())
-                .updatedAt(comment.getUpdatedAt())
-                .build();
     }
 }
