@@ -3,6 +3,7 @@ package com.xquare.v1servicefeed.user.domain.repository;
 import com.xquare.v1servicefeed.feign.client.UserClient;
 import com.xquare.v1servicefeed.feign.client.dto.response.UserInfoElement;
 import com.xquare.v1servicefeed.user.User;
+import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
-public class UserRepositoryAdapter implements FeedUserSpi {
+public class UserRepositoryAdapter implements FeedUserSpi, CommentUserSpi {
 
     private final UserClient userClient;
 
