@@ -8,6 +8,8 @@ import com.xquare.v1servicefeed.feed.exception.FeedNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Component
 public class CommentMapper {
@@ -21,6 +23,8 @@ public class CommentMapper {
                 .content(commentEntity.getContent())
                 .feedId(commentEntity.getFeed().getId())
                 .userId(commentEntity.getUserId())
+                .createAt(commentEntity.getCreateAt())
+                .updatedAt(commentEntity.getUpdatedAt())
                 .build();
     }
 
@@ -32,6 +36,8 @@ public class CommentMapper {
                 .id(comment.getId())
                 .content(comment.getContent())
                 .feed(feedEntity)
+                .createAt(comment.getCreateAt())
+                .updatedAt(comment.getUpdatedAt())
                 .build();
     }
 }

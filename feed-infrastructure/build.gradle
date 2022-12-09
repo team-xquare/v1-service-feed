@@ -36,17 +36,19 @@ dependencies {
     //spring config
     implementation 'org.springframework.cloud:spring-cloud-config-client'
 
+    //uuid7
+    implementation 'com.github.f4b6a3:uuid-creator:5.2.0'
+
+    // feign client
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
+
     // querydsl
     implementation 'com.querydsl:querydsl-jpa'
     annotationProcessor(
             "javax.persistence:javax.persistence-api",
             "javax.annotation:javax.annotation-api",
             "com.querydsl:querydsl-apt:5.0.0:jpa")
-
-    // open feign
-    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
-
-    // feed domain
+           
     implementation(project(":feed-domain"))
 
 }

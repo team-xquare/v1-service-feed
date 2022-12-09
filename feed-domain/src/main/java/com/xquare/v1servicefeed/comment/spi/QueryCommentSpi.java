@@ -1,7 +1,17 @@
 package com.xquare.v1servicefeed.comment.spi;
 
 import com.xquare.v1servicefeed.annotation.Spi;
+import com.xquare.v1servicefeed.comment.Comment;
+import com.xquare.v1servicefeed.comment.api.dto.response.CommentDomainElement;
+import com.xquare.v1servicefeed.feed.Feed;
+
+import java.util.List;
+import java.util.UUID;
 
 @Spi
 public interface QueryCommentSpi {
+
+    List<UUID> queryAllCommentUserIdByFeed(Feed feed);
+
+    List<Comment> queryAllCommentByFeed(Feed feed);
 }
