@@ -56,7 +56,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
     @Override
     public List<UUID> queryAllCommentUserIdByFeed(Feed feed) {
         List<CommentEntity> commentList = query
-                .selectFrom(commentEntity)
+                .selectFrom(commentEntity).distinct()
                 .leftJoin(feedEntity)
                 .on(feedEntity.id.eq(feed.getId()))
                 .where(feedEntity.id.eq(feed.getId()))
