@@ -16,6 +16,7 @@ import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -57,12 +58,12 @@ public class CommentApiImpl implements CommentApi {
     }
 
     @Override
-    public List<CommentDomainElement> queryComment(UUID feedId) {
+    public List<CommentDomainElement> queryAllCommentByFeedId(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
 
         List<UUID> userIdList = queryCommentSpi.queryAllCommentUserIdByFeed(feed);
         Map<UUID, User> map = commentUserSpi.queryUserByIds(userIdList).stream()
-                .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user));
+                .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
 
         return queryCommentSpi.queryAllCommentByFeed(feed)
                 .stream()
