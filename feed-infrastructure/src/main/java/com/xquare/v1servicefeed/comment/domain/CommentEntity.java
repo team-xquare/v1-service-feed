@@ -37,9 +37,9 @@ public class CommentEntity extends BaseUUIDEntity {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public CommentEntity updateComment(String content, LocalDateTime updatedAt) {
+    public CommentEntity updateComment(String content) {
         this.content = content;
-        this.updatedAt = updatedAt;
+        this.updatedAt = LocalDateTime.now();
         return this;
     }
 }

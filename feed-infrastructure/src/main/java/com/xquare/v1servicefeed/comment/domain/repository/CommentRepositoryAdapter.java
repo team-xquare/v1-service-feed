@@ -14,7 +14,6 @@ import com.xquare.v1servicefeed.feed.Feed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -46,7 +45,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
     @Override
     public void updateComment(UpdateCommentDomainRequest request) {
         CommentEntity comment = getCommentById(request.getCommentId());
-        commentRepository.save(comment.updateComment(request.getContent(), LocalDateTime.now()));
+        commentRepository.save(comment.updateComment(request.getContent()));
     }
 
     @Override
