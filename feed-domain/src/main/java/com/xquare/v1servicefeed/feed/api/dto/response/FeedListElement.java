@@ -16,4 +16,5 @@ public class FeedListElement {
     private final String profile;
     private final String name;
     private final Integer likeCount;
+    private final Integer commentCount;
 }

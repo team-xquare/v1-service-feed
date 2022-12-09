@@ -75,6 +75,7 @@ public class FeedApiImpl implements FeedApi {
                             .profile(user.getProfileFileName())
                             .name(user.getName())
                             .likeCount(feed.getLikeCount())
+                            .commentCount(feed.getCommentCount())
                             .build();
                 })
                 .toList();
