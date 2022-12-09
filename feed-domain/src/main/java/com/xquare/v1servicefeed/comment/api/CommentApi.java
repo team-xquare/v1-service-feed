@@ -16,5 +16,5 @@ public interface CommentApi {
 
     void updateComment(UpdateCommentDomainRequest request);
 
-    List<CommentDomainElement> queryComment(UUID feedId);
+    List<CommentDomainElement> queryAllCommentByFeedId(UUID feedId);
 }

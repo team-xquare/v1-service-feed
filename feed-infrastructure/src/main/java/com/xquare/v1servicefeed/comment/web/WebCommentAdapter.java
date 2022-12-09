@@ -52,6 +52,6 @@ public class WebCommentAdapter {
 
     @GetMapping("/{feed-uuid}")
     public QueryCommentListResponse queryComment(@PathVariable("feed-uuid") @NotNull UUID feedId) {
-        return new QueryCommentListResponse(commentApi.queryComment(feedId));
+        return new QueryCommentListResponse(commentApi.queryAllCommentByFeedId(feedId));
     }
 }
