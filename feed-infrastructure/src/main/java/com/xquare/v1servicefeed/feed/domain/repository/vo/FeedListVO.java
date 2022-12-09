@@ -14,13 +14,15 @@ public class FeedListVO {
     private final String content;
     private final LocalDateTime createdAt;
     private final Integer likeCount;
+    private final Integer commentCount;
 
     @QueryProjection
-    public FeedListVO(UUID feedId, UUID userId, String content, LocalDateTime createdAt, Integer likeCount) {
+    public FeedListVO(UUID feedId, UUID userId, String content, LocalDateTime createdAt, Integer likeCount, Integer commentCount) {
         this.feedId = feedId;
         this.userId = userId;
         this.content = content;
         this.createdAt = createdAt;
         this.likeCount = likeCount;
+        this.commentCount = commentCount;
     }
 }

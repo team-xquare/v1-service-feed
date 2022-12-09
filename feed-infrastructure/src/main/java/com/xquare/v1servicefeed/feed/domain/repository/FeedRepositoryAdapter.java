@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.xquare.v1servicefeed.comment.domain.QCommentEntity.commentEntity;
 import static com.xquare.v1servicefeed.feed.domain.QFeedEntity.feedEntity;
 import static com.xquare.v1servicefeed.feedlike.domain.QFeedLikeEntity.feedLikeEntity;
 
@@ -63,11 +64,14 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.userId,
                         feedEntity.content,
                         feedEntity.createdAt,
-                        feedLikeEntity.feed.count().intValue()
+                        feedLikeEntity.feed.count().intValue(),
+                        commentEntity.feed.count().intValue()
                 ))
                 .from(feedEntity)
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feed.id))
+                .leftJoin(commentEntity)
+                .on(feedEntity.id.eq(commentEntity.feed.id))
                 .where(feedEntity.category.eq(category))
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
@@ -79,6 +83,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .content(feedListVO.getContent())
                         .createdAt(feedListVO.getCreatedAt())
                         .likeCount(feedListVO.getLikeCount())
+                        .commentCount(feedListVO.getCommentCount())
                         .build())
                 .collect(Collectors.toList());
     }
