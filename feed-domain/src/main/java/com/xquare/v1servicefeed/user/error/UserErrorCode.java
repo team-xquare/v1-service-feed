@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum UserErrorCode implements ExceptionProperty {
 
-    UNAUTHORIZED_USER(403, "Unauthorized User");
+    FORBIDDEN_USER(403, "FORBIDDEN User");
 
     private final int status;
     private final String message;
