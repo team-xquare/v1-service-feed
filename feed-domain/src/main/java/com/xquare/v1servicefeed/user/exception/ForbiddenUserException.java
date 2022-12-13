@@ -3,12 +3,12 @@ package com.xquare.v1servicefeed.user.exception;
 import com.xquare.v1servicefeed.error.FeedException;
 import com.xquare.v1servicefeed.user.error.UserErrorCode;
 
-public class UnauthorizedUserException extends FeedException {
+public class ForbiddenUserException extends FeedException {
 
     public static final FeedException EXCEPTION =
-            new UnauthorizedUserException();
+            new ForbiddenUserException();
 
-    private UnauthorizedUserException() {
-        super(UserErrorCode.UNAUTHORIZED_USER);
+    private ForbiddenUserException() {
+        super(UserErrorCode.FORBIDDEN_USER);
     }
 }
