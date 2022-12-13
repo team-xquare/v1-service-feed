@@ -13,6 +13,7 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
+import com.xquare.v1servicefeed.user.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class CommentApiImpl implements CommentApi {
 
     private final QueryFeedSpi queryFeedSpi;
     private final CommentUserSpi commentUserSpi;
+    private final UserUtil userUtil;
     private final CommandCommentSpi commandCommentSpi;
     private final QueryCommentSpi queryCommentSpi;
     private final SecuritySpi securitySpi;
@@ -51,7 +53,7 @@ public class CommentApiImpl implements CommentApi {
     public void deleteCommentById(UUID commentId) {
         Comment comment = queryCommentSpi.queryCommentById(commentId);
         UUID currentUserId = securitySpi.getCurrentUserId();
-        commentUserSpi.checkValidUser(comment.getUserId(), currentUserId);
+        userUtil.checkValidUser(comment.getUserId(), currentUserId);
         commandCommentSpi.deleteCommentById(commentId);
     }
 
@@ -59,7 +61,7 @@ public class CommentApiImpl implements CommentApi {
     public void updateComment(UpdateCommentDomainRequest request) {
         Comment comment = queryCommentSpi.queryCommentById(request.getCommentId());
         UUID currentUserId = securitySpi.getCurrentUserId();
-        commentUserSpi.checkValidUser(comment.getUserId(), currentUserId);
+        userUtil.checkValidUser(comment.getUserId(), currentUserId);
         commandCommentSpi.updateComment(request);
     }
 

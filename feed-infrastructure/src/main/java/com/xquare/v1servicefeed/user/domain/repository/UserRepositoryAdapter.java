@@ -3,7 +3,6 @@ package com.xquare.v1servicefeed.user.domain.repository;
 import com.xquare.v1servicefeed.feign.client.UserClient;
 import com.xquare.v1servicefeed.feign.client.dto.response.UserInfoElement;
 import com.xquare.v1servicefeed.user.User;
-import com.xquare.v1servicefeed.user.exception.ForbiddenUserException;
 import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
@@ -35,12 +34,5 @@ public class UserRepositoryAdapter implements FeedUserSpi, CommentUserSpi {
                         .profileFileName(userInfoElement.getProfileFileName())
                         .build())
                 .toList();
-    }
-
-    @Override
-    public void checkValidUser(UUID userId, UUID currentUserId) {
-        if (!currentUserId.equals(userId)) {
-            throw ForbiddenUserException.EXCEPTION;
-        }
     }
 }
