@@ -12,7 +12,6 @@ import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.user.User;
-import com.xquare.v1servicefeed.user.exception.UnauthorizedUserException;
 import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -51,14 +50,16 @@ public class CommentApiImpl implements CommentApi {
     @Override
     public void deleteCommentById(UUID commentId) {
         Comment comment = queryCommentSpi.queryCommentById(commentId);
-        isMine(comment.getUserId());
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        commentUserSpi.checkValidUser(comment.getUserId(), currentUserId);
         commandCommentSpi.deleteCommentById(commentId);
     }
 
     @Override
     public void updateComment(UpdateCommentDomainRequest request) {
         Comment comment = queryCommentSpi.queryCommentById(request.getCommentId());
-        isMine(comment.getUserId());
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        commentUserSpi.checkValidUser(comment.getUserId(), currentUserId);
         commandCommentSpi.updateComment(request);
     }
 
@@ -84,13 +85,5 @@ public class CommentApiImpl implements CommentApi {
                             .build();
                 })
                 .toList();
-    }
-
-    private void isMine(UUID userId) {
-        UUID currentUserId = securitySpi.getCurrentUserId();
-
-        if (!currentUserId.equals(userId)) {
-            throw UnauthorizedUserException.EXCEPTION;
-        }
     }
 }

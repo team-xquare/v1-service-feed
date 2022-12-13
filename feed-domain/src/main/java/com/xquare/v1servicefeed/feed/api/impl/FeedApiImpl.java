@@ -12,7 +12,7 @@ import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.user.User;
-import com.xquare.v1servicefeed.user.exception.UnauthorizedUserException;
+import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +31,7 @@ public class FeedApiImpl implements FeedApi {
     private final SecuritySpi securitySpi;
     private final QueryFeedSpi queryFeedSpi;
     private final FeedUserSpi feedUserSpi;
+    private final CommentUserSpi commentUserSpi;
 
     @Override
     public void saveFeed(DomainCreateFeedRequest request) {
@@ -47,14 +48,16 @@ public class FeedApiImpl implements FeedApi {
     @Override
     public void updateFeed(DomainUpdateFeedRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
-        isMine(feed.getUserId());
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        commentUserSpi.checkValidUser(feed.getUserId(), currentUserId);
         commandFeedSpi.updateFeed(request);
     }
 
     @Override
     public void deleteFeedById(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
-        isMine(feed.getUserId());
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        commentUserSpi.checkValidUser(feed.getUserId(), currentUserId);
         commandCommentSpi.deleteAllCommentByFeedId(feedId);
         commandFeedSpi.deleteFeed(feed);
     }
@@ -83,13 +86,5 @@ public class FeedApiImpl implements FeedApi {
                 .toList();
 
         return new FeedListResponse(feedList);
-    }
-
-    private void isMine(UUID userId) {
-        UUID currentUserId = securitySpi.getCurrentUserId();
-
-        if (!currentUserId.equals(userId)) {
-            throw UnauthorizedUserException.EXCEPTION;
-        }
     }
 }
