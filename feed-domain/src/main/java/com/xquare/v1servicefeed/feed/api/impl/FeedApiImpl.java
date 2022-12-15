@@ -13,7 +13,6 @@ import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
-import com.xquare.v1servicefeed.user.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
@@ -27,11 +26,10 @@ import java.util.stream.Collectors;
 public class FeedApiImpl implements FeedApi {
 
     private final CommandFeedSpi commandFeedSpi;
+    private final FeedUserSpi feedUserSpi;
     private final CommandCommentSpi commandCommentSpi;
     private final SecuritySpi securitySpi;
     private final QueryFeedSpi queryFeedSpi;
-    private final FeedUserSpi feedUserSpi;
-    private final UserUtil userUtil;
 
     @Override
     public void saveFeed(DomainCreateFeedRequest request) {
@@ -49,7 +47,7 @@ public class FeedApiImpl implements FeedApi {
     public void updateFeed(DomainUpdateFeedRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
         UUID currentUserId = securitySpi.getCurrentUserId();
-        userUtil.checkValidUser(feed.getUserId(), currentUserId);
+        feedUserSpi.checkValidUser(feed.getUserId(), currentUserId);
         commandFeedSpi.updateFeed(request);
     }
 
@@ -57,7 +55,7 @@ public class FeedApiImpl implements FeedApi {
     public void deleteFeedById(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
         UUID currentUserId = securitySpi.getCurrentUserId();
-        userUtil.checkValidUser(feed.getUserId(), currentUserId);
+        feedUserSpi.checkValidUser(feed.getUserId(), currentUserId);
         commandCommentSpi.deleteAllCommentByFeedId(feedId);
         commandFeedSpi.deleteFeed(feed);
     }
