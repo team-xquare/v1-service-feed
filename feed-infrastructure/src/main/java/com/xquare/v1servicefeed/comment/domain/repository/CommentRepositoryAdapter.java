@@ -54,6 +54,12 @@ public class CommentRepositoryAdapter implements CommentSpi {
     }
 
     @Override
+    public Comment queryCommentById(UUID commentId) {
+        CommentEntity comment = getCommentById(commentId);
+        return commentMapper.entityToDomain(comment);
+    }
+
+    @Override
     public List<UUID> queryAllCommentUserIdByFeed(Feed feed) {
         List<CommentEntity> commentList = query
                 .selectFrom(commentEntity).distinct()

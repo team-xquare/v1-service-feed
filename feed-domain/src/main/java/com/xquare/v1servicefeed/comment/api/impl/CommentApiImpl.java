@@ -49,11 +49,17 @@ public class CommentApiImpl implements CommentApi {
 
     @Override
     public void deleteCommentById(UUID commentId) {
+        Comment comment = queryCommentSpi.queryCommentById(commentId);
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        commentUserSpi.validateUserId(comment.getUserId(), currentUserId);
         commandCommentSpi.deleteCommentById(commentId);
     }
 
     @Override
     public void updateComment(UpdateCommentDomainRequest request) {
+        Comment comment = queryCommentSpi.queryCommentById(request.getCommentId());
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        commentUserSpi.validateUserId(comment.getUserId(), currentUserId);
         commandCommentSpi.updateComment(request);
     }
 

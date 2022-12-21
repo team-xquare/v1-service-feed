@@ -26,10 +26,10 @@ import java.util.stream.Collectors;
 public class FeedApiImpl implements FeedApi {
 
     private final CommandFeedSpi commandFeedSpi;
+    private final FeedUserSpi feedUserSpi;
     private final CommandCommentSpi commandCommentSpi;
     private final SecuritySpi securitySpi;
     private final QueryFeedSpi queryFeedSpi;
-    private final FeedUserSpi feedUserSpi;
 
     @Override
     public void saveFeed(DomainCreateFeedRequest request) {
@@ -45,16 +45,19 @@ public class FeedApiImpl implements FeedApi {
 
     @Override
     public void updateFeed(DomainUpdateFeedRequest request) {
+        Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
         commandFeedSpi.updateFeed(request);
     }
 
     @Override
     public void deleteFeedById(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
-
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
         commandCommentSpi.deleteAllCommentByFeedId(feedId);
         commandFeedSpi.deleteFeed(feed);
-
     }
 
     @Override

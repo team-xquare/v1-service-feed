@@ -11,6 +11,8 @@ import java.util.UUID;
 @Spi
 public interface QueryCommentSpi {
 
+    Comment queryCommentById(UUID commentId);
+
     List<UUID> queryAllCommentUserIdByFeed(Feed feed);
 
     List<Comment> queryAllCommentByFeed(Feed feed);
