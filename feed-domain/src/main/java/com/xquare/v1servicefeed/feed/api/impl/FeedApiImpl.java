@@ -47,7 +47,7 @@ public class FeedApiImpl implements FeedApi {
     public void updateFeed(DomainUpdateFeedRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
         UUID currentUserId = securitySpi.getCurrentUserId();
-        feedUserSpi.checkValidUser(feed.getUserId(), currentUserId);
+        feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
         commandFeedSpi.updateFeed(request);
     }
 
@@ -55,7 +55,7 @@ public class FeedApiImpl implements FeedApi {
     public void deleteFeedById(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
         UUID currentUserId = securitySpi.getCurrentUserId();
-        feedUserSpi.checkValidUser(feed.getUserId(), currentUserId);
+        feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
         commandCommentSpi.deleteAllCommentByFeedId(feedId);
         commandFeedSpi.deleteFeed(feed);
     }

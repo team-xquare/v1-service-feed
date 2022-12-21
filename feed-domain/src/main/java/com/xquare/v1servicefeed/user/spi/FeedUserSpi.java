@@ -9,5 +9,5 @@ import java.util.UUID;
 @Spi
 public interface FeedUserSpi {
     List<User> queryUserByIds(List<UUID> ids);
-    void checkValidUser(UUID userId, UUID currentUserId);
+    void validateUserId(UUID userId, UUID currentUserId);
 }

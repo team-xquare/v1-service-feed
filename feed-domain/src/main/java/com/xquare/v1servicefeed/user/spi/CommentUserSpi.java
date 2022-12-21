@@ -7,5 +7,5 @@ import java.util.UUID;
 
 public interface CommentUserSpi {
     List<User> queryUserByIds(List<UUID> ids);
-    void checkValidUser(UUID userId, UUID currentUserId);
+    void validateUserId(UUID userId, UUID currentUserId);
 }
