@@ -38,7 +38,7 @@ public class UserRepositoryAdapter implements FeedUserSpi, CommentUserSpi {
     }
 
     @Override
-    public void checkValidUser(UUID userId, UUID currentUserId) {
+    public void validateUserId(UUID userId, UUID currentUserId) {
         if (!currentUserId.equals(userId)) {
             throw ForbiddenUserException.EXCEPTION;
         }
