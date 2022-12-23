@@ -62,7 +62,7 @@ public class FeedApiImpl implements FeedApi {
         List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(category);
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
-        User defaultUser = User.builder().name("Not Found").profileFileName("Not Found").build();
+        User defaultUser = User.builder().name("").profileFileName("").build();
         hashMap.getOrDefault(UUID.randomUUID(), defaultUser);
 
         List<FeedListElement> feedList = queryFeedSpi.queryAllFeedByCategory(category)
