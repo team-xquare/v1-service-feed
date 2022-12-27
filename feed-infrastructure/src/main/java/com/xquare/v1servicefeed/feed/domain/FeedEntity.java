@@ -36,8 +36,7 @@ public class FeedEntity extends BaseUUIDEntity {
     @Column(columnDefinition = "CHAR(6)", nullable = false)
     private String category;
 
-    public void updateFeed(String title, String content) {
-        this.title = title;
+    public void updateFeed(String content) {
         this.content = content;
     }
 }
