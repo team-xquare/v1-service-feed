@@ -16,6 +16,5 @@ public class WebUpdateFeedRequest {
     @Max(65535)
     private String content;
 
-    @NotBlank
     private List<String> attachmentsUrl;
 }
