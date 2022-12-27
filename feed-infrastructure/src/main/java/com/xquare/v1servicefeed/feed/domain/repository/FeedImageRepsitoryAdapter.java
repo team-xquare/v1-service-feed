@@ -24,10 +24,10 @@ public class FeedImageRepsitoryAdapter implements FeedImageSpi {
     @Override
     @Transactional
     public void saveAllFeedImage(List<FeedImage> feedImage) {
-        List<FeedImageEntity> list = feedImage.stream()
+        List<FeedImageEntity> feedImageList = feedImage.stream()
                 .map(feedImageMapper::domainToEntity)
                 .toList();
-        feedImageRepository.saveAll(list);
+        feedImageRepository.saveAll(feedImageList);
     }
 
     @Override
