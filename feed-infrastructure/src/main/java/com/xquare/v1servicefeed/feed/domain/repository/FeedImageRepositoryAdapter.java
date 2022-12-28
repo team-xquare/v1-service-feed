@@ -1,6 +1,6 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
-import com.xquare.v1servicefeed.annotation.DomainService;
+import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.FeedImage;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
@@ -14,11 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@DomainService
-public class FeedImageRepsitoryAdapter implements FeedImageSpi {
+@Adapter
+public class FeedImageRepositoryAdapter implements FeedImageSpi {
 
     private final FeedImageRepository feedImageRepository;
     private final FeedImageMapper feedImageMapper;
@@ -50,7 +49,7 @@ public class FeedImageRepsitoryAdapter implements FeedImageSpi {
 
         return feedImageList.stream()
                 .map(FeedImage::getFilePath)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<FeedImage> queryAllFeedImageByFeed(Feed feed) {
@@ -62,6 +61,6 @@ public class FeedImageRepsitoryAdapter implements FeedImageSpi {
                         .feedId(feedImageEntity.getFeedEntity().getId())
                         .filePath(feedImageEntity.getFilePath())
                         .build())
-                .collect(Collectors.toList());
+                .toList();
     }
 }
