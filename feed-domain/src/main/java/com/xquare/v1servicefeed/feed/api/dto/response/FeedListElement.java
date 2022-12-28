@@ -17,4 +17,6 @@ public class FeedListElement {
     private final String name;
     private final Integer likeCount;
     private final Integer commentCount;
+    private final Boolean isMine;
+    private final Boolean isLike;
 }
