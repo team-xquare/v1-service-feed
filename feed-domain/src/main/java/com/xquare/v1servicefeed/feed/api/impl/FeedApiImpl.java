@@ -12,6 +12,7 @@ import com.xquare.v1servicefeed.feed.api.dto.response.FeedListElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
+import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
@@ -33,6 +34,7 @@ public class FeedApiImpl implements FeedApi {
     private final QueryFeedSpi queryFeedSpi;
     private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final CommandFeedImageSpi commandFeedImageSpi;
+    private final QueryFeedImageSpi queryFeedImageSpi;
 
     @Override
     public void saveFeed(DomainCreateFeedRequest request) {
@@ -84,6 +86,7 @@ public class FeedApiImpl implements FeedApi {
                     FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeed(feed);
                     Boolean isLike = feedLike.getUserId().equals(currentUserId);
                     Boolean isMine = feed.getUserId().equals(currentUserId);
+                    List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed);
 
                     return FeedListElement.builder()
                             .feedId(feed.getId())
@@ -95,6 +98,7 @@ public class FeedApiImpl implements FeedApi {
                             .commentCount(feed.getCommentCount())
                             .isMine(isMine)
                             .isLike(isLike)
+                            .attachmentsUrl(attachmentsUrl)
                             .build();
                 })
                 .toList();
