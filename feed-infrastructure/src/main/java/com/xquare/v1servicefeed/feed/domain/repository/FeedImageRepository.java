@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FeedImageRepository extends CrudRepository<FeedImageEntity, FeedImageEntityId> {
 
-    void deleteAllByFeed(FeedEntity feed);
+    void deleteAllByFeedEntity(FeedEntity feed);
 }

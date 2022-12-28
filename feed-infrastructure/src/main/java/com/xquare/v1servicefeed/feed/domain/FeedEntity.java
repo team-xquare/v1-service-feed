@@ -9,8 +9,11 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -35,6 +38,9 @@ public class FeedEntity extends BaseUUIDEntity {
 
     @Column(columnDefinition = "CHAR(6)", nullable = false)
     private String category;
+
+    @OneToMany(mappedBy = "feedEntity")
+    private Set<FeedImageEntity> feedImageEntities = new HashSet<>();
 
     public void updateFeed(String content) {
         this.content = content;

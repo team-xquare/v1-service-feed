@@ -48,8 +48,10 @@ public class FeedApiImpl implements FeedApi {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
         UUID currentUserId = securitySpi.getCurrentUserId();
         feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
+
         commandFeedImageSpi.deleteAllFeedImage(request.getFeedId());
         saveAllFeedImage(request.getFeedId(), request.getAttachmentsUrl());
+
         if (!feed.getContent().equals(request.getContent())) {
             commandFeedSpi.updateFeed(request);
         }
@@ -96,7 +98,7 @@ public class FeedApiImpl implements FeedApi {
             FeedImage feedImage = FeedImage.builder()
                     .feedId(feedId)
                     .filePath(attachmentsUrl.get(i))
-                    .order(i)
+                    .number(i)
                     .build();
             feedImageList.add(feedImage);
         }

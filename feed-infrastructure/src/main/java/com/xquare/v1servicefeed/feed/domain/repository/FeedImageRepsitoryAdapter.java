@@ -36,6 +36,6 @@ public class FeedImageRepsitoryAdapter implements FeedImageSpi {
         FeedEntity feedEntity = feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
-        feedImageRepository.deleteAllByFeed(feedEntity);
+        feedImageRepository.deleteAllByFeedEntity(feedEntity);
     }
 }

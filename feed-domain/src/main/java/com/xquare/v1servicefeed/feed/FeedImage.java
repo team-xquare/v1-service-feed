@@ -11,7 +11,7 @@ import java.util.UUID;
 @Aggregate
 public class FeedImage {
 
-    private final Integer order;
+    private final Integer number;
 
     private final UUID feedId;
 

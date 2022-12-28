@@ -18,5 +18,5 @@ public class FeedImageEntityId implements Serializable {
     private UUID feedId;
 
     @Column(nullable = false)
-    private Integer order;
+    private Integer number;
 }

@@ -20,11 +20,11 @@ public class FeedImageEntity implements Serializable {
     @EmbeddedId
     private FeedImageEntityId id;
 
+    @MapsId("feedId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(columnDefinition = "BINARY(16)", nullable = false)
+    private FeedEntity feedEntity;
+
     @Column(length = 1024, nullable = false)
     private String filePath;
-
-    @MapsId("id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feed_id", nullable = false)
-    private FeedEntity feed;
 }

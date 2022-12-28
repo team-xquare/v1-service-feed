@@ -20,9 +20,9 @@ public class FeedImageMapper {
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
 
         return FeedImageEntity.builder()
-                .id(new FeedImageEntityId(feedImage.getFeedId(), feedImage.getOrder()))
+                .id(new FeedImageEntityId(feedImage.getFeedId(), feedImage.getNumber()))
                 .filePath(feedImage.getFilePath())
-                .feed(feedEntity)
+                .feedEntity(feedEntity)
                 .build();
     }
 }
