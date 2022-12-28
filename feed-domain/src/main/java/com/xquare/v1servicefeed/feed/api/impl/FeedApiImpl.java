@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @DomainService
@@ -51,7 +50,9 @@ public class FeedApiImpl implements FeedApi {
         feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
         commandFeedImageSpi.deleteAllFeedImage(request.getFeedId());
         saveAllFeedImage(request.getFeedId(), request.getAttachmentsUrl());
-        commandFeedSpi.updateFeed(request);
+        if (!feed.getContent().equals(request.getContent())) {
+            commandFeedSpi.updateFeed(request);
+        }
     }
 
     @Override
@@ -91,18 +92,14 @@ public class FeedApiImpl implements FeedApi {
 
     private void saveAllFeedImage(UUID feedId, List<String> attachmentsUrl) {
         List<FeedImage> feedImageList = new ArrayList<>();
-        Stream.iterate(0, i -> i + 1)
-                .limit(attachmentsUrl.size())
-                .forEach(i -> {
-                    feedImageList.add(
-                            FeedImage.builder()
-                                    .order(i)
-                                    .feedId(feedId)
-                                    .filePath(attachmentsUrl.get(i))
-                                    .build()
-                    );
-                });
-
+        for (int i = 0; i < attachmentsUrl.size(); i++) {
+            FeedImage feedImage = FeedImage.builder()
+                    .feedId(feedId)
+                    .filePath(attachmentsUrl.get(i))
+                    .order(i)
+                    .build();
+            feedImageList.add(feedImage);
+        }
         commandFeedImageSpi.saveAllFeedImage(feedImageList);
     }
 }
