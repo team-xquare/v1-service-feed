@@ -12,5 +12,5 @@ public class DomainCreateFeedImageRequest {
 
     private UUID feedId;
 
-    private List<String> attachments_url;
+    private List<String> attachmentsUrl;
 }

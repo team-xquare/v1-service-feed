@@ -11,5 +11,5 @@ import java.util.List;
 public class WebCreateFeedImageRequest {
 
     @NotBlank
-    private List<String> attachments_url;
+    private List<String> attachmentsUrl;
 }

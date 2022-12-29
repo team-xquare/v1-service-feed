@@ -22,7 +22,7 @@ public class WebFeedImageAdapter {
     public void saveFeedImage(@PathVariable("feed-uuid") UUID feedId, @Valid @RequestBody WebCreateFeedImageRequest request) {
         DomainCreateFeedImageRequest domainCreateFeedImageRequest = DomainCreateFeedImageRequest.builder()
                 .feedId(feedId)
-                .attachments_url(request.getAttachments_url())
+                .attachmentsUrl(request.getAttachmentsUrl())
                 .build();
         feedImageApi.saveAllFeedImage(domainCreateFeedImageRequest);
     }

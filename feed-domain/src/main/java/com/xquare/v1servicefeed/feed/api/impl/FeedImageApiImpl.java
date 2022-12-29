@@ -20,10 +20,10 @@ public class FeedImageApiImpl implements FeedImageApi {
     @Override
     public void saveAllFeedImage(DomainCreateFeedImageRequest request) {
         List<FeedImage> feedImageList = new ArrayList<>();
-        for (int i = 0; i < request.getAttachments_url().size(); i++) {
+        for (int i = 0; i < request.getAttachmentsUrl().size(); i++) {
             FeedImage feedImage = FeedImage.builder()
                     .feedId(request.getFeedId())
-                    .filePath(request.getAttachments_url().get(i))
+                    .filePath(request.getAttachmentsUrl().get(i))
                     .number(i)
                     .build();
             feedImageList.add(feedImage);
