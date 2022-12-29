@@ -9,6 +9,7 @@ import java.util.UUID;
 @Getter
 @Builder
 public class DomainCreateFeedImageRequest {
+
     private UUID feedId;
 
     private List<String> attachments_url;
