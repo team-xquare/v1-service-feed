@@ -11,7 +11,10 @@ import com.xquare.v1servicefeed.feed.api.dto.response.FeedListElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
+import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
+import com.xquare.v1servicefeed.feedlike.FeedLike;
+import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +35,9 @@ public class FeedApiImpl implements FeedApi {
     private final CommandFeedImageSpi commandFeedImageSpi;
     private final SecuritySpi securitySpi;
     private final QueryFeedSpi queryFeedSpi;
+    private final QueryFeedLikeSpi queryFeedLikeSpi;
+    private final CommandFeedImageSpi commandFeedImageSpi;
+    private final QueryFeedImageSpi queryFeedImageSpi;
 
     @Override
     public void saveFeed(DomainCreateFeedRequest request) {
@@ -75,11 +81,16 @@ public class FeedApiImpl implements FeedApi {
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();
         hashMap.getOrDefault(UUID.randomUUID(), defaultUser);
+        UUID currentUserId = securitySpi.getCurrentUserId();
 
         List<FeedListElement> feedList = queryFeedSpi.queryAllFeedByCategory(category)
                 .stream()
                 .map(feed -> {
                     User user = hashMap.get(feed.getUserId());
+                    FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeed(feed);
+                    Boolean isLike = feedLike.getUserId().equals(currentUserId);
+                    Boolean isMine = feed.getUserId().equals(currentUserId);
+                    List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed);
 
                     return FeedListElement.builder()
                             .feedId(feed.getId())
@@ -89,6 +100,9 @@ public class FeedApiImpl implements FeedApi {
                             .name(user.getName())
                             .likeCount(feed.getLikeCount())
                             .commentCount(feed.getCommentCount())
+                            .isMine(isMine)
+                            .isLike(isLike)
+                            .attachmentsUrl(attachmentsUrl)
                             .build();
                 })
                 .toList();

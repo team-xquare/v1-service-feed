@@ -6,6 +6,8 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import java.util.List;
+
 @Getter
 @Builder
 public class FeedListElement {
@@ -17,4 +19,7 @@ public class FeedListElement {
     private final String name;
     private final Integer likeCount;
     private final Integer commentCount;
+    private final Boolean isMine;
+    private final Boolean isLike;
+    private final List<String> attachmentsUrl;
 }
