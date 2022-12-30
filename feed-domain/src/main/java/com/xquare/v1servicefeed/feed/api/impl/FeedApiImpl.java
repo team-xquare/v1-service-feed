@@ -36,7 +36,6 @@ public class FeedApiImpl implements FeedApi {
     private final SecuritySpi securitySpi;
     private final QueryFeedSpi queryFeedSpi;
     private final QueryFeedLikeSpi queryFeedLikeSpi;
-    private final CommandFeedImageSpi commandFeedImageSpi;
     private final QueryFeedImageSpi queryFeedImageSpi;
 
     @Override
