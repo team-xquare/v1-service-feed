@@ -1,7 +1,7 @@
 server:
   shutdown: graceful
   servlet:
-    context-path: /feed
+    context-path: /feeds
 
 spring:
   application:
