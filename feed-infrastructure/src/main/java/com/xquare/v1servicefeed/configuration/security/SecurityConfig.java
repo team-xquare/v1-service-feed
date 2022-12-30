@@ -18,9 +18,9 @@ public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
     
-    private static final String STUDENT = UserRole.STU.name();
-    private static final String SCHOOL = UserRole.SCH.name();
-    private static final String DORMITORY = UserRole.DOR.name();
+    private static final String STUDENT = "ROLE_" + UserRole.STU.name();
+    private static final String SCHOOL = "ROLE_" + UserRole.SCH.name();
+    private static final String DORMITORY = "ROLE_" + UserRole.DOR.name();
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -35,11 +35,24 @@ public class SecurityConfig {
                 .authorizeRequests()
 
                 .antMatchers(HttpMethod.POST, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.PATCH, "/feeds/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.DELETE, "/feeds/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.GET, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
 
-                .antMatchers(HttpMethod.POST, "/comments").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.GET, "/feeds/category").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
 
-                .antMatchers(HttpMethod.DELETE, "/comments/{comment-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
-                
+                .antMatchers(HttpMethod.POST, "/feeds/comments").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.PUT, "/feeds/comments/{comment-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.DELETE, "/feeds/comments/{comment-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.GET, "/feeds/comments/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+
+                .antMatchers(HttpMethod.POST, "/feeds/likes/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.DELETE, "/feeds/likes/{feed-like-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+
+                .antMatchers(HttpMethod.POST, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.DELETE, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.PATCH, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+
                 .anyRequest().authenticated()
 
                 .and()
