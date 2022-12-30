@@ -47,24 +47,25 @@ public class FeedImageApiImpl implements FeedImageApi {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
         List<FeedImage> feedImageList = queryFeedImageSpi.queryAllByFeed(feed);
 
-        if (request.getAttachmentsUrl().size() > feedImageList.size()) {
-            for (int i = 0; i < request.getAttachmentsUrl().size(); i++) {
-                if (i < feedImageList.size() && !request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
+        int requestImageSize = request.getAttachmentsUrl().size();
+        if (requestImageSize > feedImageList.size()) {
+            for (int i = 0; i < requestImageSize; i++) {
+                if (!request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
                     saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
                 } else {
                     saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
                 }
             }
-        } else if (feedImageList.size() > request.getAttachmentsUrl().size()) {
+        } else if (feedImageList.size() > requestImageSize) {
             for (int i = 0; i < feedImageList.size(); i++) {
-                if (i < request.getAttachmentsUrl().size() && !request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
+                if (!request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
                     saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
                 } else {
                     commandFeedImageSpi.deleteFeedImage(feedImageList.get(i));
                 }
             }
         } else {
-            for (int i = 0; i < request.getAttachmentsUrl().size(); i++) {
+            for (int i = 0; i < requestImageSize; i++) {
                 if (!request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
                     saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
                 }
