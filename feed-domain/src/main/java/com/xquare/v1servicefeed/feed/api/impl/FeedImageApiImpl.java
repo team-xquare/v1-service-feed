@@ -7,7 +7,6 @@ import com.xquare.v1servicefeed.feed.api.FeedImageApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedImageRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedImageRequest;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
-import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -20,20 +19,11 @@ import java.util.UUID;
 public class FeedImageApiImpl implements FeedImageApi {
 
     private final CommandFeedImageSpi commandFeedImageSpi;
-    private final QueryFeedImageSpi queryFeedImageSpi;
     private final QueryFeedSpi queryFeedSpi;
 
     @Override
     public void saveAllFeedImage(DomainCreateFeedImageRequest request) {
-        List<FeedImage> feedImageList = new ArrayList<>();
-        for (int i = 0; i < request.getAttachmentsUrl().size(); i++) {
-            FeedImage feedImage = FeedImage.builder()
-                    .feedId(request.getFeedId())
-                    .filePath(request.getAttachmentsUrl().get(i))
-                    .number(i)
-                    .build();
-            feedImageList.add(feedImage);
-        }
+        List<FeedImage> feedImageList = buildFeedImage(request.getFeedId(), request.getAttachmentsUrl());
         commandFeedImageSpi.saveAllFeedImage(feedImageList);
     }
 
@@ -45,40 +35,22 @@ public class FeedImageApiImpl implements FeedImageApi {
     @Override
     public void updateFeedImage(DomainUpdateFeedImageRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
-        List<FeedImage> feedImageList = queryFeedImageSpi.queryAllByFeed(feed);
 
-        int requestImageSize = request.getAttachmentsUrl().size();
-        if (requestImageSize > feedImageList.size()) {
-            for (int i = 0; i < requestImageSize; i++) {
-                if (!request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
-                    saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
-                } else {
-                    saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
-                }
-            }
-        } else if (feedImageList.size() > requestImageSize) {
-            for (int i = 0; i < feedImageList.size(); i++) {
-                if (!request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
-                    saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
-                } else {
-                    commandFeedImageSpi.deleteFeedImage(feedImageList.get(i));
-                }
-            }
-        } else {
-            for (int i = 0; i < requestImageSize; i++) {
-                if (!request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
-                    saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
-                }
-            }
-        }
+        commandFeedImageSpi.deleteAllFeedImage(feed.getId());
+        List<FeedImage> feedImageList = buildFeedImage(request.getFeedId(), request.getAttachmentsUrl());
+        commandFeedImageSpi.saveAllFeedImage(feedImageList);
     }
 
-    private void saveFeedImage(Integer number, UUID feedId, String filePath) {
-        FeedImage feedImage = FeedImage.builder()
-                .number(number)
-                .feedId(feedId)
-                .filePath(filePath)
-                .build();
-        commandFeedImageSpi.saveFeedImage(feedImage);
+    private List<FeedImage> buildFeedImage(UUID feedId, List<String> getAttachmentsUrl) {
+        List<FeedImage> feedImageList = new ArrayList<>();
+        for (int i = 0; i < getAttachmentsUrl.size(); i++) {
+            FeedImage feedImage = FeedImage.builder()
+                    .number(i)
+                    .feedId(feedId)
+                    .filePath(getAttachmentsUrl.get(i))
+                    .build();
+            feedImageList.add(feedImage);
+        }
+        return feedImageList;
     }
 }
