@@ -49,20 +49,16 @@ public class FeedImageApiImpl implements FeedImageApi {
 
         if (request.getAttachmentsUrl().size() > feedImageList.size()) {
             for (int i = 0; i < request.getAttachmentsUrl().size(); i++) {
-                if (i < feedImageList.size()) {
-                    if (!request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
-                        saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
-                    }
+                if (i < feedImageList.size() && !request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
+                    saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
                 } else {
                     saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
                 }
             }
         } else if (feedImageList.size() > request.getAttachmentsUrl().size()) {
             for (int i = 0; i < feedImageList.size(); i++) {
-                if (i < request.getAttachmentsUrl().size()) {
-                    if (!request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
-                        saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
-                    }
+                if (i < request.getAttachmentsUrl().size() && !request.getAttachmentsUrl().get(i).equals(feedImageList.get(i).getFilePath())) {
+                    saveFeedImage(i, request.getFeedId(), request.getAttachmentsUrl().get(i));
                 } else {
                     commandFeedImageSpi.deleteFeedImage(feedImageList.get(i));
                 }
