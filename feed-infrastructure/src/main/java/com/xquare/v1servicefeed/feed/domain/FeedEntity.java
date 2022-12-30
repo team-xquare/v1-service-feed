@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,8 +33,9 @@ public class FeedEntity extends BaseUUIDEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(columnDefinition = "CHAR(6)", nullable = false)
-    private String category;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity categoryEntity;
 
     @OneToMany(mappedBy = "feedEntity")
     private Set<FeedImageEntity> feedImageEntities = new HashSet<>();
