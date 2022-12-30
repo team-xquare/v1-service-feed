@@ -23,7 +23,7 @@ public class FeedImageApiImpl implements FeedImageApi {
 
     @Override
     public void saveAllFeedImage(CreateFeedImageRequest request) {
-        List<FeedImage> feedImageList = buildFeedImage(request.getFeedId(), request.getAttachmentsUrl());
+        List<FeedImage> feedImageList = buildFeedImages(request.getFeedId(), request.getAttachmentsUrl());
         commandFeedImageSpi.saveAllFeedImage(feedImageList);
     }
 
@@ -37,11 +37,11 @@ public class FeedImageApiImpl implements FeedImageApi {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
 
         commandFeedImageSpi.deleteAllFeedImage(feed.getId());
-        List<FeedImage> feedImageList = buildFeedImage(request.getFeedId(), request.getAttachmentsUrl());
+        List<FeedImage> feedImageList = buildFeedImages(request.getFeedId(), request.getAttachmentsUrl());
         commandFeedImageSpi.saveAllFeedImage(feedImageList);
     }
 
-    private List<FeedImage> buildFeedImage(UUID feedId, List<String> getAttachmentsUrl) {
+    private List<FeedImage> buildFeedImages(UUID feedId, List<String> getAttachmentsUrl) {
         List<FeedImage> feedImageList = new ArrayList<>();
         for (int i = 0; i < getAttachmentsUrl.size(); i++) {
             FeedImage feedImage = FeedImage.builder()
