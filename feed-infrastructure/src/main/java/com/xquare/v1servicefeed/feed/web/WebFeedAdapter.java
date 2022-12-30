@@ -14,7 +14,6 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RequestMapping("/feeds")
 @RestController
 public class WebFeedAdapter {
 
