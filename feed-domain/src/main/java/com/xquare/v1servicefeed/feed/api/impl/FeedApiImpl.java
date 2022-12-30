@@ -7,8 +7,10 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
+import com.xquare.v1servicefeed.feed.enums.Category;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
@@ -19,10 +21,7 @@ import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -107,5 +106,11 @@ public class FeedApiImpl implements FeedApi {
                 .toList();
 
         return new FeedListResponse(feedList);
+    }
+
+    @Override
+    public FeedCategoryResponse getAllCategory() {
+        List<Category> categoryList = new ArrayList<>(Arrays.asList(Category.NOTICE, Category.CLUB, Category.BAMBOO));
+        return new FeedCategoryResponse(categoryList);
     }
 }
