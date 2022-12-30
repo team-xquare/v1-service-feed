@@ -18,9 +18,9 @@ public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
     
-    private static final String STUDENT = UserRole.STU.name();
-    private static final String SCHOOL = UserRole.SCH.name();
-    private static final String DORMITORY = UserRole.DOR.name();
+    private static final String STUDENT = "ROLE_" + UserRole.STU.name();
+    private static final String SCHOOL = "ROLE_" + UserRole.SCH.name();
+    private static final String DORMITORY = "ROLE_" + UserRole.DOR.name();
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
