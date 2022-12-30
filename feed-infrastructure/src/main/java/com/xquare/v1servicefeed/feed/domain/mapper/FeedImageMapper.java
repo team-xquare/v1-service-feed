@@ -25,4 +25,12 @@ public class FeedImageMapper {
                 .feedEntity(feedEntity)
                 .build();
     }
+
+    public FeedImage entityToDomain(FeedImageEntity feedImageEntity) {
+        return FeedImage.builder()
+                .feedId(feedImageEntity.getId().getFeedId())
+                .number(feedImageEntity.getId().getNumber())
+                .filePath(feedImageEntity.getFilePath())
+                .build();
+    }
 }
