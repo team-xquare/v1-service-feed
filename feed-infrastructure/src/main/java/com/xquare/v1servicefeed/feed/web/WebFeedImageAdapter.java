@@ -1,8 +1,8 @@
 package com.xquare.v1servicefeed.feed.web;
 
 import com.xquare.v1servicefeed.feed.api.FeedImageApi;
-import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedImageRequest;
-import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedImageRequest;
+import com.xquare.v1servicefeed.feed.api.dto.request.CreateFeedImageRequest;
+import com.xquare.v1servicefeed.feed.api.dto.request.UpdateFeedImageRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedImageRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedImageRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,23 +24,23 @@ public class WebFeedImageAdapter {
     public void saveFeedImage(
             @PathVariable("feed-uuid") UUID feedId, @Valid @RequestBody WebCreateFeedImageRequest webRequest
     ) {
-        DomainCreateFeedImageRequest domainRequest = DomainCreateFeedImageRequest.builder()
+        CreateFeedImageRequest createFeedImageRequest = CreateFeedImageRequest.builder()
                 .feedId(feedId)
                 .attachmentsUrl(webRequest.getAttachmentsUrl())
                 .build();
-        feedImageApi.saveAllFeedImage(domainRequest);
+        feedImageApi.saveAllFeedImage(createFeedImageRequest);
     }
 
     @PatchMapping("/{feed-uuid}")
     public void updateFeedImage(
             @PathVariable("feed-uuid") UUID feedId, @Valid @RequestBody WebUpdateFeedImageRequest webRequest
     ) {
-        DomainUpdateFeedImageRequest domainRequest = DomainUpdateFeedImageRequest.builder()
+        UpdateFeedImageRequest updateFeedImageRequest = UpdateFeedImageRequest.builder()
                 .feedId(feedId)
                 .attachmentsUrl(webRequest.getAttachmentsUrl())
                 .build();
 
-        feedImageApi.updateFeedImage(domainRequest);
+        feedImageApi.updateFeedImage(updateFeedImageRequest);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

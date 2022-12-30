@@ -3,6 +3,7 @@ package com.xquare.v1servicefeed.feed.web.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
 public class WebUpdateFeedImageRequest {
 
     @NotNull
-    private List<String> attachmentsUrl;
+    private List<@NotBlank String> attachmentsUrl;
 }

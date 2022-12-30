@@ -4,8 +4,8 @@ import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.FeedImage;
 import com.xquare.v1servicefeed.feed.api.FeedImageApi;
-import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedImageRequest;
-import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedImageRequest;
+import com.xquare.v1servicefeed.feed.api.dto.request.CreateFeedImageRequest;
+import com.xquare.v1servicefeed.feed.api.dto.request.UpdateFeedImageRequest;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class FeedImageApiImpl implements FeedImageApi {
     private final QueryFeedSpi queryFeedSpi;
 
     @Override
-    public void saveAllFeedImage(DomainCreateFeedImageRequest request) {
+    public void saveAllFeedImage(CreateFeedImageRequest request) {
         List<FeedImage> feedImageList = buildFeedImage(request.getFeedId(), request.getAttachmentsUrl());
         commandFeedImageSpi.saveAllFeedImage(feedImageList);
     }
@@ -33,7 +33,7 @@ public class FeedImageApiImpl implements FeedImageApi {
     }
 
     @Override
-    public void updateFeedImage(DomainUpdateFeedImageRequest request) {
+    public void updateFeedImage(UpdateFeedImageRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
 
         commandFeedImageSpi.deleteAllFeedImage(feed.getId());

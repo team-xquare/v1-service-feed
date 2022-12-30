@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
-public class DomainUpdateFeedImageRequest {
+public class UpdateFeedImageRequest {
     private final UUID feedId;
     private final List<String> attachmentsUrl;
 }
