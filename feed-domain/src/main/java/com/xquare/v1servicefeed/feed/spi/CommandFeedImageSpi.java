@@ -11,4 +11,8 @@ public interface CommandFeedImageSpi {
     void saveAllFeedImage(List<FeedImage> feedImage);
 
     void deleteAllFeedImage(UUID feedId);
+
+    void saveFeedImage(FeedImage feedImage);
+
+    void deleteFeedImage(FeedImage feedImage);
 }

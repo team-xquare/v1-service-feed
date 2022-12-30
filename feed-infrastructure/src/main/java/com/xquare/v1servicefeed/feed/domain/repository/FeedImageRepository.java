@@ -14,5 +14,7 @@ public interface FeedImageRepository extends CrudRepository<FeedImageEntity, Fee
 
     void deleteAllByFeedEntity(FeedEntity feedEntity);
 
+    void deleteByFeedEntity(FeedEntity feedEntity);
+
     List<FeedImageEntity> findAllByFeedEntity(FeedEntity feedEntity);
 }
