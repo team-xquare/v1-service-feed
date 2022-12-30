@@ -9,6 +9,4 @@ import java.util.List;
 @Spi
 public interface QueryFeedImageSpi {
     List<String> queryAllAttachmentsUrl(Feed feed);
-
-    List<FeedImage> queryAllByFeed(Feed feed);
 }

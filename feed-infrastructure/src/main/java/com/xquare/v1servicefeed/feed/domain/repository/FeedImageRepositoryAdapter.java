@@ -5,7 +5,6 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.FeedImage;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.FeedImageEntity;
-import com.xquare.v1servicefeed.feed.domain.FeedImageEntityId;
 import com.xquare.v1servicefeed.feed.domain.mapper.FeedImageMapper;
 import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feed.exception.FeedNotFoundException;
@@ -44,34 +43,12 @@ public class FeedImageRepositoryAdapter implements FeedImageSpi {
     }
 
     @Override
-    public void saveFeedImage(FeedImage feedImage) {
-        feedImageRepository.save(feedImageMapper.domainToEntity(feedImage));
-    }
-
-    @Override
-    public void deleteFeedImage(FeedImage feedImage) {
-        FeedImageEntityId feedImageId = new FeedImageEntityId(feedImage.getFeedId(), feedImage.getNumber());
-        FeedImageEntity feedImageEntity = feedImageRepository.findById(feedImageId)
-                .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
-
-        feedImageRepository.deleteById(feedImageEntity.getId());
-    }
-
-    @Override
     @Transactional
     public List<String> queryAllAttachmentsUrl(Feed feed) {
         List<FeedImage> feedImageList = queryAllFeedImageByFeed(feed);
 
         return feedImageList.stream()
                 .map(FeedImage::getFilePath)
-                .toList();
-    }
-
-    @Override
-    public List<FeedImage> queryAllByFeed(Feed feed) {
-        return feedImageRepository.findAllByFeedEntity(feedMapper.domainToEntity(feed))
-                .stream()
-                .map(feedImageMapper::entityToDomain)
                 .toList();
     }
 
