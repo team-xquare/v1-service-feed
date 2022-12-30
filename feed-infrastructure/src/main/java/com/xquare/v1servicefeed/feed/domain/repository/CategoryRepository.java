@@ -4,8 +4,12 @@ import com.xquare.v1servicefeed.feed.domain.CategoryEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
 public interface CategoryRepository extends CrudRepository<CategoryEntity, UUID> {
+
+    @Override
+    List<CategoryEntity> findAll();
 }
