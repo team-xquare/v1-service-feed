@@ -1,4 +1,4 @@
-name: Build for Stage
+name: v1-service-feed - CD(stag)
 on:
   push:
     branches:

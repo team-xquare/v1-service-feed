@@ -1,4 +1,4 @@
-name: Build for Prod
+name: v1-service-feed - CD(prod)
 on:
   push:
     tags:
