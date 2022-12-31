@@ -3,6 +3,7 @@ package com.xquare.v1servicefeed.feed.web;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedRequest;
@@ -52,7 +53,12 @@ public class WebFeedAdapter {
     }
 
     @GetMapping
-    public FeedListResponse getAllFeed(@RequestParam("category") String category) {
-        return feedApi.getAllFeed(category);
+    public FeedListResponse getAllFeed(@RequestParam("category") UUID categoryId) {
+        return feedApi.getAllFeed(categoryId);
+    }
+
+    @GetMapping("/category")
+    public FeedCategoryResponse getAllCategory() {
+        return feedApi.getAllCategory();
     }
 }

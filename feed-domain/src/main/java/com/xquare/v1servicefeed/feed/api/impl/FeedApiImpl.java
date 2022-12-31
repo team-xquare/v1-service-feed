@@ -3,16 +3,15 @@ package com.xquare.v1servicefeed.feed.api.impl;
 import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
+import com.xquare.v1servicefeed.feed.Category;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
-import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
-import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
-import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
-import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
+import com.xquare.v1servicefeed.feed.spi.*;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
@@ -37,13 +36,14 @@ public class FeedApiImpl implements FeedApi {
     private final QueryFeedSpi queryFeedSpi;
     private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final QueryFeedImageSpi queryFeedImageSpi;
+    private final QueryCategorySpi queryCategorySpi;
 
     @Override
     public void saveFeed(DomainCreateFeedRequest request) {
         Feed feed = Feed.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
-                .category(request.getCategory())
+                .categoryId(request.getCategory())
                 .userId(securitySpi.getCurrentUserId())
                 .build();
 
@@ -74,15 +74,15 @@ public class FeedApiImpl implements FeedApi {
     }
 
     @Override
-    public FeedListResponse getAllFeed(String category) {
-        List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(category);
+    public FeedListResponse getAllFeed(UUID categoryId) {
+        List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(categoryId);
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();
         hashMap.getOrDefault(UUID.randomUUID(), defaultUser);
         UUID currentUserId = securitySpi.getCurrentUserId();
 
-        List<FeedListElement> feedList = queryFeedSpi.queryAllFeedByCategory(category)
+        List<FeedListElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId)
                 .stream()
                 .map(feed -> {
                     User user = hashMap.get(feed.getUserId());
@@ -107,5 +107,15 @@ public class FeedApiImpl implements FeedApi {
                 .toList();
 
         return new FeedListResponse(feedList);
+    }
+
+    @Override
+    public FeedCategoryResponse getAllCategory() {
+        List<String> categoryList = queryCategorySpi.queryAllCategory()
+                .stream()
+                .map(Category::getName)
+                .toList();
+
+        return new FeedCategoryResponse(categoryList);
     }
 }
