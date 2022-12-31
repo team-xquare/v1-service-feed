@@ -67,8 +67,8 @@ jobs:
           repository: team-xquare/xquare-gitops-repo-production
           event-type: update_image
           client-payload: '{
-                            "ref": "${{ github.ref }}", 
-                            "version":  "${{ steps.get_version.outputs.VERSION }}",
-                            "service_name": "${{env.SERVICE_NAME}}",
-                            "service_type": "${{env.SERVICE_TYPE}}"
+                              "ref": "${{ github.ref }}", 
+                              "version":  "${{ steps.get_version.outputs.VERSION }}",
+                              "service_name": "${{env.SERVICE_NAME}}",
+                              "service_type": "${{env.SERVICE_TYPE}}"
                           }'
