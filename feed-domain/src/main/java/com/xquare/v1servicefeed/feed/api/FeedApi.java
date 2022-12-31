@@ -16,7 +16,7 @@ public interface FeedApi {
 
     void deleteFeedById(UUID feedId);
 
-    FeedListResponse getAllFeed(String category);
+    FeedListResponse getAllFeed(UUID categoryId);
 
     FeedCategoryResponse getAllCategory();
 }
