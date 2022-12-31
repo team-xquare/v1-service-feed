@@ -33,7 +33,7 @@ public class FeedEntity extends BaseUUIDEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity categoryEntity;
 

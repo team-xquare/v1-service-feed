@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Getter
@@ -21,4 +22,7 @@ public class CategoryEntity extends BaseUUIDEntity {
 
     @Column(columnDefinition = "VARCHAR(10)", nullable = false)
     private String name;
+
+    @OneToOne(mappedBy = "categoryEntity")
+    private FeedEntity feedEntity;
 }
