@@ -55,7 +55,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
-    public List<Feed> queryAllFeedByCategory(String category) {
+    public List<Feed> queryAllFeedByCategory(UUID categoryId) {
         List<FeedListVO> voList = query
                 .select(new QFeedListVO(
                         feedEntity.id,
@@ -70,7 +70,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .on(feedEntity.id.eq(feedLikeEntity.feed.id))
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feed.id))
-                .where(feedEntity.category.eq(category))
+                .where(feedEntity.categoryEntity.id.eq(categoryId))
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 
@@ -87,12 +87,12 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
-    public List<UUID> queryAllFeedUserIdByCategory(String category) {
+    public List<UUID> queryAllFeedUserIdByCategory(UUID categoryId) {
         List<FeedEntity> feedList = query
                 .selectFrom(feedEntity).distinct()
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feed.id))
-                .where(feedEntity.category.eq(category))
+                .where(feedEntity.categoryEntity.id.eq(categoryId))
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 
