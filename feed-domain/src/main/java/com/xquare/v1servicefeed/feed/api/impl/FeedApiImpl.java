@@ -56,8 +56,6 @@ public class FeedApiImpl implements FeedApi {
         UUID currentUserId = securitySpi.getCurrentUserId();
         feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
 
-        // TODO: 2021-08-02 이미지 로직 추가하기
-
         if (!feed.getContent().equals(request.getContent())) {
             commandFeedSpi.updateFeed(request);
         }
