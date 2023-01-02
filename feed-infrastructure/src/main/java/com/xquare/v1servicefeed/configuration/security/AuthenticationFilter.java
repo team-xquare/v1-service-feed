@@ -1,6 +1,6 @@
 package com.xquare.v1servicefeed.configuration.security;
 
-import com.xquare.v1servicefeed.configuration.security.role.UserRole;
+import com.xquare.v1servicefeed.user.role.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

@@ -1,7 +1,7 @@
 package com.xquare.v1servicefeed.configuration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xquare.v1servicefeed.configuration.security.role.UserRole;
+import com.xquare.v1servicefeed.user.role.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
