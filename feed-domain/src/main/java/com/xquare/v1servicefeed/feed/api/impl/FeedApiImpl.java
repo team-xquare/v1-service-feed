@@ -11,6 +11,7 @@ import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedSaveResponse;
 import com.xquare.v1servicefeed.feed.spi.*;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
@@ -39,7 +40,7 @@ public class FeedApiImpl implements FeedApi {
     private final QueryCategorySpi queryCategorySpi;
 
     @Override
-    public void saveFeed(DomainCreateFeedRequest request) {
+    public FeedSaveResponse saveFeed(DomainCreateFeedRequest request) {
         Feed feed = Feed.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
@@ -48,6 +49,8 @@ public class FeedApiImpl implements FeedApi {
                 .build();
 
         commandFeedSpi.saveFeed(feed);
+
+        return new FeedSaveResponse(feed.getId());
     }
 
     @Override
