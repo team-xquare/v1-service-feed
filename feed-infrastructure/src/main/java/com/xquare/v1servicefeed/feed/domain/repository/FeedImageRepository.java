@@ -1,6 +1,5 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
-import com.xquare.v1servicefeed.feed.FeedImage;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.FeedImageEntity;
 import com.xquare.v1servicefeed.feed.domain.FeedImageEntityId;
@@ -13,8 +12,5 @@ import java.util.List;
 public interface FeedImageRepository extends CrudRepository<FeedImageEntity, FeedImageEntityId> {
 
     void deleteAllByFeedEntity(FeedEntity feedEntity);
-
-    void deleteByFeedEntity(FeedEntity feedEntity);
-
     List<FeedImageEntity> findAllByFeedEntity(FeedEntity feedEntity);
 }
