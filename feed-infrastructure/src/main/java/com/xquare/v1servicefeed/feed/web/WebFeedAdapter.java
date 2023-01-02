@@ -1,17 +1,22 @@
 package com.xquare.v1servicefeed.feed.web;
 
+import com.querydsl.core.support.QueryMixin;
+import com.xquare.v1servicefeed.configuration.security.SecurityAdapter;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedSaveResponse;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -22,7 +27,7 @@ public class WebFeedAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void saveFeed(@Valid @RequestBody WebCreateFeedRequest request) {
+    public FeedSaveResponse saveFeed(@Valid @RequestBody WebCreateFeedRequest request) {
 
         DomainCreateFeedRequest domainRequest = DomainCreateFeedRequest.builder()
                 .title(request.getTitle())
@@ -30,7 +35,8 @@ public class WebFeedAdapter {
                 .category(request.getCategory())
                 .build();
 
-        feedApi.saveFeed(domainRequest);
+        return feedApi.saveFeed(domainRequest);
+
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
