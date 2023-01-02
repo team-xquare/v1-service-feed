@@ -16,14 +16,14 @@ import com.xquare.v1servicefeed.feed.spi.*;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
+import com.xquare.v1servicefeed.user.role.UserAuthorization;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.xquare.v1servicefeed.user.role.UserAuthorization.*;
 
 @RequiredArgsConstructor
 @DomainService
@@ -41,6 +41,8 @@ public class FeedApiImpl implements FeedApi {
 
     @Override
     public FeedSaveResponse saveFeed(DomainCreateFeedRequest request) {
+        List<UserAuthorization> authorizations = new ArrayList<>(Set.of(STD, STC, STA, DOD, DOS, CLL));
+        securitySpi.featureCallAuthorityComparison(authorizations);
         Feed feed = Feed.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
