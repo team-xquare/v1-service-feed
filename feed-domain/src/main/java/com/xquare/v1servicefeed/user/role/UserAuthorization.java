@@ -1,4 +1,4 @@
-package com.xquare.v1servicefeed.configuration.security.role;
+package com.xquare.v1servicefeed.user.role;
 
 public enum UserAuthorization {
     STD, //student department
