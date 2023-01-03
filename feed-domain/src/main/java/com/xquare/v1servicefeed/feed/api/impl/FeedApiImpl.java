@@ -48,7 +48,6 @@ public class FeedApiImpl implements FeedApi {
             throw InvalidRoleException.EXCEPTION;
         }
 
-        securitySpi.featureCallAuthorityComparison(authorizations);
         Feed feed = Feed.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
