@@ -11,7 +11,7 @@ public enum UserErrorCode implements ExceptionProperty {
 
     FORBIDDEN_USER(403, "Forbidden User"),
 
-    INVALID_ROLE(401, "Invalid Role");
+    INVALID_ROLE(403, "Invalid Role");
 
     private final int status;
     private final String message;

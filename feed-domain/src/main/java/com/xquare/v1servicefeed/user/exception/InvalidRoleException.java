@@ -5,7 +5,6 @@ import com.xquare.v1servicefeed.user.error.UserErrorCode;
 
 public class InvalidRoleException extends FeedException{
 
-
     public static final FeedException EXCEPTION =
             new InvalidRoleException();
 

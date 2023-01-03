@@ -10,5 +10,5 @@ import java.util.UUID;
 public interface SecuritySpi {
     UUID getCurrentUserId();
 
-    void featureCallAuthorityComparison(List<UserAuthorization> featureAuthority);
+    boolean featureCallAuthorityComparison(List<UserAuthorization> featureAuthority);
 }
