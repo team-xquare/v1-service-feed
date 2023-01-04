@@ -2,7 +2,8 @@ package com.xquare.v1servicefeed.configuration.security;
 
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
-import com.xquare.v1servicefeed.user.role.UserAuthorization;
+import com.xquare.v1servicefeed.feed.CategoryEnum;
+import com.xquare.v1servicefeed.user.role.UserAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -19,19 +20,21 @@ public class SecurityAdapter implements SecuritySpi {
     }
 
     @Override
-    public boolean featureCallAuthorityComparison(List<UserAuthorization> featureAuthorityList) {
+    public boolean isValidateUserAuthority(String categoryName) {
         Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        CategoryEnum category = CategoryEnum.valueOf(categoryName);
 
-        for(UserAuthorization authority : featureAuthorityList) {
-            String enumAuthority = authority.name();
+        List<UserAuthority> userAuthorities = authorities
+                .stream()
+                .map(authority -> UserAuthority.valueOf(authority.getAuthority()))
+                .toList();
 
-            for(GrantedAuthority authorityList : authorities) {
-                String grantedAuthority = authorityList.getAuthority();
-                if (enumAuthority.equals(grantedAuthority)) {
-                    return true;
-                }
+        for (UserAuthority authority : category.getAuthorities()) {
+            if (userAuthorities.contains(authority)) {
+                return true;
             }
         }
+
         return false;
     }
 }
