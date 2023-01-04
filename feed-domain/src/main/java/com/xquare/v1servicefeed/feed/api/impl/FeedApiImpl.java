@@ -4,6 +4,7 @@ import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Category;
+import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
@@ -11,20 +12,20 @@ import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedSaveResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
 import com.xquare.v1servicefeed.feed.spi.*;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
-import com.xquare.v1servicefeed.user.role.UserAuthorization;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
-
-import static com.xquare.v1servicefeed.user.role.UserAuthorization.*;
 
 @RequiredArgsConstructor
 @DomainService
@@ -41,23 +42,24 @@ public class FeedApiImpl implements FeedApi {
     private final QueryCategorySpi queryCategorySpi;
 
     @Override
-    public FeedSaveResponse saveFeed(DomainCreateFeedRequest request) {
-        List<UserAuthorization> authorizations = List.of(STD, STC, STA, DOD, DOS, CLL);
+    public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
+        Category category = queryCategorySpi.queryCategoryById(request.getCategoryId());
 
-        if (!securitySpi.featureCallAuthorityComparison(authorizations)) {
+        if (!securitySpi.isValidateUserAuthority(category.getName())) {
             throw InvalidRoleException.EXCEPTION;
         }
 
         Feed feed = Feed.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
-                .categoryId(request.getCategory())
+                .categoryId(request.getCategoryId())
+                .authorityId(request.getAuthorityId())
                 .userId(securitySpi.getCurrentUserId())
                 .build();
 
         commandFeedSpi.saveFeed(feed);
 
-        return new FeedSaveResponse(feed.getId());
+        return new SaveFeedResponse(feed.getId());
     }
 
     @Override
