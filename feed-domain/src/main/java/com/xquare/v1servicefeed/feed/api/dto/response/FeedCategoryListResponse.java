@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class FeedCategoryResponse {
+public class FeedCategoryListResponse {
 
-    List<String> categories;
+    List<FeedCategoryElement> categoryList;
 }
