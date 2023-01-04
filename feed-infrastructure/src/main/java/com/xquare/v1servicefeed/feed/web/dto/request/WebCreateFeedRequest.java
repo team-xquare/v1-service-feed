@@ -12,9 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class WebCreateFeedRequest {
 
-    @NotNull
-    private UUID category;
-
     @NotBlank
     @Max(255)
     private String title;
@@ -22,4 +19,10 @@ public class WebCreateFeedRequest {
     @NotBlank
     @Max(65535)
     private String content;
+
+    @NotNull
+    private UUID categoryId;
+
+    @NotNull
+    private UUID authorityId;
 }
