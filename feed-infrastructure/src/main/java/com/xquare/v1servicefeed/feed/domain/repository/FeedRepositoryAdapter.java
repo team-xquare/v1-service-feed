@@ -1,5 +1,6 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
@@ -92,7 +93,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .selectFrom(feedEntity).distinct()
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feed.id))
-                .where(feedEntity.categoryEntity.id.eq(categoryId))
+                .where(categoryIdEq(categoryId))
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 
@@ -104,5 +105,9 @@ public class FeedRepositoryAdapter implements FeedSpi {
     private FeedEntity getFeedEntityById(UUID feedId) {
         return feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+    }
+
+    private BooleanExpression categoryIdEq(UUID categoryId) {
+        return categoryId != null ? feedEntity.categoryEntity.id.eq(categoryId) : null;
     }
 }
