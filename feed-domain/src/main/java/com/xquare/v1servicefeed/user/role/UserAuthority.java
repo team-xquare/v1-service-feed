@@ -6,7 +6,7 @@ public enum UserAuthority {
     STA, //student autonomy
     DOD, //dormitory department
     DOS, //dormitory supervisor
-    CLL, // club leader
-    OST, // ordinary student
+    CLL, //club leader
+    OST, //ordinary student
 }
 
