@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tbl_feed")
+@Table(name = "tbl_category")
 @Entity
 public class CategoryEntity extends BaseUUIDEntity {
 
