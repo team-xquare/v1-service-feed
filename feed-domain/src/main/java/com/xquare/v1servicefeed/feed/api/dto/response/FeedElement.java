@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class FeedListElement {
+public class FeedElement {
 
     private final UUID feedId;
     private final String content;
