@@ -7,6 +7,6 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class FeedSaveResponse {
+public class SaveFeedResponse {
     private final UUID feedId;
 }
