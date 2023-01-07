@@ -4,21 +4,17 @@ import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Category;
-import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.*;
 import com.xquare.v1servicefeed.feed.spi.*;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
+import com.xquare.v1servicefeed.user.role.UserAuthority;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -45,8 +41,9 @@ public class FeedApiImpl implements FeedApi {
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
         Category category = queryCategorySpi.queryCategoryById(request.getCategoryId());
+        List<UserAuthority> userAuthorities = securitySpi.getUserAuthority();
 
-        if (!securitySpi.isValidateUserAuthority(category.getName())) {
+        if (!securitySpi.isValidateUserAuthority(userAuthorities, category.getName())) {
             throw InvalidRoleException.EXCEPTION;
         }
 
