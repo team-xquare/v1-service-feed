@@ -29,7 +29,6 @@ public class WebFeedAdapter {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .categoryId(request.getCategoryId())
-                .authorityId(request.getAuthorityId())
                 .build();
 
         return feedApi.saveFeed(domainRequest);

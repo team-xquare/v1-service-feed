@@ -22,7 +22,4 @@ public class WebCreateFeedRequest {
 
     @NotNull
     private UUID categoryId;
-
-    @NotNull
-    private UUID authorityId;
 }

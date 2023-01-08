@@ -12,5 +12,4 @@ public class DomainCreateFeedRequest {
     private final String title;
     private final String content;
     private final UUID categoryId;
-    private final UUID authorityId;
 }
