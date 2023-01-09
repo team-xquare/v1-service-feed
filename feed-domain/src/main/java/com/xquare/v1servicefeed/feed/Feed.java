@@ -22,9 +22,11 @@ public class Feed {
 
     private final LocalDateTime createdAt;
 
-    private final Integer likeCount;
-
     private final UUID categoryId;
+
+    private final String type;
+
+    private final Integer likeCount;
 
     private final Integer commentCount;
 }

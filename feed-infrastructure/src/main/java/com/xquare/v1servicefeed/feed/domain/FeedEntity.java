@@ -37,6 +37,9 @@ public class FeedEntity extends BaseUUIDEntity {
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity categoryEntity;
 
+    @Column(nullable = false)
+    private String type;
+
     @OneToMany(mappedBy = "feedEntity")
     private Set<FeedImageEntity> feedImageEntities = new HashSet<>();
 

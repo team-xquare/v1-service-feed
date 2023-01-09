@@ -22,4 +22,7 @@ public class WebCreateFeedRequest {
 
     @NotNull
     private UUID categoryId;
+
+    @NotBlank
+    private String type;
 }

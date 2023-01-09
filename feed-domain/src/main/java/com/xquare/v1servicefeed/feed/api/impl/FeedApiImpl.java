@@ -52,6 +52,7 @@ public class FeedApiImpl implements FeedApi {
                 .content(request.getContent())
                 .categoryId(request.getCategoryId())
                 .userId(securitySpi.getCurrentUserId())
+                .type(request.getType())
                 .build();
 
         commandFeedSpi.saveFeed(feed);
