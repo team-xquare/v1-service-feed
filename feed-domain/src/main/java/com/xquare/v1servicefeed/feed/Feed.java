@@ -26,7 +26,5 @@ public class Feed {
 
     private final String type;
 
-    private final Integer likeCount;
-
     private final Integer commentCount;
 }
