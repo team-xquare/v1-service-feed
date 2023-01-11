@@ -2,6 +2,7 @@ package com.xquare.v1servicefeed.feed.spi;
 
 import com.xquare.v1servicefeed.annotation.Spi;
 import com.xquare.v1servicefeed.feed.Feed;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedList;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import java.util.UUID;
 public interface QueryFeedSpi {
     Feed queryFeedById(UUID feedId);
 
-    List<Feed> queryAllFeedByCategory(UUID categoryId);
+    List<FeedList> queryAllFeedByCategory(UUID categoryId);
 
     List<UUID> queryAllFeedUserIdByCategory(UUID categoryId);
 }

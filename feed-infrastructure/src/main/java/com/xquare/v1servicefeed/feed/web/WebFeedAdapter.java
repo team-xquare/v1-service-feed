@@ -5,6 +5,7 @@ import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,15 +23,16 @@ public class WebFeedAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void saveFeed(@Valid @RequestBody WebCreateFeedRequest request) {
+    public SaveFeedResponse saveFeed(@Valid @RequestBody WebCreateFeedRequest request) {
 
         DomainCreateFeedRequest domainRequest = DomainCreateFeedRequest.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
-                .category(request.getCategory())
+                .categoryId(request.getCategoryId())
+                .type(request.getType())
                 .build();
 
-        feedApi.saveFeed(domainRequest);
+        return feedApi.saveFeed(domainRequest);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

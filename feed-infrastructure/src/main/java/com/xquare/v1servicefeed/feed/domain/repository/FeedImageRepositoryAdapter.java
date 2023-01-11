@@ -44,16 +44,19 @@ public class FeedImageRepositoryAdapter implements FeedImageSpi {
 
     @Override
     @Transactional
-    public List<String> queryAllAttachmentsUrl(Feed feed) {
-        List<FeedImage> feedImageList = queryAllFeedImageByFeed(feed);
+    public List<String> queryAllAttachmentsUrl(UUID feedId) {
+        List<FeedImage> feedImageList = queryAllFeedImageByFeed(feedId);
 
         return feedImageList.stream()
                 .map(FeedImage::getFilePath)
                 .toList();
     }
 
-    private List<FeedImage> queryAllFeedImageByFeed(Feed feed) {
-        List<FeedImageEntity> feedImageList = feedImageRepository.findAllByFeedEntity(feedMapper.domainToEntity(feed));
+    private List<FeedImage> queryAllFeedImageByFeed(UUID feedId) {
+        FeedEntity feedEntity = feedRepository.findById(feedId)
+                .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
+
+        List<FeedImageEntity> feedImageList = feedImageRepository.findAllByFeedEntity(feedEntity);
 
         return feedImageList.stream()
                 .map(feedImageEntity -> FeedImage.builder()

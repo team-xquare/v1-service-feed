@@ -1,7 +1,7 @@
 package com.xquare.v1servicefeed.configuration.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xquare.v1servicefeed.configuration.security.role.UserRole;
+import com.xquare.v1servicefeed.user.role.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers(HttpMethod.POST, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+               /* .antMatchers(HttpMethod.POST, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
                 .antMatchers(HttpMethod.PATCH, "/feeds/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
                 .antMatchers(HttpMethod.DELETE, "/feeds/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
                 .antMatchers(HttpMethod.GET, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
@@ -51,9 +51,9 @@ public class SecurityConfig {
 
                 .antMatchers(HttpMethod.POST, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
                 .antMatchers(HttpMethod.DELETE, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
-                .antMatchers(HttpMethod.PATCH, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.PATCH, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)*/
 
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
 
                 .and()
                 .apply(new FilterConfig(objectMapper))
