@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedList;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feed.domain.repository.vo.FeedListVO;
@@ -56,7 +57,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
-    public List<Feed> queryAllFeedByCategory(UUID categoryId) {
+    public List<FeedList> queryAllFeedByCategory(UUID categoryId) {
         List<FeedListVO> voList = query
                 .select(new QFeedListVO(
                         feedEntity.id,
@@ -76,8 +77,8 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .fetch();
 
         return voList.stream()
-                .map(feedListVO -> Feed.builder()
-                        .id(feedListVO.getFeedId())
+                .map(feedListVO -> FeedList.builder()
+                        .feedId(feedListVO.getFeedId())
                         .userId(feedListVO.getUserId())
                         .content(feedListVO.getContent())
                         .createdAt(feedListVO.getCreatedAt())

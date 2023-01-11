@@ -5,8 +5,9 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.FeedImage;
 
 import java.util.List;
+import java.util.UUID;
 
 @Spi
 public interface QueryFeedImageSpi {
-    List<String> queryAllAttachmentsUrl(Feed feed);
+    List<String> queryAllAttachmentsUrl(UUID feedId);
 }

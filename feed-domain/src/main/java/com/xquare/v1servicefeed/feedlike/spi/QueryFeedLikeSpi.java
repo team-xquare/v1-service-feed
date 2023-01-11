@@ -10,5 +10,5 @@ import java.util.UUID;
 public interface QueryFeedLikeSpi {
     FeedLike queryFeedLikeById(UUID feedLikeId);
 
-    FeedLike queryFeedLikeByFeed(Feed feed);
+    FeedLike queryFeedLikeByFeedId(UUID feedId);
 }
