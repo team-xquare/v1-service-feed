@@ -28,6 +28,7 @@ public class GlobalErrorFilter extends OncePerRequestFilter {
             if (e.getCause() instanceof FeedException feedException) {
                 setErrorResponse(feedException.getExceptionProperty(), response);
             } else {
+                e.printStackTrace();
                 setErrorResponse(GlobalErrorCode.INTERNAL_SERVER_ERROR, response);
             }
         }

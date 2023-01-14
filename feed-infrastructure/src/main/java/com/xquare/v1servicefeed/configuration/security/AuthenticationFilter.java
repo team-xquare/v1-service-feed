@@ -31,6 +31,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        System.out.println(request.getHeader("Request-User-Id"));
+        System.out.println(request.getHeader("Request-User-Role"));
+        System.out.println(request.getHeader("Request-User-Authorities"));
 
         String userId = request.getHeader("Request-User-Id");
         UserRole userRole = UserRole.valueOf(request.getHeader("Request-User-Role"));
