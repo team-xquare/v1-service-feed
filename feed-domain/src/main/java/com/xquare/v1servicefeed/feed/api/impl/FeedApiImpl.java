@@ -14,7 +14,6 @@ import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
-import com.xquare.v1servicefeed.user.role.UserAuthority;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +40,7 @@ public class FeedApiImpl implements FeedApi {
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
         Category category = queryCategorySpi.queryCategoryById(request.getCategoryId());
-        List<UserAuthority> userAuthorities = securitySpi.getUserAuthority();
+        List<String> userAuthorities = securitySpi.getUserAuthority();
 
         if (!securitySpi.isValidateUserAuthority(userAuthorities, category.getName())) {
             throw InvalidRoleException.EXCEPTION;
