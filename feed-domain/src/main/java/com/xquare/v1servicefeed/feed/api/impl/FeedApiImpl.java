@@ -41,7 +41,7 @@ public class FeedApiImpl implements FeedApi {
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
         Category category = queryCategorySpi.queryCategoryById(request.getCategoryId());
-        List<UserAuthority> userAuthorities = securitySpi.getUserAuthority();
+        List<String> userAuthorities = securitySpi.getUserAuthority();
 
         if (!securitySpi.isValidateUserAuthority(userAuthorities, category.getName())) {
             throw InvalidRoleException.EXCEPTION;

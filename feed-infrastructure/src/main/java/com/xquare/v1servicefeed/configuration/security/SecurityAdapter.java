@@ -20,21 +20,21 @@ public class SecurityAdapter implements SecuritySpi {
     }
 
     @Override
-    public List<UserAuthority> getUserAuthority() {
+    public List<String> getUserAuthority() {
         Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         return authorities
                 .stream()
-                .map(authority -> UserAuthority.valueOf(authority.getAuthority()))
+                .map(GrantedAuthority::getAuthority)
                 .toList();
     }
 
     @Override
-    public boolean isValidateUserAuthority(List<UserAuthority> userAuthorities, String categoryName) {
+    public boolean isValidateUserAuthority(List<String> userAuthorities, String categoryName) {
         CategoryEnum category = CategoryEnum.valueOf(categoryName);
-        
+
         for (UserAuthority authority : category.getAuthorities()) {
-            if (userAuthorities.contains(authority)) {
+            if (userAuthorities.contains(authority.name())) {
                 return true;
             }
         }
