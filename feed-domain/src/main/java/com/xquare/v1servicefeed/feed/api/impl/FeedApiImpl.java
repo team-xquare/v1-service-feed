@@ -14,7 +14,6 @@ import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
-import com.xquare.v1servicefeed.user.role.UserAuthority;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
