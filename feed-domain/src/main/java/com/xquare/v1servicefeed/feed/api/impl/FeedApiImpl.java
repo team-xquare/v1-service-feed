@@ -56,9 +56,9 @@ public class FeedApiImpl implements FeedApi {
                 .type(request.getType())
                 .build();
 
-        commandFeedSpi.saveFeed(feed);
+        UUID feedId = commandFeedSpi.saveFeed(feed);
 
-        return new SaveFeedResponse(feed.getId());
+        return new SaveFeedResponse(feedId);
     }
 
     @Override
