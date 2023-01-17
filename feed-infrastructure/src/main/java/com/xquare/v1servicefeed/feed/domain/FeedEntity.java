@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ import java.util.UUID;
 
 @Getter
 @SuperBuilder
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_feed")
@@ -30,6 +33,7 @@ public class FeedEntity extends BaseUUIDEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
