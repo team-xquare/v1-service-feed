@@ -17,6 +17,7 @@ import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,9 +55,9 @@ public class FeedApiImpl implements FeedApi {
                 .type(request.getType())
                 .build();
 
-        commandFeedSpi.saveFeed(feed);
+        UUID feedId = commandFeedSpi.saveFeed(feed);
 
-        return new SaveFeedResponse(feed.getId());
+        return new SaveFeedResponse(feedId);
     }
 
     @Override

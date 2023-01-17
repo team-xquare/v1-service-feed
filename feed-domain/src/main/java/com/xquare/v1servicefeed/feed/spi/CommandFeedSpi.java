@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Spi
 public interface CommandFeedSpi {
-    void saveFeed(Feed feed);
+    UUID saveFeed(Feed feed);
 
     void deleteFeed(Feed feed);
 

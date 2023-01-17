@@ -33,8 +33,9 @@ public class FeedRepositoryAdapter implements FeedSpi {
 
     @Override
     @Transactional
-    public void saveFeed(Feed feed) {
-        feedRepository.save(feedMapper.domainToEntity(feed));
+    public UUID saveFeed(Feed feed) {
+        FeedEntity entity = feedRepository.save(feedMapper.domainToEntity(feed));
+        return entity.getId();
     }
 
     @Override

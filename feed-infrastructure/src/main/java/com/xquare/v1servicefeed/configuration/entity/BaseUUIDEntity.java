@@ -1,5 +1,7 @@
 package com.xquare.v1servicefeed.configuration.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -12,13 +14,16 @@ import javax.persistence.MappedSuperclass;
 import java.util.UUID;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @SuperBuilder
-@NoArgsConstructor
 @MappedSuperclass
 public abstract class BaseUUIDEntity {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)", nullable = false)
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
 }
