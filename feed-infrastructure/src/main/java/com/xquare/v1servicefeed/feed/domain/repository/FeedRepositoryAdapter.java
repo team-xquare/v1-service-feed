@@ -1,6 +1,8 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
@@ -64,9 +66,10 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.id,
                         feedEntity.userId,
                         feedEntity.content,
+                        feedEntity.type,
                         feedEntity.createdAt,
-                        feedLikeEntity.feed.count().intValue(),
-                        commentEntity.feed.count().intValue()
+                        queryFeedLikeCount(),
+                        queryFeedCommentCount()
                 ))
                 .from(feedEntity)
                 .leftJoin(feedLikeEntity)
@@ -82,11 +85,26 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .feedId(feedListVO.getFeedId())
                         .userId(feedListVO.getUserId())
                         .content(feedListVO.getContent())
+                        .type(feedListVO.getType())
                         .createdAt(feedListVO.getCreatedAt())
                         .likeCount(feedListVO.getLikeCount())
                         .commentCount(feedListVO.getCommentCount())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public JPQLQuery<Long> queryFeedLikeCount() {
+        return JPAExpressions
+                .select(feedLikeEntity.count())
+                .from(feedLikeEntity)
+                .where(feedLikeEntity.feed.id.eq(feedEntity.id));
+    }
+
+    public JPQLQuery<Long> queryFeedCommentCount() {
+        return JPAExpressions
+                .select(commentEntity.count())
+                .from(commentEntity)
+                .where(commentEntity.feed.id.eq(feedEntity.id));
     }
 
     @Override
