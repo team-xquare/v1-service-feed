@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "UserClient", url = "${service.user.host}")
+@FeignClient(name = "UserClient", url = "${service.scheme}://${service.user.host}")
 public interface UserClient {
 
-    @GetMapping
-    UserInfoResponse getUserInfo(@RequestParam("id") List<UUID> userIds);
+    @GetMapping("/id")
+    UserInfoResponse getUserInfo(@RequestParam("userId") List<UUID> userIds);
 }
