@@ -87,16 +87,15 @@ public class FeedApiImpl implements FeedApi {
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();
-        hashMap.getOrDefault(UUID.randomUUID(), defaultUser);
         UUID currentUserId = securitySpi.getCurrentUserId();
 
         List<FeedElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId)
                 .stream()
                 .map(feed -> {
-                    User user = hashMap.get(feed.getUserId());
+                    User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
                     FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeedId(feed.getFeedId());
-                    Boolean isLike = feedLike.getUserId().equals(currentUserId);
-                    Boolean isMine = feed.getUserId().equals(currentUserId);
+                    Boolean isLike = feedLike.getId() != null && feedLike.getUserId().equals(currentUserId);
+                    Boolean isMine = user.getId() != null && feed.getUserId().equals(currentUserId);
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
 
                     return FeedElement.builder()
@@ -105,6 +104,7 @@ public class FeedApiImpl implements FeedApi {
                             .createdAt(feed.getCreatedAt())
                             .profile(user.getProfileFileName())
                             .name(user.getName())
+                            .type(feed.getType())
                             .likeCount(feed.getLikeCount())
                             .commentCount(feed.getCommentCount())
                             .isMine(isMine)

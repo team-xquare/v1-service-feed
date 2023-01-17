@@ -46,6 +46,10 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
 
     @Override
     public FeedLike queryFeedLikeByFeedId(UUID feedId) {
+        FeedLikeEntity feedLikeEntity = getFeedLikeEntityByFeedId(feedId);
+        if (feedLikeEntity.getId() == null) {
+            return FeedLike.builder().build();
+        }
         return feedLikeMapper.entityToDomain(getFeedLikeEntityByFeedId(feedId));
     }
 
@@ -56,6 +60,6 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
 
     private FeedLikeEntity getFeedLikeEntityByFeedId(UUID feedId) {
         return feedLikeRepository.findFeedLikeEntityByFeedId(feedId)
-                .orElseThrow(() -> FeedLikeNotFoundException.EXCEPTION);
+                .orElseGet(() -> FeedLikeEntity.builder().build());
     }
 }
