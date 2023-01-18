@@ -1,6 +1,5 @@
 package com.xquare.v1servicefeed.feign.client.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
