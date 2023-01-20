@@ -1,8 +1,6 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.JPAExpressions;
-import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
@@ -68,8 +66,8 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.content,
                         feedEntity.type,
                         feedEntity.createdAt,
-                        queryFeedLikeCount(),
-                        queryFeedCommentCount()
+                        feedLikeEntity.count(),
+                        commentEntity.count()
                 ))
                 .from(feedEntity)
                 .leftJoin(feedLikeEntity)
@@ -77,6 +75,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feed.id))
                 .where(feedEntity.categoryEntity.id.eq(categoryId))
+                .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 
@@ -91,20 +90,6 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .commentCount(feedListVO.getCommentCount())
                         .build())
                 .collect(Collectors.toList());
-    }
-
-    public JPQLQuery<Long> queryFeedLikeCount() {
-        return JPAExpressions
-                .select(feedLikeEntity.count())
-                .from(feedLikeEntity)
-                .where(feedLikeEntity.feed.id.eq(feedEntity.id));
-    }
-
-    public JPQLQuery<Long> queryFeedCommentCount() {
-        return JPAExpressions
-                .select(commentEntity.count())
-                .from(commentEntity)
-                .where(commentEntity.feed.id.eq(feedEntity.id));
     }
 
     @Override
