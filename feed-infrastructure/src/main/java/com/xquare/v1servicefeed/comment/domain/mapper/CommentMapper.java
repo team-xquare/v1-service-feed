@@ -36,6 +36,7 @@ public class CommentMapper {
                 .id(comment.getId())
                 .content(comment.getContent())
                 .feed(feedEntity)
+                .userId(comment.getUserId())
                 .createAt(comment.getCreateAt())
                 .updatedAt(comment.getUpdatedAt())
                 .build();
