@@ -17,8 +17,9 @@ public class FeedElement {
     private final LocalDateTime createdAt;
     private final String profile;
     private final String name;
-    private final Integer likeCount;
-    private final Integer commentCount;
+    private final String type;
+    private final Long likeCount;
+    private final Long commentCount;
     private final Boolean isMine;
     private final Boolean isLike;
     private final List<String> attachmentsUrl;

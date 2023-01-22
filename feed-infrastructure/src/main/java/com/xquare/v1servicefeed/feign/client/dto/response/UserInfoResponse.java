@@ -1,13 +1,13 @@
 package com.xquare.v1servicefeed.feign.client.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor
 public class UserInfoResponse {
 
-    private final List<UserInfoElement> users;
+    private List<UserInfoElement> users;
 }

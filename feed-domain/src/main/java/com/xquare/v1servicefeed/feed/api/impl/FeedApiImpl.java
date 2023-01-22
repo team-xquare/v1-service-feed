@@ -8,8 +8,16 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.*;
-import com.xquare.v1servicefeed.feed.spi.*;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryElement;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedElement;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
+import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
+import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
+import com.xquare.v1servicefeed.feed.spi.QueryCategorySpi;
+import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
+import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
@@ -17,7 +25,6 @@ import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,20 +90,20 @@ public class FeedApiImpl implements FeedApi {
 
     @Override
     public FeedListResponse getAllFeed(UUID categoryId) {
-        List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(categoryId);
+        Category category = queryCategorySpi.queryCategoryById(categoryId);
+        List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(category.getCategoryId());
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();
-        hashMap.getOrDefault(UUID.randomUUID(), defaultUser);
         UUID currentUserId = securitySpi.getCurrentUserId();
 
         List<FeedElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId)
                 .stream()
                 .map(feed -> {
-                    User user = hashMap.get(feed.getUserId());
+                    User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
                     FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeedId(feed.getFeedId());
-                    Boolean isLike = feedLike.getUserId().equals(currentUserId);
-                    Boolean isMine = feed.getUserId().equals(currentUserId);
+                    Boolean isLike = feedLike != null && feedLike.getUserId().equals(currentUserId);
+                    Boolean isMine = user != null && feed.getUserId().equals(currentUserId);
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
 
                     return FeedElement.builder()
@@ -105,6 +112,7 @@ public class FeedApiImpl implements FeedApi {
                             .createdAt(feed.getCreatedAt())
                             .profile(user.getProfileFileName())
                             .name(user.getName())
+                            .type(feed.getType())
                             .likeCount(feed.getLikeCount())
                             .commentCount(feed.getCommentCount())
                             .isMine(isMine)
