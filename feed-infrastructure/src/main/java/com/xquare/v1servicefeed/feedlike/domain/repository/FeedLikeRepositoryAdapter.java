@@ -44,7 +44,7 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
 
     @Override
     public FeedLike queryFeedLikeByFeedId(UUID feedId) {
-        FeedLikeEntity feedLikeEntity = feedLikeRepository.findFeedLikeEntityByFeedId(feedId)
+        FeedLikeEntity feedLikeEntity = feedLikeRepository.findFeedLikeEntityByFeedEntityId(feedId)
                 .orElse(null);
 
         if (feedLikeEntity == null) return null;

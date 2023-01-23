@@ -15,7 +15,7 @@ public class FeedLikeMapper {
     private final FeedRepository feedRepository;
     
     public FeedLike entityToDomain(FeedLikeEntity feedLikeEntity) {
-        FeedEntity feedEntity = feedLikeEntity.getFeed();
+        FeedEntity feedEntity = feedLikeEntity.getFeedEntity();
 
         return FeedLike.builder()
                 .id(feedLikeEntity.getId())
@@ -30,7 +30,7 @@ public class FeedLikeMapper {
 
         return FeedLikeEntity.builder()
                 .id(feedLike.getId())
-                .feed(feedEntity)
+                .feedEntity(feedEntity)
                 .userId(feedLike.getUserId())
                 .build();
     }
