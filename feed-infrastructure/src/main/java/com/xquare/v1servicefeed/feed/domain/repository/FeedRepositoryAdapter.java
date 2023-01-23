@@ -71,7 +71,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 ))
                 .from(feedEntity)
                 .leftJoin(feedLikeEntity)
-                .on(feedEntity.id.eq(feedLikeEntity.feed.id))
+                .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feed.id))
                 .where(feedEntity.categoryEntity.id.eq(categoryId))
@@ -97,7 +97,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
         List<FeedEntity> feedList = query
                 .selectFrom(feedEntity).distinct()
                 .leftJoin(feedLikeEntity)
-                .on(feedEntity.id.eq(feedLikeEntity.feed.id))
+                .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
                 .where(categoryIdEq(categoryId))
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
