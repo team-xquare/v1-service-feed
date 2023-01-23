@@ -70,11 +70,12 @@ public class CommentApiImpl implements CommentApi {
         List<UUID> userIdList = queryCommentSpi.queryAllCommentUserIdByFeed(feed);
         Map<UUID, User> map = commentUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
+        User defaultUser = User.builder().name("").profileFileName("").build();
 
         return queryCommentSpi.queryAllCommentByFeed(feed)
                 .stream()
                 .map(comment -> {
-                    User user = map.get(feed.getUserId());
+                    User user = map.getOrDefault(feed.getUserId(), defaultUser);
 
                     return CommentDomainElement.builder()
                             .commentId(comment.getId())
