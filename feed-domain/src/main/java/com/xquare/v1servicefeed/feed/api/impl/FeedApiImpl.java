@@ -8,16 +8,8 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
-import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
-import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
-import com.xquare.v1servicefeed.feed.spi.QueryCategorySpi;
-import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
-import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
+import com.xquare.v1servicefeed.feed.api.dto.response.*;
+import com.xquare.v1servicefeed.feed.spi.*;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
@@ -101,7 +93,7 @@ public class FeedApiImpl implements FeedApi {
                 .stream()
                 .map(feed -> {
                     User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
-                    FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeedId(feed.getFeedId());
+                    FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeedIdAndUserId(feed.getFeedId(),  feed.getUserId());
                     Boolean isLike = feedLike != null && feedLike.getUserId().equals(currentUserId);
                     Boolean isMine = user != null && feed.getUserId().equals(currentUserId);
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());

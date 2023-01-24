@@ -6,7 +6,6 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
-import com.xquare.v1servicefeed.feedlike.api.dto.SaveFeedLikeDomainRequest;
 import com.xquare.v1servicefeed.feedlike.exception.FeedLikeExistsException;
 import com.xquare.v1servicefeed.feedlike.exception.FeedLikeNotFoundException;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
@@ -24,8 +23,8 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     private final SecuritySpi securitySpi;
 
     @Override
-    public void saveFeedLike(SaveFeedLikeDomainRequest request) {
-        Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
+    public void saveFeedLike(UUID feedId) {
+        Feed feed = queryFeedSpi.queryFeedById(feedId);
         UUID userId = securitySpi.getCurrentUserId();
 
         if (commandFeedLikeSpi.existsUser(userId)) {
@@ -41,14 +40,13 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     }
 
     @Override
-    public void cancelFeedLike(UUID feedLikeId) {
-        FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeById(feedLikeId);
+    public void cancelFeedLike(UUID feedId) {
         UUID userId = securitySpi.getCurrentUserId();
+        FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeedIdAndUserId(feedId, userId);
 
-        if (!commandFeedLikeSpi.existsUser(userId)) {
+        if (feedLike == null) {
             throw FeedLikeNotFoundException.EXCEPTION;
         }
-
         commandFeedLikeSpi.cancelFeedLike(feedLike);
     }
 }
