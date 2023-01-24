@@ -41,14 +41,14 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     }
 
     @Override
-    public void cancelFeedLike(UUID feedLikeId) {
-        FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeById(feedLikeId);
+    public void cancelFeedLike(UUID feedId) {
         UUID userId = securitySpi.getCurrentUserId();
+        Feed feed = queryFeedSpi.queryFeedById(feedId);
+        FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeedAndUserId(feed, userId);
 
-        if (!commandFeedLikeSpi.existsUser(userId)) {
+        if (feedLike == null) {
             throw FeedLikeNotFoundException.EXCEPTION;
         }
-
         commandFeedLikeSpi.cancelFeedLike(feedLike);
     }
 }

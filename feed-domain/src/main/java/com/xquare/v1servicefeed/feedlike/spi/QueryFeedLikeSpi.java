@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Spi
 public interface QueryFeedLikeSpi {
-    FeedLike queryFeedLikeById(UUID feedLikeId);
 
-    FeedLike queryFeedLikeByFeedId(UUID feedId);
+    FeedLike queryFeedLikeByFeedAndUserId(Feed feed, UUID userId);
 }
