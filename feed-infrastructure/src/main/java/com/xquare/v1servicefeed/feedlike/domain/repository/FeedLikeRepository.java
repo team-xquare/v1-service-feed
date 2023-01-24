@@ -13,6 +13,6 @@ public interface FeedLikeRepository extends CrudRepository<FeedLikeEntity, UUID>
 
     boolean existsByUserId(UUID userId);
 
-    Optional<FeedLikeEntity> findFeedLikeEntityByUserIdAndFeedEntity(UUID userId, FeedEntity feedEntity);
+    Optional<FeedLikeEntity> findFeedLikeEntityByUserIdAndFeedEntityId(UUID userId, UUID feedEntityId);
 
 }

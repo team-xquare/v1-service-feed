@@ -101,8 +101,7 @@ public class FeedApiImpl implements FeedApi {
                 .stream()
                 .map(feed -> {
                     User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
-                    Feed feed1 = queryFeedSpi.queryFeedById(feed.getFeedId());
-                    FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeedAndUserId(feed1,  currentUserId);
+                    FeedLike feedLike = queryFeedLikeSpi.queryFeedLikeByFeedIdAndUserId(feed.getFeedId(),  feed.getUserId());
                     Boolean isLike = feedLike != null && feedLike.getUserId().equals(currentUserId);
                     Boolean isMine = user != null && feed.getUserId().equals(currentUserId);
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
