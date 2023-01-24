@@ -34,11 +34,10 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
 
-               /* .antMatchers(HttpMethod.POST, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
+                .antMatchers(HttpMethod.POST, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
                 .antMatchers(HttpMethod.PATCH, "/feeds/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
                 .antMatchers(HttpMethod.DELETE, "/feeds/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
                 .antMatchers(HttpMethod.GET, "/feeds").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
-
                 .antMatchers(HttpMethod.GET, "/feeds/category").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
 
                 .antMatchers(HttpMethod.POST, "/feeds/comments").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
@@ -51,9 +50,9 @@ public class SecurityConfig {
 
                 .antMatchers(HttpMethod.POST, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
                 .antMatchers(HttpMethod.DELETE, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
-                .antMatchers(HttpMethod.PATCH, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)*/
+                .antMatchers(HttpMethod.PATCH, "/feeds/images/{feed-uuid}").hasAnyRole(STUDENT, SCHOOL, DORMITORY)
 
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
 
                 .and()
                 .apply(new FilterConfig(objectMapper))
