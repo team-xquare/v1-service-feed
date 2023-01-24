@@ -6,7 +6,6 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
-import com.xquare.v1servicefeed.feedlike.api.dto.SaveFeedLikeDomainRequest;
 import com.xquare.v1servicefeed.feedlike.exception.FeedLikeExistsException;
 import com.xquare.v1servicefeed.feedlike.exception.FeedLikeNotFoundException;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;

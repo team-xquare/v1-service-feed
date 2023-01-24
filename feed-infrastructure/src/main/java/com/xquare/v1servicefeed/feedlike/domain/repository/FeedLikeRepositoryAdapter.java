@@ -1,9 +1,6 @@
 package com.xquare.v1servicefeed.feedlike.domain.repository;
 
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
-import com.xquare.v1servicefeed.feed.Feed;
-import com.xquare.v1servicefeed.feed.domain.FeedEntity;
-import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.domain.FeedLikeEntity;
 import com.xquare.v1servicefeed.feedlike.domain.mapper.FeedLikeMapper;
@@ -18,7 +15,6 @@ import java.util.UUID;
 public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
 
     private final FeedLikeMapper feedLikeMapper;
-    private final FeedMapper feedMapper;
     private final FeedLikeRepository feedLikeRepository;
 
     @Override
