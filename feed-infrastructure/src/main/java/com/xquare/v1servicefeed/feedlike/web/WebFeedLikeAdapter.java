@@ -1,7 +1,6 @@
 package com.xquare.v1servicefeed.feedlike.web;
 
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
-import com.xquare.v1servicefeed.feedlike.api.dto.SaveFeedLikeDomainRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,7 @@ public class WebFeedLikeAdapter {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{feed-uuid}")
     public void saveFeedLike(@PathVariable("feed-uuid") UUID feedId) {
-        feedLikeApi.saveFeedLike(
-                SaveFeedLikeDomainRequest.builder()
-                        .feedId(feedId)
-                        .build()
-        );
+        feedLikeApi.saveFeedLike(feedId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
