@@ -74,7 +74,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feed.id))
-                .where(feedEntity.categoryEntity.id.eq(categoryId))
+                .where(categoryIdEq(categoryId))
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();

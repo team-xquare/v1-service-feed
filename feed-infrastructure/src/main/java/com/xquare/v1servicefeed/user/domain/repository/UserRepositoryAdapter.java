@@ -20,6 +20,9 @@ public class UserRepositoryAdapter implements FeedUserSpi, CommentUserSpi {
 
     @Override
     public List<User> queryUserByIds(List<UUID> ids) {
+        if (ids.isEmpty()) {
+            return List.of();
+        }
         List<UserInfoElement> userList = userClient.getUserInfo(ids).getUsers();
 
         return userList.stream()

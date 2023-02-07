@@ -82,8 +82,7 @@ public class FeedApiImpl implements FeedApi {
 
     @Override
     public FeedListResponse getAllFeed(UUID categoryId) {
-        Category category = queryCategorySpi.queryCategoryById(categoryId);
-        List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(category.getCategoryId());
+        List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(categoryId);
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();

@@ -54,7 +54,7 @@ public class WebFeedAdapter {
     }
 
     @GetMapping
-    public FeedListResponse getAllFeed(@RequestParam("category") UUID categoryId) {
+    public FeedListResponse getAllFeed(@RequestParam(value = "category", required = false) UUID categoryId) {
         return feedApi.getAllFeed(categoryId);
     }
 
