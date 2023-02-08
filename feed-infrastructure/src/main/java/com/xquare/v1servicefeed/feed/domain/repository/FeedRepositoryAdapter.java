@@ -66,14 +66,14 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.content,
                         feedEntity.type,
                         feedEntity.createdAt,
-                        feedLikeEntity.count(),
-                        commentEntity.count()
+                        feedLikeEntity.countDistinct(),
+                        commentEntity.countDistinct()
                 ))
                 .from(feedEntity)
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
                 .leftJoin(commentEntity)
-                .on(feedEntity.id.eq(commentEntity.feed.id))
+                .on(feedEntity.id.eq(commentEntity.feedEntity.id))
                 .where(categoryIdEq(categoryId))
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
