@@ -4,6 +4,7 @@ import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Category;
+import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
@@ -122,7 +123,7 @@ public class FeedApiImpl implements FeedApi {
                 .stream()
                 .map(category -> FeedCategoryElement.builder()
                         .categoryId(category.getCategoryId())
-                        .name(category.getName())
+                        .name(CategoryEnum.valueOf(category.getName()).getKoreaName())
                         .build())
                 .toList();
 

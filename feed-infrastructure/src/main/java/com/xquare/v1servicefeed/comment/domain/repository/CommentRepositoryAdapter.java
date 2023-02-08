@@ -83,7 +83,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
                         commentEntity.updatedAt
                 ))
                 .from(commentEntity)
-                .where(commentEntity.feed.id.eq(feed.getId()))
+                .where(commentEntity.feedEntity.id.eq(feed.getId()))
                 .orderBy(commentEntity.createAt.desc())
                 .fetch();
 

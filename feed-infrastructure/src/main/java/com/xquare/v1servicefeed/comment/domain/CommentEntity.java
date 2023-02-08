@@ -25,7 +25,7 @@ public class CommentEntity extends BaseUUIDEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feed_id", nullable = false)
-    private FeedEntity feed;
+    private FeedEntity feedEntity;
 
     @Column(columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
