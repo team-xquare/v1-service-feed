@@ -32,13 +32,13 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
     }
 
     @Override
-    public boolean existsUser(UUID userId) {
-        return feedLikeRepository.existsByUserId(userId);
+    public boolean existsByUserIdAndFeedId(UUID userId, UUID feedEntityId) {
+        return feedLikeRepository.existsByUserIdAndFeedEntityId(userId, feedEntityId);
     }
 
     @Override
     public FeedLike queryFeedLikeByFeedIdAndUserId(UUID feedId, UUID userId) {
-        FeedLikeEntity feedLikeEntity = feedLikeRepository.findFeedLikeEntityByUserIdAndFeedEntityId(userId, feedId)
+        FeedLikeEntity feedLikeEntity = feedLikeRepository.findByFeedEntityIdAndUserId(feedId, userId)
                 .orElse(null);
 
         if (feedLikeEntity == null) return null;

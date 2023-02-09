@@ -11,7 +11,4 @@ public interface CommandFeedLikeSpi {
     void saveFeedLike(FeedLike feedLike);
 
     void cancelFeedLike(FeedLike feedLike);
-
-    boolean existsUser(UUID userId);
-
 }

@@ -10,8 +10,7 @@ import java.util.UUID;
 @Repository
 public interface FeedLikeRepository extends CrudRepository<FeedLikeEntity, UUID> {
 
-    boolean existsByUserId(UUID userId);
+    boolean existsByUserIdAndFeedEntityId(UUID userId, UUID feedEntityId);
 
-    Optional<FeedLikeEntity> findFeedLikeEntityByUserIdAndFeedEntityId(UUID userId, UUID feedEntityId);
-
+    Optional<FeedLikeEntity> findByFeedEntityIdAndUserId(UUID feedEntityId, UUID userId);
 }
