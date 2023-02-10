@@ -27,7 +27,7 @@ public class FeedLikeApiImpl implements FeedLikeApi {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
         UUID userId = securitySpi.getCurrentUserId();
 
-        if (commandFeedLikeSpi.existsUser(userId)) {
+        if (queryFeedLikeSpi.existsByUserIdAndFeedId(userId, feed.getId())) {
             throw FeedLikeExistsException.EXCEPTION;
         }
 

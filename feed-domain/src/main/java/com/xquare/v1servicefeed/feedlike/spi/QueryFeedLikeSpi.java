@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface QueryFeedLikeSpi {
 
     FeedLike queryFeedLikeByFeedIdAndUserId(UUID feedId, UUID userId);
+
+    boolean existsByUserIdAndFeedId(UUID feedId, UUID userId);
 }
