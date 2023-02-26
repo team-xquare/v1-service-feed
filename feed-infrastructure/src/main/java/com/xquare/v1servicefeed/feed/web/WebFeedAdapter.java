@@ -54,12 +54,17 @@ public class WebFeedAdapter {
     }
 
     @GetMapping
-    public FeedListResponse getAllFeed(@RequestParam(value = "category", required = false) UUID categoryId) {
+    public FeedListResponse getAllWriterFeed(@RequestParam(value = "category", required = false) UUID categoryId) {
         return feedApi.getAllFeed(categoryId);
     }
 
     @GetMapping("/category")
     public FeedCategoryListResponse getAllCategory() {
         return feedApi.getAllCategory();
+    }
+
+    @GetMapping("/writer")
+    public FeedListResponse getAllWriterFeed() {
+        return feedApi.getAllWriterFeed();
     }
 }

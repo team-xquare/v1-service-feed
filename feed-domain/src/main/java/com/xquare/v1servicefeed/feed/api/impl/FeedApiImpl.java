@@ -135,4 +135,38 @@ public class FeedApiImpl implements FeedApi {
 
         return new FeedCategoryListResponse(categoryList);
     }
+
+    @Override
+    public FeedListResponse getAllWriterFeed() {
+        UUID currentUserId = securitySpi.getCurrentUserId();
+        User user = feedUserSpi.queryUserByIds(List.of(currentUserId)).get(0);
+
+//        if (user == null) {
+//            return new FeedListResponse(List.of());
+//        }
+
+        List<FeedElement> feedList = queryFeedSpi.queryAllFeedByUserId(user.getId())
+                .stream()
+                .map(feed -> {
+                    Boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
+                    List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
+
+                    return FeedElement.builder()
+                            .feedId(feed.getFeedId())
+                            .content(feed.getContent())
+                            .createdAt(feed.getCreatedAt())
+                            .profile(user.getProfileFileName())
+                            .name(user.getName())
+                            .type(feed.getType())
+                            .likeCount(feed.getLikeCount())
+                            .commentCount(feed.getCommentCount())
+                            .isMine(true)
+                            .isLike(isLike)
+                            .attachmentsUrl(attachmentsUrl)
+                            .build();
+                })
+                .toList();
+
+        return new FeedListResponse(feedList);
+    }
 }

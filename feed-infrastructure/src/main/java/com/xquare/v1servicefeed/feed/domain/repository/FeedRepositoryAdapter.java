@@ -107,6 +107,41 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .toList();
     }
 
+    @Override
+    public List<FeedList> queryAllFeedByUserId(UUID userId) {
+        List<FeedListVO> voList = query
+                .select(new QFeedListVO(
+                        feedEntity.id,
+                        feedEntity.userId,
+                        feedEntity.content,
+                        feedEntity.type,
+                        feedEntity.createdAt,
+                        feedLikeEntity.countDistinct(),
+                        commentEntity.countDistinct()
+                ))
+                .from(feedEntity)
+                .leftJoin(feedLikeEntity)
+                .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
+                .leftJoin(commentEntity)
+                .on(feedEntity.id.eq(commentEntity.feedEntity.id))
+                .where(feedEntity.userId.eq(userId))
+                .groupBy(feedEntity.id)
+                .orderBy(feedEntity.createdAt.desc())
+                .fetch();
+
+        return voList.stream()
+                .map(feedListVO -> FeedList.builder()
+                        .feedId(feedListVO.getFeedId())
+                        .userId(feedListVO.getUserId())
+                        .content(feedListVO.getContent())
+                        .type(feedListVO.getType())
+                        .createdAt(feedListVO.getCreatedAt())
+                        .likeCount(feedListVO.getLikeCount())
+                        .commentCount(feedListVO.getCommentCount())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
     private FeedEntity getFeedEntityById(UUID feedId) {
         return feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotFoundException.EXCEPTION);
