@@ -141,9 +141,9 @@ public class FeedApiImpl implements FeedApi {
         UUID currentUserId = securitySpi.getCurrentUserId();
         User user = feedUserSpi.queryUserByIds(List.of(currentUserId)).get(0);
 
-//        if (user == null) {
-//            return new FeedListResponse(List.of());
-//        }
+        if (user == null) {
+            return new FeedListResponse(List.of());
+        }
 
         List<FeedElement> feedList = queryFeedSpi.queryAllFeedByUserId(user.getId())
                 .stream()
