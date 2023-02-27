@@ -14,4 +14,6 @@ public interface QueryFeedSpi {
     List<FeedList> queryAllFeedByCategory(UUID categoryId);
 
     List<UUID> queryAllFeedUserIdByCategory(UUID categoryId);
+
+    List<FeedList> queryAllFeedByUserId(UUID userId);
 }

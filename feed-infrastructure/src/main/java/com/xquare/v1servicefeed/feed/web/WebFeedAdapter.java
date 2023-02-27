@@ -62,4 +62,9 @@ public class WebFeedAdapter {
     public FeedCategoryListResponse getAllCategory() {
         return feedApi.getAllCategory();
     }
+
+    @GetMapping("/writer")
+    public FeedListResponse getAllWriterFeed() {
+        return feedApi.getAllWriterFeed();
+    }
 }

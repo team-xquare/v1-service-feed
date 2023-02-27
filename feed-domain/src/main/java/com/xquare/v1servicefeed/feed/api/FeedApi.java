@@ -20,4 +20,6 @@ public interface FeedApi {
     FeedListResponse getAllFeed(UUID categoryId);
 
     FeedCategoryListResponse getAllCategory();
+
+    FeedListResponse getAllWriterFeed();
 }
