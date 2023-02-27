@@ -12,6 +12,7 @@ import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedElement;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedList;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
@@ -100,23 +101,10 @@ public class FeedApiImpl implements FeedApi {
                 .stream()
                 .map(feed -> {
                     User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
-                    Boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
-                    Boolean isMine = user != null && feed.getUserId().equals(currentUserId);
+                    boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
+                    boolean isMine = user != null && feed.getUserId().equals(currentUserId);
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
-
-                    return FeedElement.builder()
-                            .feedId(feed.getFeedId())
-                            .content(feed.getContent())
-                            .createdAt(feed.getCreatedAt())
-                            .profile(user.getProfileFileName())
-                            .name(user.getName())
-                            .type(feed.getType())
-                            .likeCount(feed.getLikeCount())
-                            .commentCount(feed.getCommentCount())
-                            .isMine(isMine)
-                            .isLike(isLike)
-                            .attachmentsUrl(attachmentsUrl)
-                            .build();
+                    return builderFeedElement(feed, user, attachmentsUrl, isMine, isLike);
                 })
                 .toList();
 
@@ -148,25 +136,30 @@ public class FeedApiImpl implements FeedApi {
         List<FeedElement> feedList = queryFeedSpi.queryAllFeedByUserId(user.getId())
                 .stream()
                 .map(feed -> {
-                    Boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
+                    boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
-
-                    return FeedElement.builder()
-                            .feedId(feed.getFeedId())
-                            .content(feed.getContent())
-                            .createdAt(feed.getCreatedAt())
-                            .profile(user.getProfileFileName())
-                            .name(user.getName())
-                            .type(feed.getType())
-                            .likeCount(feed.getLikeCount())
-                            .commentCount(feed.getCommentCount())
-                            .isMine(true)
-                            .isLike(isLike)
-                            .attachmentsUrl(attachmentsUrl)
-                            .build();
+                    return builderFeedElement(feed, user, attachmentsUrl, true, isLike);
                 })
                 .toList();
 
         return new FeedListResponse(feedList);
+    }
+
+    private FeedElement builderFeedElement(
+            FeedList feed, User user, List<String> attachmentsUrl, boolean isMine, boolean isLike
+    ) {
+        return FeedElement.builder()
+                .feedId(feed.getFeedId())
+                .content(feed.getContent())
+                .createdAt(feed.getCreatedAt())
+                .profile(user.getProfileFileName())
+                .name(user.getName())
+                .type(feed.getType())
+                .likeCount(feed.getLikeCount())
+                .commentCount(feed.getCommentCount())
+                .isMine(isMine)
+                .isLike(isLike)
+                .attachmentsUrl(attachmentsUrl)
+                .build();
     }
 }
