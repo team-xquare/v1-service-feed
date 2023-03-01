@@ -21,7 +21,6 @@ public class FeedImageRepositoryAdapter implements FeedImageSpi {
 
     private final FeedImageRepository feedImageRepository;
     private final FeedImageMapper feedImageMapper;
-    private final FeedMapper feedMapper;
     private final FeedRepository feedRepository;
 
     @Override

@@ -20,6 +20,7 @@ import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryCategorySpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
+import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
@@ -45,6 +46,7 @@ public class FeedApiImpl implements FeedApi {
     private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final QueryFeedImageSpi queryFeedImageSpi;
     private final QueryCategorySpi queryCategorySpi;
+    private final CommandFeedLikeSpi commandFeedLikeSpi;
 
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
@@ -86,6 +88,7 @@ public class FeedApiImpl implements FeedApi {
         feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
         commandCommentSpi.deleteAllCommentByFeedId(feedId);
         commandFeedImageSpi.deleteAllFeedImage(feedId);
+        commandFeedLikeSpi.deleteFeedLikeByFeedId(feedId);
         commandFeedSpi.deleteFeed(feed);
     }
 

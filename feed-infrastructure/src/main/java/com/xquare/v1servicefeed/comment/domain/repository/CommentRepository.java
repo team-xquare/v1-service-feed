@@ -11,5 +11,5 @@ public interface CommentRepository extends CrudRepository<CommentEntity, UUID> {
 
     void deleteById(UUID commentId);
 
-    void deleteAllById(UUID feedId);
+    void deleteAllByFeedEntityId(UUID feedId);
 }

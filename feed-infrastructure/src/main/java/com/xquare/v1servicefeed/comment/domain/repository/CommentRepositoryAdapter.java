@@ -48,9 +48,10 @@ public class CommentRepositoryAdapter implements CommentSpi {
         commentRepository.save(comment.updateComment(request.getContent()));
     }
 
+    @Transactional
     @Override
     public void deleteAllCommentByFeedId(UUID feedId) {
-        commentRepository.deleteAllById(feedId);
+        commentRepository.deleteAllByFeedEntityId(feedId);
     }
 
     @Override
