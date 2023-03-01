@@ -10,4 +10,4 @@ ENV CLOUD_CONFIG_PASSWORD ${CLOUD_CONFIG_PASSWORD}
 COPY ./feed-infrastructure/build/libs/*.jar app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "-Duser.timezone=Asia/Seoul", "/app.jar"]
