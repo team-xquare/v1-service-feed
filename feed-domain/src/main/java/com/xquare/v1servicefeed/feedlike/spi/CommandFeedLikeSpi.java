@@ -11,4 +11,6 @@ public interface CommandFeedLikeSpi {
     void saveFeedLike(FeedLike feedLike);
 
     void cancelFeedLike(FeedLike feedLike);
+
+    void deleteFeedLikeByFeedId(UUID feedId);
 }

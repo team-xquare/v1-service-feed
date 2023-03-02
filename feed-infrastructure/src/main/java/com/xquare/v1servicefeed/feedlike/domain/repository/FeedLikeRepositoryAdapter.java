@@ -32,6 +32,12 @@ public class FeedLikeRepositoryAdapter implements FeedLikeSpi {
     }
 
     @Override
+    @Transactional
+    public void deleteFeedLikeByFeedId(UUID feedId) {
+        feedLikeRepository.deleteAllByFeedEntityId(feedId);
+    }
+
+    @Override
     public boolean existsByUserIdAndFeedId(UUID userId, UUID feedEntityId) {
         return feedLikeRepository.existsByUserIdAndFeedEntityId(userId, feedEntityId);
     }
