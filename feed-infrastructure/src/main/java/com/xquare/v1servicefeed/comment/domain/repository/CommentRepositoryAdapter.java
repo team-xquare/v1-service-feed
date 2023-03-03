@@ -81,7 +81,8 @@ public class CommentRepositoryAdapter implements CommentSpi {
                 .select(new QCommentListVO(
                         commentEntity.id,
                         commentEntity.content,
-                        commentEntity.updatedAt
+                        commentEntity.updatedAt,
+                        commentEntity.userId
                 ))
                 .from(commentEntity)
                 .where(commentEntity.feedEntity.id.eq(feed.getId()))
@@ -93,6 +94,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
                         .id(commentListVO.getCommentId())
                         .content(commentListVO.getContent())
                         .updatedAt(commentListVO.getUpdatedAt())
+                        .userId(commentListVO.getUserId())
                         .build())
                 .collect(Collectors.toList());
     }
