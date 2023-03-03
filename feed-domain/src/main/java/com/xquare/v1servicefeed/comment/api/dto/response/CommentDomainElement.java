@@ -15,4 +15,5 @@ public class CommentDomainElement {
     private final String name;
     private final String profile;
     private final LocalDateTime updatedAt;
+    private final Boolean isMine;
 }

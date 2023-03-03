@@ -66,6 +66,7 @@ public class CommentApiImpl implements CommentApi {
     @Override
     public List<CommentDomainElement> queryAllCommentByFeedId(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
+        UUID currentUserId = securitySpi.getCurrentUserId();
 
         List<UUID> userIdList = queryCommentSpi.queryAllCommentUserIdByFeed(feed);
         Map<UUID, User> map = commentUserSpi.queryUserByIds(userIdList).stream()
@@ -76,6 +77,7 @@ public class CommentApiImpl implements CommentApi {
                 .stream()
                 .map(comment -> {
                     User user = map.getOrDefault(feed.getUserId(), defaultUser);
+                    boolean isMine = comment.getUserId().equals(currentUserId);
 
                     return CommentDomainElement.builder()
                             .commentId(comment.getId())
@@ -83,6 +85,7 @@ public class CommentApiImpl implements CommentApi {
                             .name(user.getName())
                             .profile(user.getProfileFileName())
                             .updatedAt(comment.getUpdatedAt())
+                            .isMine(isMine)
                             .build();
                 })
                 .toList();
