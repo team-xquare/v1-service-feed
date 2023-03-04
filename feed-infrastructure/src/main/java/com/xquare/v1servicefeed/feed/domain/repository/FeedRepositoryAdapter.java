@@ -15,6 +15,7 @@ import com.xquare.v1servicefeed.feed.spi.FeedSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -63,6 +64,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .select(new QFeedListVO(
                         feedEntity.id,
                         feedEntity.userId,
+                        feedEntity.title,
                         feedEntity.content,
                         feedEntity.type,
                         feedEntity.createdAt,
@@ -113,6 +115,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .select(new QFeedListVO(
                         feedEntity.id,
                         feedEntity.userId,
+                        feedEntity.title,
                         feedEntity.content,
                         feedEntity.type,
                         feedEntity.createdAt,

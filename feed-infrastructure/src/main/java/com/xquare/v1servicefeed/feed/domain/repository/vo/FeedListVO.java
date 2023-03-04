@@ -11,6 +11,7 @@ public class FeedListVO {
 
     private final UUID feedId;
     private final UUID userId;
+    private final String title;
     private final String content;
     private final String type;
     private final LocalDateTime createdAt;
@@ -18,9 +19,10 @@ public class FeedListVO {
     private final Long commentCount;
 
     @QueryProjection
-    public FeedListVO(UUID feedId, UUID userId, String content, String type, LocalDateTime createdAt, Long likeCount, Long commentCount) {
+    public FeedListVO(UUID feedId, UUID userId, String title, String content, String type, LocalDateTime createdAt, Long likeCount, Long commentCount) {
         this.feedId = feedId;
         this.userId = userId;
+        this.title = title;
         this.content = content;
         this.type = type;
         this.createdAt = createdAt;
