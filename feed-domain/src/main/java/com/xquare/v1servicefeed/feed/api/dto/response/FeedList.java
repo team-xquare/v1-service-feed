@@ -11,6 +11,8 @@ import java.util.UUID;
 public class FeedList {
     private final UUID feedId;
     private final UUID userId;
+
+    private final String title;
     private final String content;
     private final String type;
     private final LocalDateTime createdAt;

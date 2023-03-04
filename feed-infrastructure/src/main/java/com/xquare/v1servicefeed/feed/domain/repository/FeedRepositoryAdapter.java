@@ -136,6 +136,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .map(feedListVO -> FeedList.builder()
                         .feedId(feedListVO.getFeedId())
                         .userId(feedListVO.getUserId())
+                        .title(feedListVO.getTitle())
                         .content(feedListVO.getContent())
                         .type(feedListVO.getType())
                         .createdAt(feedListVO.getCreatedAt())

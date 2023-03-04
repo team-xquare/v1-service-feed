@@ -153,6 +153,7 @@ public class FeedApiImpl implements FeedApi {
     ) {
         return FeedElement.builder()
                 .feedId(feed.getFeedId())
+                .title(feed.getTitle())
                 .content(feed.getContent())
                 .createdAt(feed.getCreatedAt())
                 .profile(user.getProfileFileName())
