@@ -121,6 +121,7 @@ public class FeedApiImpl implements FeedApi {
                 .map(category -> FeedCategoryElement.builder()
                         .categoryId(category.getCategoryId())
                         .name(CategoryEnum.valueOf(category.getName()).getKoreaName())
+                        .key(CategoryEnum.valueOf(category.getName()).getName())
                         .build())
                 .toList();
 

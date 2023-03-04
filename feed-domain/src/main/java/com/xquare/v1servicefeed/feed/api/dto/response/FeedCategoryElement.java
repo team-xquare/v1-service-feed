@@ -11,4 +11,6 @@ public class FeedCategoryElement {
 
     private final UUID categoryId;
     private final String name;
+
+    private final String key;
 }
