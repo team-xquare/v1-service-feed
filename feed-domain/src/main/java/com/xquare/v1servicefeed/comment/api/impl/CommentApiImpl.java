@@ -76,7 +76,7 @@ public class CommentApiImpl implements CommentApi {
         return queryCommentSpi.queryAllCommentByFeed(feed)
                 .stream()
                 .map(comment -> {
-                    User user = map.getOrDefault(feed.getUserId(), defaultUser);
+                    User user = map.getOrDefault(comment.getUserId(), defaultUser);
                     boolean isMine = comment.getUserId().equals(currentUserId);
 
                     return CommentDomainElement.builder()
