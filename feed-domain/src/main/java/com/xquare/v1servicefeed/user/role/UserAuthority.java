@@ -8,5 +8,6 @@ public enum UserAuthority {
     DOS, //dormitory supervisor
     CLL, //club leader
     OST, //ordinary student
+    UKN, //unknown
 }
 
