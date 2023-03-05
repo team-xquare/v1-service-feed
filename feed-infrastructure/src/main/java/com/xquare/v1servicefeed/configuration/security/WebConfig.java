@@ -14,8 +14,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowedOrigins(
-                        "https://service.xquare.app/",
-                        "https://admin.xquare.app/",
+                        "https://service.xquare.app",
+                        "https://admin.xquare.app",
                         "http://localhost:3000",
                         "http://localhost:3001"
                 );
