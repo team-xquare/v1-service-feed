@@ -11,6 +11,6 @@ import java.util.UUID;
 @FeignClient(name = "UserClient", url = "${service.scheme}://${service.user.host}")
 public interface UserClient {
 
-    @GetMapping("/id")
+    @GetMapping("/users/id")
     UserInfoResponse getUserInfo(@RequestParam("userId") List<UUID> userIds);
 }
