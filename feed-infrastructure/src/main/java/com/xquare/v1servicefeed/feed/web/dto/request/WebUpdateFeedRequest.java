@@ -11,6 +11,10 @@ import javax.validation.constraints.Size;
 public class WebUpdateFeedRequest {
 
     @NotBlank
+    @Size(min = 1, max = 255)
+    private String title;
+
+    @NotBlank
     @Size(min = 1, max = 65535)
     private String content;
 }

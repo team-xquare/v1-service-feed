@@ -50,7 +50,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
     public void updateFeed(DomainUpdateFeedRequest request) {
         FeedEntity feed = getFeedEntityById(request.getFeedId());
 
-        feed.updateFeed(request.getContent());
+        feed.updateFeedContent(request.getTitle(), request.getContent());
     }
 
     @Override

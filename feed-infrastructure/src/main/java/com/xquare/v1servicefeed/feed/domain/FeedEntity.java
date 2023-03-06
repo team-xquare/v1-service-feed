@@ -46,7 +46,8 @@ public class FeedEntity extends BaseUUIDEntity {
     @OneToMany(mappedBy = "feedEntity")
     private Set<FeedImageEntity> feedImageEntities;
 
-    public void updateFeed(String content) {
+    public void updateFeedContent(String title, String content) {
+        this.title = title;
         this.content = content;
     }
 }

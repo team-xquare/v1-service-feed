@@ -41,6 +41,7 @@ public class WebFeedAdapter {
 
         DomainUpdateFeedRequest domainRequest = DomainUpdateFeedRequest.builder()
                 .feedId(feedId)
+                .title(request.getTitle())
                 .content(request.getContent())
                 .build();
 

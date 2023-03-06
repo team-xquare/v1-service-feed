@@ -76,9 +76,7 @@ public class FeedApiImpl implements FeedApi {
         UUID currentUserId = securitySpi.getCurrentUserId();
         feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
 
-        if (!feed.getContent().equals(request.getContent())) {
-            commandFeedSpi.updateFeed(request);
-        }
+        commandFeedSpi.updateFeed(request);
     }
 
     @Override

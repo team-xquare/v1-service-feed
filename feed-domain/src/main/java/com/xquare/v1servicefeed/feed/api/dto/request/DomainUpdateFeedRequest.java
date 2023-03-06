@@ -9,5 +9,6 @@ import java.util.UUID;
 @Getter
 public class DomainUpdateFeedRequest {
     private final UUID feedId;
+    private final String title;
     private final String content;
 }
