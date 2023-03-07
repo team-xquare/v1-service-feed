@@ -61,7 +61,9 @@ public class FeedApiImpl implements FeedApi {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .categoryId(request.getCategoryId())
-                .userId(securitySpi.getCurrentUserId())
+                .userId(
+                        CategoryEnum.BAMBOO.getName().equals(category.getName())
+                                ? new UUID(0, 0) : securitySpi.getCurrentUserId())
                 .type(request.getType())
                 .build();
 
