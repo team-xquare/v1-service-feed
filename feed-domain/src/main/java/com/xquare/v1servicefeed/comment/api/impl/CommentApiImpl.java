@@ -40,7 +40,9 @@ public class CommentApiImpl implements CommentApi {
                 Comment.builder()
                         .content(request.getContent())
                         .feedId(feed.getId())
-                        .userId(securitySpi.getCurrentUserId())
+                        .userId(
+                                feed.getUserId().equals(new UUID(0, 0))
+                                        ? new UUID(0, 0) : securitySpi.getCurrentUserId())
                         .createAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
                         .build()

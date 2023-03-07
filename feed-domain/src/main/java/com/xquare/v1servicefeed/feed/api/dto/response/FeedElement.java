@@ -13,7 +13,6 @@ import java.util.List;
 public class FeedElement {
 
     private final UUID feedId;
-
     private final String title;
     private final String content;
     private final LocalDateTime createdAt;
