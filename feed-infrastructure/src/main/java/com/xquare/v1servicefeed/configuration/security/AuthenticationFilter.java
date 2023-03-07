@@ -35,7 +35,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         String userId = request.getHeader("Request-User-Id");
         UserRole userRole = UserRole.valueOf(request.getHeader("Request-User-Role"));
         List<String> userAuthorities = List.of(request.getHeader("Request-User-Authorities").split(" "));
-        System.out.println(userAuthorities);
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (String userAuthority : userAuthorities) {
