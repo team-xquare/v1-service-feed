@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class DeclarationMapper {
-    private final FeedRepository feedRepository;
+abstract class DeclarationMapper {
 
     public Declaration entityToDomain(DeclarationEntity declarationEntity) {
 
