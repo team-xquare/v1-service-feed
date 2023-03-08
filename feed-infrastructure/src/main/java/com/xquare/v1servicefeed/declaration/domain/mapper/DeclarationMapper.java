@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-abstract class DeclarationMapper {
+public abstract class DeclarationMapper {
 
     public Declaration entityToDomain(DeclarationEntity declarationEntity) {
 
