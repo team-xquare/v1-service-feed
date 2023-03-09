@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class ReportMapperImpl implements ReportMapper{
+public class ReportMapperImpl implements ReportMapper {
     public Report entityToDomain(ReportEntity reportEntity) {
 
         return Report.builder()
