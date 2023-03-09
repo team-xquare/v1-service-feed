@@ -16,7 +16,7 @@ import java.util.UUID;
 @SuperBuilder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tbl_declaration")
+@Table(name = "tbl_report")
 @Entity
 public class ReportEntity extends BaseUUIDEntity {
 
