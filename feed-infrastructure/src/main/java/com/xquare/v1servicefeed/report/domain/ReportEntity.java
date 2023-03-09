@@ -20,12 +20,12 @@ import java.util.UUID;
 @Entity
 public class ReportEntity extends BaseUUIDEntity {
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "BINARY(16)", nullable = false)
     private UUID feedId;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 }
