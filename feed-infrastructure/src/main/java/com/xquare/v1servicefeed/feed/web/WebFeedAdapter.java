@@ -74,8 +74,8 @@ public class WebFeedAdapter {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/declaration")
-    public void saveDeclaration(@Valid @RequestBody CreateReportWebRequest request) {
+    @PostMapping("/report")
+    public void saveReport(@Valid @RequestBody CreateReportWebRequest request) {
 
         reportApi.saveReport(
                 CreateReportDomainRequest.builder()
