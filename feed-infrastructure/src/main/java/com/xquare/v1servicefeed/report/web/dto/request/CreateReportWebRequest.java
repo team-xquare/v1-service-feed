@@ -1,4 +1,4 @@
-package com.xquare.v1servicefeed.declaration.web.dto.request;
+package com.xquare.v1servicefeed.report.web.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-public class CreateDeclarationWebRequest {
+public class CreateReportWebRequest {
 
     @NotNull
     private UUID feedId;

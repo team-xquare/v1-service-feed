@@ -1,4 +1,4 @@
-package com.xquare.v1servicefeed.declaration.domain;
+package com.xquare.v1servicefeed.report.domain;
 
 import com.xquare.v1servicefeed.configuration.entity.BaseUUIDEntity;
 import lombok.AccessLevel;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_declaration")
 @Entity
-public class DeclarationEntity extends BaseUUIDEntity {
+public class ReportEntity extends BaseUUIDEntity {
 
     @Column(nullable = false)
     private UUID userId;

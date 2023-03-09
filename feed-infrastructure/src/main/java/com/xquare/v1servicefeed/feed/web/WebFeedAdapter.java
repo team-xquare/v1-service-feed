@@ -1,8 +1,8 @@
 package com.xquare.v1servicefeed.feed.web;
 
-import com.xquare.v1servicefeed.declaration.api.DeclarationApi;
-import com.xquare.v1servicefeed.declaration.api.dto.CreateDeclarationDomainRequest;
-import com.xquare.v1servicefeed.declaration.web.dto.request.CreateDeclarationWebRequest;
+import com.xquare.v1servicefeed.report.api.ReportApi;
+import com.xquare.v1servicefeed.report.api.dto.CreateReportDomainRequest;
+import com.xquare.v1servicefeed.report.web.dto.request.CreateReportWebRequest;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
@@ -23,7 +23,7 @@ import java.util.UUID;
 public class WebFeedAdapter {
 
     private final FeedApi feedApi;
-    private final DeclarationApi declarationApi;
+    private final ReportApi reportApi;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -75,10 +75,10 @@ public class WebFeedAdapter {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/declaration")
-    public void saveDeclaration(@Valid @RequestBody CreateDeclarationWebRequest request) {
+    public void saveDeclaration(@Valid @RequestBody CreateReportWebRequest request) {
 
-        declarationApi.saveDeclaration(
-                CreateDeclarationDomainRequest.builder()
+        reportApi.saveReport(
+                CreateReportDomainRequest.builder()
                         .feedId(request.getFeedId())
                         .content(request.getContent())
                         .build()

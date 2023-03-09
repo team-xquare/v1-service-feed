@@ -1,4 +1,4 @@
-package com.xquare.v1servicefeed.declaration;
+package com.xquare.v1servicefeed.report;
 
 import com.xquare.v1servicefeed.annotation.Aggregate;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Builder
 @Aggregate
-public class Declaration {
+public class Report {
     private final UUID id;
 
     private final String content;
