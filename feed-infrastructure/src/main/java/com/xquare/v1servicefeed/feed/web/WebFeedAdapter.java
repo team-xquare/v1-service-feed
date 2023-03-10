@@ -1,5 +1,8 @@
 package com.xquare.v1servicefeed.feed.web;
 
+import com.xquare.v1servicefeed.report.api.ReportApi;
+import com.xquare.v1servicefeed.report.api.dto.CreateReportDomainRequest;
+import com.xquare.v1servicefeed.report.web.dto.request.CreateReportWebRequest;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
@@ -20,6 +23,7 @@ import java.util.UUID;
 public class WebFeedAdapter {
 
     private final FeedApi feedApi;
+    private final ReportApi reportApi;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -67,5 +71,18 @@ public class WebFeedAdapter {
     @GetMapping("/writer")
     public FeedListResponse getAllWriterFeed() {
         return feedApi.getAllWriterFeed();
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/report")
+    public void saveReport(@Valid @RequestBody CreateReportWebRequest request) {
+
+        CreateReportDomainRequest domainRequest = CreateReportDomainRequest.builder()
+                .feedId(request.getFeedId())
+                .reportUserId(request.getReportUserId())
+                .content(request.getContent())
+                .build();
+
+        reportApi.saveReport(domainRequest);
     }
 }
