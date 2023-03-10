@@ -77,11 +77,12 @@ public class WebFeedAdapter {
     @PostMapping("/report")
     public void saveReport(@Valid @RequestBody CreateReportWebRequest request) {
 
-        reportApi.saveReport(
-                CreateReportDomainRequest.builder()
-                        .feedId(request.getFeedId())
-                        .content(request.getContent())
-                        .build()
-        );
+        CreateReportDomainRequest domainRequest = CreateReportDomainRequest.builder()
+                .feedId(request.getFeedId())
+                .reportUserId(request.getReportUserId())
+                .content(request.getContent())
+                .build();
+
+        reportApi.saveReport(domainRequest);
     }
 }
