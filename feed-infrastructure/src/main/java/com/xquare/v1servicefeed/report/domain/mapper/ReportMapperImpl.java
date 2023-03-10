@@ -14,6 +14,7 @@ public class ReportMapperImpl implements ReportMapper {
         return Report.builder()
                 .id(reportEntity.getId())
                 .userId(reportEntity.getUserId())
+                .reportUserId(reportEntity.getReportUserId())
                 .feedId(reportEntity.getFeedId())
                 .content(reportEntity.getContent())
                 .build();
@@ -24,6 +25,7 @@ public class ReportMapperImpl implements ReportMapper {
         return ReportEntity.builder()
                 .id(report.getId())
                 .userId(report.getUserId())
+                .reportUserId(report.getReportUserId())
                 .feedId(report.getFeedId())
                 .content(report.getContent())
                 .build();

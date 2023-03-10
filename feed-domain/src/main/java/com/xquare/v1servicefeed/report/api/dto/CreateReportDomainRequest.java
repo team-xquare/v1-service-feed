@@ -10,5 +10,7 @@ import java.util.UUID;
 public class CreateReportDomainRequest {
     private UUID feedId;
 
+    private UUID reportUserId;
+
     private String content;
 }

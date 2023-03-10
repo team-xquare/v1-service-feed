@@ -25,6 +25,7 @@ public class ReportApiImpl implements ReportApi {
         commandReportSpi.saveReport(
                 Report.builder()
                         .userId(securitySpi.getCurrentUserId())
+                        .reportUserId(request.getReportUserId())
                         .feedId(feed.getId())
                         .content(request.getContent())
                         .build()

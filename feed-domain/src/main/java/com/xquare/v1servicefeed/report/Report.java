@@ -12,6 +12,8 @@ import java.util.UUID;
 public class Report {
     private final UUID id;
 
+    private final UUID reportUserId;
+
     private final String content;
 
     private final UUID feedId;

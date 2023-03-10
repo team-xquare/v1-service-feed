@@ -14,6 +14,9 @@ public class CreateReportWebRequest {
     @NotNull
     private UUID feedId;
 
+    @NotNull
+    private UUID reportUserId;
+
     @NotBlank
     private String content;
 }

@@ -24,6 +24,9 @@ public class ReportEntity extends BaseUUIDEntity {
     private UUID userId;
 
     @Column(columnDefinition = "BINARY(16)", nullable = false)
+    private UUID reportUserId;
+
+    @Column(columnDefinition = "BINARY(16)", nullable = false)
     private UUID feedId;
 
     @Column(columnDefinition = "TEXT", nullable = false)
