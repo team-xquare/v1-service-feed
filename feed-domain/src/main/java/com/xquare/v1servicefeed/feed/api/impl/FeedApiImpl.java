@@ -100,9 +100,11 @@ public class FeedApiImpl implements FeedApi {
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();
         UUID currentUserId = securitySpi.getCurrentUserId();
+        boolean isTest = isUserValidate();
 
         List<FeedElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId)
                 .stream()
+                .filter(feed -> !isTest || !feed.getType().equals(UserAuthority.UKN.name()))
                 .map(feed -> {
                     UserAuthority userAuthority = UserAuthority.valueOf(feed.getType());
                     User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
@@ -118,13 +120,16 @@ public class FeedApiImpl implements FeedApi {
 
     @Override
     public FeedCategoryListResponse getAllCategory() {
+        boolean isTest = isUserValidate();
         List<FeedCategoryElement> categoryList = queryCategorySpi.queryAllCategory()
                 .stream()
-                .map(category -> FeedCategoryElement.builder()
-                        .categoryId(category.getCategoryId())
-                        .name(CategoryEnum.valueOf(category.getName()).getKoreaName())
-                        .key(CategoryEnum.valueOf(category.getName()).getName())
-                        .build())
+                .filter(category -> !isTest || !category.getName().equals(CategoryEnum.BAMBOO.getName()))
+                .map(category ->
+                        FeedCategoryElement.builder()
+                                .categoryId(category.getCategoryId())
+                                .name(CategoryEnum.valueOf(category.getName()).getKoreaName())
+                                .key(CategoryEnum.valueOf(category.getName()).getName())
+                                .build())
                 .toList();
 
         return new FeedCategoryListResponse(categoryList);
@@ -169,5 +174,10 @@ public class FeedApiImpl implements FeedApi {
                 .isLike(isLike)
                 .attachmentsUrl(attachmentsUrl)
                 .build();
+    }
+
+    private boolean isUserValidate() {
+        List<String> userAuthorities = securitySpi.getUserAuthority();
+        return userAuthorities.contains(UserAuthority.TEST.name());
     }
 }
