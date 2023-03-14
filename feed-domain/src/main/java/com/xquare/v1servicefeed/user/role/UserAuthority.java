@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum UserAuthority {
     STD("학생생활안전부", ""), //student department
-    STC("학생회", ""), //student council
+    STC("학생회", "https://xquare.s3.ap-northeast-2.amazonaws.com/%E1%84%92%E1%85%A1%E1%86%A8%E1%84%89%E1%85%A2%E1%86%BC%E1%84%92%E1%85%AC.png"), //student council
     STA("자치회", ""), //student autonomy
     DOD("사감부", ""), //dormitory department
-    DOS("사감선생님", ""), //dormitory supervisor
+    DOS("사감선생님", "https://xquare.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%85%A1%E1%84%80%E1%85%A1%E1%86%B7%E1%84%91%E1%85%B3%E1%84%89%E1%85%A1.png"), //dormitory supervisor
     CLL("동아리장", ""), //club leader
     OST("학생", ""), //ordinary student
     UKN("익명", ""), //unknown
