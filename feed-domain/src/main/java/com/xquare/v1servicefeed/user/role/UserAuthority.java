@@ -1,13 +1,22 @@
 package com.xquare.v1servicefeed.user.role;
 
-public enum UserAuthority {
-    STD, //student department
-    STC, //student council
-    STA, //student autonomy
-    DOD, //dormitory department
-    DOS, //dormitory supervisor
-    CLL, //club leader
-    OST, //ordinary student
-    UKN, //unknown
-}
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
+@Getter
+public enum UserAuthority {
+    STD("학생생활안전부", ""), //student department
+    STC("학생회", ""), //student council
+    STA("자치회", ""), //student autonomy
+    DOD("사감부", ""), //dormitory department
+    DOS("사감선생님", ""), //dormitory supervisor
+    CLL("동아리장", ""), //club leader
+    OST("학생", ""), //ordinary student
+    UKN("익명", ""), //unknown
+    TEST("테스트", ""), //test
+    ;
+
+    private final String name;
+    private final String profile;
+}

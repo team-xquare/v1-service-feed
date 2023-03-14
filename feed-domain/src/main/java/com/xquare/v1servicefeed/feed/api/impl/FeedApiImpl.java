@@ -24,6 +24,7 @@ import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
+import com.xquare.v1servicefeed.user.role.UserAuthority;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -103,11 +104,12 @@ public class FeedApiImpl implements FeedApi {
         List<FeedElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId)
                 .stream()
                 .map(feed -> {
+                    UserAuthority userAuthority = UserAuthority.valueOf(feed.getType());
                     User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
                     boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
                     boolean isMine = user != null && feed.getUserId().equals(currentUserId);
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
-                    return builderFeedElement(feed, user, attachmentsUrl, isMine, isLike);
+                    return builderFeedElement(feed, user, userAuthority, attachmentsUrl, isMine, isLike);
                 })
                 .toList();
 
@@ -140,9 +142,10 @@ public class FeedApiImpl implements FeedApi {
         List<FeedElement> feedList = queryFeedSpi.queryAllFeedByUserId(user.getId())
                 .stream()
                 .map(feed -> {
+                    UserAuthority userAuthority = UserAuthority.valueOf(feed.getType());
                     boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
-                    return builderFeedElement(feed, user, attachmentsUrl, true, isLike);
+                    return builderFeedElement(feed, user, userAuthority, attachmentsUrl, true, isLike);
                 })
                 .toList();
 
@@ -150,16 +153,16 @@ public class FeedApiImpl implements FeedApi {
     }
 
     private FeedElement builderFeedElement(
-            FeedList feed, User user, List<String> attachmentsUrl, boolean isMine, boolean isLike
+            FeedList feed, User user, UserAuthority userAuthority, List<String> attachmentsUrl, boolean isMine, boolean isLike
     ) {
         return FeedElement.builder()
                 .feedId(feed.getFeedId())
                 .title(feed.getTitle())
                 .content(feed.getContent())
                 .createdAt(feed.getCreatedAt())
-                .profile(user.getProfileFileName())
+                .profile(userAuthority.getProfile())
                 .name(user.getName())
-                .type(feed.getType())
+                .type(userAuthority.getName())
                 .likeCount(feed.getLikeCount())
                 .commentCount(feed.getCommentCount())
                 .isMine(isMine)
