@@ -9,6 +9,7 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.AuthorityElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryElement;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedElement;
@@ -25,6 +26,7 @@ import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
 import com.xquare.v1servicefeed.user.role.UserAuthority;
+import com.xquare.v1servicefeed.user.spi.FeedAuthoritySpi;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -48,6 +50,7 @@ public class FeedApiImpl implements FeedApi {
     private final QueryFeedImageSpi queryFeedImageSpi;
     private final QueryCategorySpi queryCategorySpi;
     private final CommandFeedLikeSpi commandFeedLikeSpi;
+    private final FeedAuthoritySpi feedAuthoritySpi;
 
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
@@ -121,15 +124,23 @@ public class FeedApiImpl implements FeedApi {
     @Override
     public FeedCategoryListResponse getAllCategory() {
         boolean isTest = isUserValidate();
+        UUID currentUserId = securitySpi.getCurrentUserId();
         List<FeedCategoryElement> categoryList = queryCategorySpi.queryAllCategory()
                 .stream()
                 .filter(category -> !isTest || !category.getName().equals(CategoryEnum.BAMBOO.getName()))
-                .map(category ->
-                        FeedCategoryElement.builder()
-                                .categoryId(category.getCategoryId())
-                                .name(CategoryEnum.valueOf(category.getName()).getKoreaName())
-                                .key(CategoryEnum.valueOf(category.getName()).getName())
-                                .build())
+                .map(category -> {
+                    CategoryEnum categoryEnum = CategoryEnum.valueOf(category.getName());
+
+                    List<AuthorityElement> authoritiesByCategoryType =
+                            feedAuthoritySpi.queryAuthorityByUserIdAndType(currentUserId, category.getName());
+
+                    return FeedCategoryElement.builder()
+                            .categoryId(category.getCategoryId())
+                            .name(categoryEnum.getKoreaName())
+                            .key(categoryEnum.getName())
+                            .authorities(authoritiesByCategoryType)
+                            .build();
+                })
                 .toList();
 
         return new FeedCategoryListResponse(categoryList);
