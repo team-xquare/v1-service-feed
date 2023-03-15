@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
 
-@FeignClient(name = "AuthorityClient", url = "http://localhost:8081")
+@FeignClient(name = "AuthorityClient", url = "${service.scheme}://${service.authority.host}")
 public interface AuthorityClient {
 
     @GetMapping("/authorities/access-management/type/{userId}")
