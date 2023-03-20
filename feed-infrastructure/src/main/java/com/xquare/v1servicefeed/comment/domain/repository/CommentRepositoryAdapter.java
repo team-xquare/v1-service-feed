@@ -86,7 +86,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
                 ))
                 .from(commentEntity)
                 .where(commentEntity.feedEntity.id.eq(feed.getId()))
-                .orderBy(commentEntity.createAt.desc())
+                .orderBy(commentEntity.createAt.asc())
                 .fetch();
 
         return voList.stream()
