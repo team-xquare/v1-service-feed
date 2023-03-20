@@ -65,9 +65,7 @@ public class FeedApiImpl implements FeedApi {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .categoryId(request.getCategoryId())
-                .userId(
-                        CategoryEnum.BAMBOO.getName().equals(category.getName())
-                                ? new UUID(0, 0) : securitySpi.getCurrentUserId())
+                .userId(securitySpi.getCurrentUserId())
                 .type(request.getType())
                 .build();
 
@@ -177,7 +175,7 @@ public class FeedApiImpl implements FeedApi {
                 .content(feed.getContent())
                 .createdAt(feed.getCreatedAt())
                 .profile(userAuthority.getProfile())
-                .name(user.getName())
+                .name(UserAuthority.UKN.name().equals(feed.getType()) ? "" : user.getName())
                 .type(userAuthority.getName())
                 .likeCount(feed.getLikeCount())
                 .commentCount(feed.getCommentCount())

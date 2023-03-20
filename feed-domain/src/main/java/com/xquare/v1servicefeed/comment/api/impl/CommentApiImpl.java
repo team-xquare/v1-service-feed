@@ -12,6 +12,7 @@ import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.user.User;
+import com.xquare.v1servicefeed.user.role.UserAuthority;
 import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -40,9 +41,7 @@ public class CommentApiImpl implements CommentApi {
                 Comment.builder()
                         .content(request.getContent())
                         .feedId(feed.getId())
-                        .userId(
-                                feed.getUserId().equals(new UUID(0, 0))
-                                        ? new UUID(0, 0) : securitySpi.getCurrentUserId())
+                        .userId(securitySpi.getCurrentUserId())
                         .createAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
                         .build()
@@ -84,8 +83,8 @@ public class CommentApiImpl implements CommentApi {
                     return CommentDomainElement.builder()
                             .commentId(comment.getId())
                             .content(comment.getContent())
-                            .name(user.getName())
-                            .profile(user.getProfileFileName())
+                            .name(UserAuthority.UKN.name().equals(feed.getType()) ? "" : user.getName())
+                            .profile(UserAuthority.UKN.name().equals(feed.getType()) ? "" : user.getProfileFileName())
                             .updatedAt(comment.getUpdatedAt())
                             .isMine(isMine)
                             .build();
