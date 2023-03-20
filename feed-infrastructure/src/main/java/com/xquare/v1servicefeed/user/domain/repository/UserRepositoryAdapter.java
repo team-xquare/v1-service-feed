@@ -46,4 +46,23 @@ public class UserRepositoryAdapter implements FeedUserSpi, CommentUserSpi {
             throw ForbiddenUserException.EXCEPTION;
         }
     }
+
+    @Override
+    public List<User> queryStudent() {
+        List<UserInfoElement> userList = userClient.getStudent().getUsers();
+
+        return userList.stream()
+                .map(userInfoElement -> User.builder()
+                        .id(userInfoElement.getId())
+                        .accountId(userInfoElement.getAccountId())
+                        .name(userInfoElement.getName())
+                        .password(userInfoElement.getPassword())
+                        .birthDay(userInfoElement.getBirthDay())
+                        .grade(userInfoElement.getGrade())
+                        .classNum(userInfoElement.getClassNum())
+                        .num(userInfoElement.getNum())
+                        .profileFileName(userInfoElement.getProfileFileName())
+                        .build())
+                .toList();
+    }
 }

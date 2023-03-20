@@ -13,4 +13,7 @@ public interface UserClient {
 
     @GetMapping("/users/id")
     UserInfoResponse getUserInfo(@RequestParam("userId") List<UUID> userIds);
+
+    @GetMapping("/users/all")
+    UserInfoResponse getStudent();
 }
