@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -48,8 +49,8 @@ public class UserRepositoryAdapter implements FeedUserSpi, CommentUserSpi {
     }
 
     @Override
-    public List<User> queryStudent() {
-        List<UserInfoElement> userList = userClient.getStudent().getUsers();
+    public List<User> queryAllUserByRole(String role) {
+        List<UserInfoElement> userList = userClient.getStudent(role).getUsers();
 
         return userList.stream()
                 .map(userInfoElement -> User.builder()
