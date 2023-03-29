@@ -96,8 +96,7 @@ public class FeedApiImpl implements FeedApi {
 
     @Override
     public FeedListResponse getAllFeed(UUID categoryId) {
-        List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(categoryId);
-        Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
+        Map<UUID, User> hashMap = feedUserSpi.queryAllUserByRole("").stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();
         UUID currentUserId = securitySpi.getCurrentUserId();
