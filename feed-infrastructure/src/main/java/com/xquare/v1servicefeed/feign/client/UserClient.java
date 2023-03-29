@@ -14,6 +14,6 @@ public interface UserClient {
     @GetMapping("/users/id")
     UserInfoResponse getUserInfo(@RequestParam("userId") List<UUID> userIds);
 
-    @GetMapping("/users/all")
-    UserInfoResponse getStudent();
+    @GetMapping("/users/role")
+    UserInfoResponse getStudent(@RequestParam(value = "roleName", required = false) String role);
 }
