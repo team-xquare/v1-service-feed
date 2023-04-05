@@ -13,6 +13,7 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.role.UserAuthority;
+import com.xquare.v1servicefeed.user.role.UserRole;
 import com.xquare.v1servicefeed.user.spi.CommentUserSpi;
 import lombok.RequiredArgsConstructor;
 
@@ -70,7 +71,7 @@ public class CommentApiImpl implements CommentApi {
         UUID currentUserId = securitySpi.getCurrentUserId();
 
         List<UUID> userIdList = queryCommentSpi.queryAllCommentUserIdByFeed(feed);
-        Map<UUID, User> map = commentUserSpi.queryUserByIds(userIdList).stream()
+        Map<UUID, User> map = commentUserSpi.queryAllUserByRole(UserRole.STU.name()).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();
 
