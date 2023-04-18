@@ -15,6 +15,7 @@ public enum UserAuthority {
     OST("학생", ""), //ordinary student
     UKN("익명", ""), //unknown
     TEST("테스트", ""), //test
+    LIB("도서부", "https://xquare.s3.ap-northeast-2.amazonaws.com/25885796-2495-4e23-93c0-3330fe3ed796%40IMG_1833.JPG") // library department
     ;
 
     private final String name;
