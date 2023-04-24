@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface QueryFeedSpi {
     Feed queryFeedById(UUID feedId);
 
-    List<FeedList> queryAllFeedByCategory(UUID categoryId);
+    List<FeedList> queryAllFeedByCategory(UUID categoryId, long limit, long page);
 
     List<UUID> queryAllFeedUserIdByCategory(UUID categoryId);
 

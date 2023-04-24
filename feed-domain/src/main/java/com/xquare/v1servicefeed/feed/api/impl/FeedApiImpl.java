@@ -95,7 +95,7 @@ public class FeedApiImpl implements FeedApi {
     }
 
     @Override
-    public FeedListResponse getAllFeed(UUID categoryId) {
+    public FeedListResponse getAllFeed(UUID categoryId, long limit, long page) {
         List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(categoryId);
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
@@ -103,7 +103,7 @@ public class FeedApiImpl implements FeedApi {
         UUID currentUserId = securitySpi.getCurrentUserId();
         boolean isTest = isUserValidate();
 
-        List<FeedElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId)
+        List<FeedElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId, limit, page)
                 .stream()
                 .filter(feed -> !isTest || !feed.getType().equals(UserAuthority.UKN.name()))
                 .map(feed -> {
