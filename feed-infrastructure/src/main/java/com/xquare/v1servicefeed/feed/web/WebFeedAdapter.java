@@ -1,5 +1,9 @@
 package com.xquare.v1servicefeed.feed.web;
 
+import com.xquare.v1servicefeed.feed.api.FeedImageApi;
+import com.xquare.v1servicefeed.feed.api.dto.request.CreateFeedImageRequest;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedListPageResponse;
+import com.xquare.v1servicefeed.feed.domain.repository.FeedRepository;
 import com.xquare.v1servicefeed.report.api.ReportApi;
 import com.xquare.v1servicefeed.report.api.dto.CreateReportDomainRequest;
 import com.xquare.v1servicefeed.report.web.dto.request.CreateReportWebRequest;
@@ -59,10 +63,10 @@ public class WebFeedAdapter {
     }
 
     @GetMapping
-    public FeedListResponse getAllFeed(
+    public FeedListPageResponse getAllFeed(
             @RequestParam(value = "category", required = false) UUID categoryId,
-            @RequestParam(defaultValue = "8") long limit,
-            @RequestParam(defaultValue = "0") long page
+            @RequestParam(defaultValue = "6") long limit,
+            @RequestParam(defaultValue = "1") long page
     ) {
         return feedApi.getAllFeed(categoryId, limit, page);
     }
