@@ -9,13 +9,7 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.AuthorityElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedList;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.*;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryCategorySpi;
@@ -95,7 +89,7 @@ public class FeedApiImpl implements FeedApi {
     }
 
     @Override
-    public FeedListResponse getAllFeed(UUID categoryId, long limit, long page) {
+    public FeedListPageResponse getAllFeed(UUID categoryId, long limit, long page) {
         List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(categoryId);
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
@@ -103,7 +97,8 @@ public class FeedApiImpl implements FeedApi {
         UUID currentUserId = securitySpi.getCurrentUserId();
         boolean isTest = isUserValidate();
 
-        List<FeedElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId, limit, page)
+        FeedPageList feedPageList = queryFeedSpi.queryAllFeedByCategory(categoryId, limit, page);
+        List<FeedElement> feedList = feedPageList.getFeedLists()
                 .stream()
                 .filter(feed -> !isTest || !feed.getType().equals(UserAuthority.UKN.name()))
                 .map(feed -> {
@@ -116,7 +111,7 @@ public class FeedApiImpl implements FeedApi {
                 })
                 .toList();
 
-        return new FeedListResponse(feedList);
+        return new FeedListPageResponse(feedList, page, feedPageList.getTotalPage());
     }
 
     @Override

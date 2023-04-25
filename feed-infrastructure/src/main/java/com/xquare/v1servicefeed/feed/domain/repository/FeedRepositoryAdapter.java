@@ -6,6 +6,7 @@ import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedList;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedPageList;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feed.domain.repository.vo.FeedListVO;
@@ -15,7 +16,6 @@ import com.xquare.v1servicefeed.feed.spi.FeedSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -59,7 +59,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
-    public List<FeedList> queryAllFeedByCategory(UUID categoryId, long limit, long page) {
+    public FeedPageList queryAllFeedByCategory(UUID categoryId, long limit, long page) {
         List<FeedListVO> voList = query
                 .select(new QFeedListVO(
                         feedEntity.id,
@@ -80,10 +80,11 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
                 .limit(limit)
-                .offset(limit * page)
+                .offset(limit * (page - 1))
                 .fetch();
 
-        return voList.stream()
+        return new FeedPageList(
+                voList.stream()
                 .map(feedListVO -> FeedList.builder()
                         .feedId(feedListVO.getFeedId())
                         .userId(feedListVO.getUserId())
@@ -93,7 +94,9 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .likeCount(feedListVO.getLikeCount())
                         .commentCount(feedListVO.getCommentCount())
                         .build())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()),
+                feedRepository.countByCategoryEntity_Id(categoryId)
+        );
     }
 
     @Override
