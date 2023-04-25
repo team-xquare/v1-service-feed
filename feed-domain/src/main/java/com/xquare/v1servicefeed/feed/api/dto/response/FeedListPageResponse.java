@@ -10,6 +10,4 @@ import java.util.List;
 public class FeedListPageResponse {
 
     private final List<FeedElement> feeds;
-    private final long page;
-    private final long totalPage;
 }

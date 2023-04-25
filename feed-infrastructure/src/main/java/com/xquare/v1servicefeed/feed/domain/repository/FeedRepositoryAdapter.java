@@ -1,5 +1,6 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
@@ -16,6 +17,7 @@ import com.xquare.v1servicefeed.feed.spi.FeedSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -59,7 +61,10 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
-    public FeedPageList queryAllFeedByCategory(UUID categoryId, long limit, long page) {
+    public FeedPageList queryAllFeedByCategory(UUID categoryId, LocalDateTime time, long limit) {
+        BooleanBuilder expression = new BooleanBuilder();
+        if(time != null) expression.and(feedEntity.createdAt.lt(time));
+
         List<FeedListVO> voList = query
                 .select(new QFeedListVO(
                         feedEntity.id,
@@ -76,11 +81,10 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feedEntity.id))
-                .where(categoryIdEq(categoryId))
+                .where(expression.and(categoryIdEq(categoryId)))
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
                 .limit(limit)
-                .offset(limit * (page - 1))
                 .fetch();
 
         return new FeedPageList(
@@ -95,7 +99,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .commentCount(feedListVO.getCommentCount())
                         .build())
                 .collect(Collectors.toList()),
-                feedRepository.countByCategoryEntity_Id(categoryId)
+                feedRepository.countByCategoryEntity_Id(categoryId) / limit
         );
     }
 

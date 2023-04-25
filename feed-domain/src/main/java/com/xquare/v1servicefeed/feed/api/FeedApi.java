@@ -8,6 +8,7 @@ import com.xquare.v1servicefeed.feed.api.dto.response.FeedListPageResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Api
@@ -18,7 +19,7 @@ public interface FeedApi {
 
     void deleteFeedById(UUID feedId);
 
-    FeedListPageResponse getAllFeed(UUID categoryId, long limit, long page);
+    FeedListPageResponse getAllFeed(UUID categoryId, LocalDateTime dateTime, long limit);
 
     FeedCategoryListResponse getAllCategory();
 

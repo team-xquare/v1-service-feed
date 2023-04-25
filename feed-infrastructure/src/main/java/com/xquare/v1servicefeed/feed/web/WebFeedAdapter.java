@@ -1,25 +1,23 @@
 package com.xquare.v1servicefeed.feed.web;
 
-import com.xquare.v1servicefeed.feed.api.FeedImageApi;
-import com.xquare.v1servicefeed.feed.api.dto.request.CreateFeedImageRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedListPageResponse;
-import com.xquare.v1servicefeed.feed.domain.repository.FeedRepository;
-import com.xquare.v1servicefeed.report.api.ReportApi;
-import com.xquare.v1servicefeed.report.api.dto.CreateReportDomainRequest;
-import com.xquare.v1servicefeed.report.web.dto.request.CreateReportWebRequest;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedListPageResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
 import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedRequest;
+import com.xquare.v1servicefeed.report.api.ReportApi;
+import com.xquare.v1servicefeed.report.api.dto.CreateReportDomainRequest;
+import com.xquare.v1servicefeed.report.web.dto.request.CreateReportWebRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -65,10 +63,10 @@ public class WebFeedAdapter {
     @GetMapping
     public FeedListPageResponse getAllFeed(
             @RequestParam(value = "category", required = false) UUID categoryId,
-            @RequestParam(defaultValue = "6") long limit,
-            @RequestParam(defaultValue = "1") long page
+            @RequestParam(required = false) LocalDateTime dateTime,
+            @RequestParam(defaultValue = "6") long limit
     ) {
-        return feedApi.getAllFeed(categoryId, limit, page);
+        return feedApi.getAllFeed(categoryId, dateTime, limit);
     }
 
     @GetMapping("/category")
