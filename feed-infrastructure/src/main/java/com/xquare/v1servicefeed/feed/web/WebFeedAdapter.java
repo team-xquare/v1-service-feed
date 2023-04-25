@@ -3,16 +3,14 @@ package com.xquare.v1servicefeed.feed.web;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedListPageResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.*;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.web.dto.request.WebUpdateFeedRequest;
 import com.xquare.v1servicefeed.report.api.ReportApi;
 import com.xquare.v1servicefeed.report.api.dto.CreateReportDomainRequest;
 import com.xquare.v1servicefeed.report.web.dto.request.CreateReportWebRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,10 +58,17 @@ public class WebFeedAdapter {
         feedApi.deleteFeedById(feedId);
     }
 
+    @GetMapping("/{feed-uuid}")
+    public FeedWeakElement getFeed(
+            @PathVariable("feed-uuid") UUID feedId
+    ) {
+        return feedApi.getFeed(feedId);
+    }
+
     @GetMapping
     public FeedListPageResponse getAllFeed(
             @RequestParam(value = "category", required = false) UUID categoryId,
-            @RequestParam(required = false) LocalDateTime dateTime,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
             @RequestParam(defaultValue = "6") long limit
     ) {
         return feedApi.getAllFeed(categoryId, dateTime, limit);

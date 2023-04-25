@@ -90,6 +90,22 @@ public class FeedApiImpl implements FeedApi {
     }
 
     @Override
+    public FeedWeakElement getFeed(UUID feedId) {
+        Feed feed = queryFeedSpi.queryFeedById(feedId);
+        UserAuthority userAuthority = UserAuthority.valueOf(feed.getType());
+        return FeedWeakElement.builder()
+                .createdAt(feed.getCreatedAt())
+                .attachmentsUrl(queryFeedImageSpi.queryAllAttachmentsUrl(feed.getId()))
+                .content(feed.getContent())
+                .feedId(feedId)
+                .name(userAuthority.getName())
+                .profile(userAuthority.getProfile())
+                .title(feed.getTitle())
+                .type(feed.getType())
+                .build();
+    }
+
+    @Override
     public FeedListPageResponse getAllFeed(UUID categoryId, LocalDateTime dateTime, long limit) {
         List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(categoryId);
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
