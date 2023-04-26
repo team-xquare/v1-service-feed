@@ -98,8 +98,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .likeCount(feedListVO.getLikeCount())
                         .commentCount(feedListVO.getCommentCount())
                         .build())
-                .collect(Collectors.toList()),
-                feedRepository.countByCategoryEntity_Id(categoryId) / limit
+                .collect(Collectors.toList())
         );
     }
 

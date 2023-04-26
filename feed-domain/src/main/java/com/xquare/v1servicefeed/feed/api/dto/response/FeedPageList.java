@@ -9,5 +9,4 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FeedPageList {
     private final List<FeedList> feedLists;
-    private final long totalPage;
 }

@@ -8,5 +8,4 @@ import java.util.UUID;
 
 @Repository
 public interface FeedRepository extends CrudRepository<FeedEntity, UUID> {
-    long countByCategoryEntity_Id(UUID id);
 }
