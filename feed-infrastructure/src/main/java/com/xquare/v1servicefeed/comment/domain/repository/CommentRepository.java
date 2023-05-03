@@ -12,6 +12,4 @@ public interface CommentRepository extends CrudRepository<CommentEntity, UUID> {
     void deleteById(UUID commentId);
 
     void deleteAllByFeedEntityId(UUID feedId);
-
-    boolean existsByUserId(UUID userId);
 }

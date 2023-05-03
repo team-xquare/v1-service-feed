@@ -11,7 +11,6 @@ import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
-import com.xquare.v1servicefeed.notification.NotificationSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.role.UserAuthority;
 import com.xquare.v1servicefeed.user.role.UserRole;
@@ -34,7 +33,6 @@ public class CommentApiImpl implements CommentApi {
     private final CommandCommentSpi commandCommentSpi;
     private final QueryCommentSpi queryCommentSpi;
     private final SecuritySpi securitySpi;
-    private final NotificationSpi notificationSpi;
 
     @Override
     public void saveComment(CreateCommentDomainRequest request) {
@@ -48,13 +46,6 @@ public class CommentApiImpl implements CommentApi {
                         .createAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
                         .build()
-        );
-
-        notificationSpi.sendNotification(
-                feed.getUserId(),
-                "FEED_COMMENT",
-                "댓글이 달렸습니다.",
-                feed.getId().toString()
         );
     }
 
@@ -79,6 +70,7 @@ public class CommentApiImpl implements CommentApi {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
         UUID currentUserId = securitySpi.getCurrentUserId();
 
+        List<UUID> userIdList = queryCommentSpi.queryAllCommentUserIdByFeed(feed);
         Map<UUID, User> map = commentUserSpi.queryAllUserByRole(UserRole.STU.name()).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
         User defaultUser = User.builder().name("").profileFileName("").build();
