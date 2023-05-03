@@ -1,11 +1,13 @@
 package com.xquare.v1servicefeed.feed.domain.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.xquare.v1servicefeed.configuration.annotation.Adapter;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.FeedList;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedPageList;
 import com.xquare.v1servicefeed.feed.domain.FeedEntity;
 import com.xquare.v1servicefeed.feed.domain.mapper.FeedMapper;
 import com.xquare.v1servicefeed.feed.domain.repository.vo.FeedListVO;
@@ -15,7 +17,7 @@ import com.xquare.v1servicefeed.feed.spi.FeedSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -59,7 +61,10 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
-    public List<FeedList> queryAllFeedByCategory(UUID categoryId) {
+    public FeedPageList queryAllFeedByCategory(UUID categoryId, LocalDateTime time, long limit) {
+        BooleanBuilder expression = new BooleanBuilder();
+        if(time != null) expression.and(feedEntity.createdAt.lt(time));
+
         List<FeedListVO> voList = query
                 .select(new QFeedListVO(
                         feedEntity.id,
@@ -76,12 +81,14 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feedEntity.id))
-                .where(categoryIdEq(categoryId))
+                .where(expression.and(categoryIdEq(categoryId)))
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
+                .limit(limit)
                 .fetch();
 
-        return voList.stream()
+        return new FeedPageList(
+                voList.stream()
                 .map(feedListVO -> FeedList.builder()
                         .feedId(feedListVO.getFeedId())
                         .userId(feedListVO.getUserId())
@@ -91,7 +98,8 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .likeCount(feedListVO.getLikeCount())
                         .commentCount(feedListVO.getCommentCount())
                         .build())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
@@ -100,9 +108,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .selectFrom(feedEntity).distinct()
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
-                .where(
-                        categoryIdEq(categoryId), feedEntity.type.eq("UKN").not()
-                )
+                .where(categoryIdEq(categoryId), feedEntity.type.eq("UKN").not())
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 

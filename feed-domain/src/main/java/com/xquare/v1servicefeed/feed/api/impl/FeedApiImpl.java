@@ -9,13 +9,7 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.AuthorityElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedElement;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedList;
-import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
-import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.*;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryCategorySpi;
@@ -30,6 +24,7 @@ import com.xquare.v1servicefeed.user.spi.FeedAuthoritySpi;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,7 +90,23 @@ public class FeedApiImpl implements FeedApi {
     }
 
     @Override
-    public FeedListResponse getAllFeed(UUID categoryId) {
+    public FeedWeakElement getFeed(UUID feedId) {
+        Feed feed = queryFeedSpi.queryFeedById(feedId);
+        UserAuthority userAuthority = UserAuthority.valueOf(feed.getType());
+        return FeedWeakElement.builder()
+                .createdAt(feed.getCreatedAt())
+                .attachmentsUrl(queryFeedImageSpi.queryAllAttachmentsUrl(feed.getId()))
+                .content(feed.getContent())
+                .feedId(feedId)
+                .name(userAuthority.getName())
+                .profile(userAuthority.getProfile())
+                .title(feed.getTitle())
+                .type(feed.getType())
+                .build();
+    }
+
+    @Override
+    public FeedListPageResponse getAllFeed(UUID categoryId, LocalDateTime dateTime, long limit) {
         List<UUID> userIdList = queryFeedSpi.queryAllFeedUserIdByCategory(categoryId);
         Map<UUID, User> hashMap = feedUserSpi.queryUserByIds(userIdList).stream()
                 .collect(Collectors.toMap(User::getId, user -> user, (userId, user) -> user, HashMap::new));
@@ -103,7 +114,8 @@ public class FeedApiImpl implements FeedApi {
         UUID currentUserId = securitySpi.getCurrentUserId();
         boolean isTest = isUserValidate();
 
-        List<FeedElement> feedList = queryFeedSpi.queryAllFeedByCategory(categoryId)
+        FeedPageList feedPageList = queryFeedSpi.queryAllFeedByCategory(categoryId, dateTime, limit);
+        List<FeedElement> feedList = feedPageList.getFeedLists()
                 .stream()
                 .filter(feed -> !isTest || !feed.getType().equals(UserAuthority.UKN.name()))
                 .map(feed -> {
@@ -116,7 +128,7 @@ public class FeedApiImpl implements FeedApi {
                 })
                 .toList();
 
-        return new FeedListResponse(feedList);
+        return new FeedListPageResponse(feedList);
     }
 
     @Override

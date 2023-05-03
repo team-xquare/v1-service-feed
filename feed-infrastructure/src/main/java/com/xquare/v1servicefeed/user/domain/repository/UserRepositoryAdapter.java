@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -24,21 +23,25 @@ public class UserRepositoryAdapter implements FeedUserSpi, CommentUserSpi {
         if (ids.isEmpty()) {
             return List.of();
         }
-        List<UserInfoElement> userList = userClient.getUserInfo(ids).getUsers();
+        try {
+            List<UserInfoElement> userList = userClient.getUserInfo(ids).getUsers();
 
-        return userList.stream()
-                .map(userInfoElement -> User.builder()
-                        .id(userInfoElement.getId())
-                        .accountId(userInfoElement.getAccountId())
-                        .name(userInfoElement.getName())
-                        .password(userInfoElement.getPassword())
-                        .birthDay(userInfoElement.getBirthDay())
-                        .grade(userInfoElement.getGrade())
-                        .classNum(userInfoElement.getClassNum())
-                        .num(userInfoElement.getNum())
-                        .profileFileName(userInfoElement.getProfileFileName())
-                        .build())
-                .toList();
+            return userList.stream()
+                    .map(userInfoElement -> User.builder()
+                            .id(userInfoElement.getId())
+                            .accountId(userInfoElement.getAccountId())
+                            .name(userInfoElement.getName())
+                            .password(userInfoElement.getPassword())
+                            .birthDay(userInfoElement.getBirthDay())
+                            .grade(userInfoElement.getGrade())
+                            .classNum(userInfoElement.getClassNum())
+                            .num(userInfoElement.getNum())
+                            .profileFileName(userInfoElement.getProfileFileName())
+                            .build())
+                    .toList();
+        } catch (Exception e) {
+            return List.of();
+        }
     }
 
     @Override
