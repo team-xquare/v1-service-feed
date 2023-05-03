@@ -10,6 +10,7 @@ import com.xquare.v1servicefeed.feedlike.exception.FeedLikeExistsException;
 import com.xquare.v1servicefeed.feedlike.exception.FeedLikeNotFoundException;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
+import com.xquare.v1servicefeed.notification.NotificationSpi;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     private final QueryFeedSpi queryFeedSpi;
     private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final SecuritySpi securitySpi;
+    private final NotificationSpi notificationSpi;
 
     @Override
     public void saveFeedLike(UUID feedId) {
@@ -36,6 +38,13 @@ public class FeedLikeApiImpl implements FeedLikeApi {
                         .feedId(feed.getId())
                         .userId(securitySpi.getCurrentUserId())
                         .build()
+        );
+
+        notificationSpi.sendNotification(
+                feed.getUserId(),
+                "FEED_LIKE",
+                "좋아요가 달렸습니다.",
+                feed.getId().toString()
         );
     }
 
