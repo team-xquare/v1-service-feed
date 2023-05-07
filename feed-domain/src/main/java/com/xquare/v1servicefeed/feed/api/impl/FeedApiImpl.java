@@ -73,7 +73,7 @@ public class FeedApiImpl implements FeedApi {
 
         UUID feedId = commandFeedSpi.saveFeed(feed);
 
-        if (request.getType().equals("ADMIN")) {
+        if (request.getType().equals("DOS")) {
             notificationSpi.sendGroupNotification(
                     "FEED_NOTICE",
                     "새로운 공지가 등록되었습니다.",
