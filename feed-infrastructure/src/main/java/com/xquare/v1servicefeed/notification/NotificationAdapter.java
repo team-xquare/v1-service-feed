@@ -21,7 +21,7 @@ public class NotificationAdapter implements NotificationSpi {
     private final AmazonSQS amazonSQS;
     private final ObjectMapper objectMapper;
     private static final String NOTIFICATION_FIFO = "notification.fifo";
-    private static final String NOTIFICATION_GROUP_FIFO = "notification-group.fifo";
+    private static final String NOTIFICATION_GROUP_FIFO = "group-notification.fifo";
 
 
     @Override
@@ -47,9 +47,13 @@ public class NotificationAdapter implements NotificationSpi {
         sendSqsMessage(NOTIFICATION_GROUP_FIFO, convertToJsonString(domainSendGroupMessageRequest));
     }
 
-    private void sendSqsMessage(String queueUrl, String content) {
+    private void sendSqsMessage(String queueName, String content) {
+        System.out.println(queueName);
+        String name = amazonSQS.getQueueUrl(queueName).getQueueUrl();
+
+        System.out.println(name);
         SendMessageRequest sendMessageRequest = new SendMessageRequest()
-                .withQueueUrl(amazonSQS.getQueueUrl(queueUrl).getQueueUrl())
+                .withQueueUrl(name)
                 .withMessageBody(content)
                 .withMessageGroupId("feed")
                 .withMessageDeduplicationId(UUID.randomUUID().toString())
