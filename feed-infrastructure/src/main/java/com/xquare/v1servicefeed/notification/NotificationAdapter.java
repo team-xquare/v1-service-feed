@@ -48,10 +48,7 @@ public class NotificationAdapter implements NotificationSpi {
     }
 
     private void sendSqsMessage(String queueName, String content) {
-        System.out.println(queueName);
         String name = amazonSQS.getQueueUrl(queueName).getQueueUrl();
-
-        System.out.println(name);
         SendMessageRequest sendMessageRequest = new SendMessageRequest()
                 .withQueueUrl(name)
                 .withMessageBody(content)
