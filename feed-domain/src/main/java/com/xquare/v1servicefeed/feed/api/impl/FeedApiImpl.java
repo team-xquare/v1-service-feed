@@ -53,6 +53,9 @@ public class FeedApiImpl implements FeedApi {
     private final CommandFeedLikeSpi commandFeedLikeSpi;
     private final FeedAuthoritySpi feedAuthoritySpi;
     private final NotificationSpi notificationSpi;
+    private static final String FEED_NOTICE = "FEED_NOTICE";
+    private static final String CONTENT = "새로운 공지가 등록되었습니다.";
+    private static final String THREAD_ID = "FEED_NOTICE";
 
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
@@ -75,9 +78,9 @@ public class FeedApiImpl implements FeedApi {
 
         if (request.getType().equals("DOS")) {
             notificationSpi.sendGroupNotification(
-                    "FEED_NOTICE",
-                    "새로운 공지가 등록되었습니다.",
-                    "FEED_NOTICE"
+                    FEED_NOTICE,
+                    CONTENT,
+                    THREAD_ID
             );
         }
         return new SaveFeedResponse(feedId);

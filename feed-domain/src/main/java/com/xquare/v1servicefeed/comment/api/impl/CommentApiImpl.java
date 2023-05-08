@@ -35,6 +35,8 @@ public class CommentApiImpl implements CommentApi {
     private final QueryCommentSpi queryCommentSpi;
     private final SecuritySpi securitySpi;
     private final NotificationSpi notificationSpi;
+    private static final String FEED_COMMENT = "FEED_COMMENT";
+    private static final String CONTENT = "댓글이 달렸습니다.";
 
     @Override
     public void saveComment(CreateCommentDomainRequest request) {
@@ -52,8 +54,8 @@ public class CommentApiImpl implements CommentApi {
 
         notificationSpi.sendNotification(
                 feed.getUserId(),
-                "FEED_COMMENT",
-                "댓글이 달렸습니다.",
+                FEED_COMMENT,
+                CONTENT,
                 feed.getId().toString()
         );
     }
