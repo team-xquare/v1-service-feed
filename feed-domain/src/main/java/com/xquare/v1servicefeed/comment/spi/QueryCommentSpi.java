@@ -15,4 +15,6 @@ public interface QueryCommentSpi {
     List<UUID> queryAllCommentUserIdByFeed(Feed feed);
 
     List<Comment> queryAllCommentByFeed(Feed feed);
+
+    boolean existByUserId(UUID userId);
 }

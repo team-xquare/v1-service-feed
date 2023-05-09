@@ -102,6 +102,11 @@ public class CommentRepositoryAdapter implements CommentSpi {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public boolean existByUserId(UUID userId) {
+        return commentRepository.existsByUserId(userId);
+    }
+
     private CommentEntity getCommentById(UUID commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> CommentNotFoundException.EXCEPTION);

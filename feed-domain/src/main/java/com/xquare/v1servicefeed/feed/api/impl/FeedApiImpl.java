@@ -17,6 +17,7 @@ import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
+import com.xquare.v1servicefeed.notification.NotificationSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
 import com.xquare.v1servicefeed.user.role.UserAuthority;
@@ -46,6 +47,10 @@ public class FeedApiImpl implements FeedApi {
     private final QueryCategorySpi queryCategorySpi;
     private final CommandFeedLikeSpi commandFeedLikeSpi;
     private final FeedAuthoritySpi feedAuthoritySpi;
+    private final NotificationSpi notificationSpi;
+    private static final String FEED_NOTICE = "FEED_NOTICE";
+    private static final String CONTENT = "새로운 공지가 등록되었습니다.";
+    private static final String THREAD_ID = "FEED_NOTICE";
 
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
@@ -66,6 +71,13 @@ public class FeedApiImpl implements FeedApi {
 
         UUID feedId = commandFeedSpi.saveFeed(feed);
 
+        if (request.getType().equals("DOS")) {
+            notificationSpi.sendGroupNotification(
+                    FEED_NOTICE,
+                    CONTENT,
+                    THREAD_ID
+            );
+        }
         return new SaveFeedResponse(feedId);
     }
 
