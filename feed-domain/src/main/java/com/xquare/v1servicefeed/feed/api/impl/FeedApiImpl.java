@@ -71,7 +71,7 @@ public class FeedApiImpl implements FeedApi {
 
         UUID feedId = commandFeedSpi.saveFeed(feed);
 
-        if (request.getType().equals("DOS")) {
+        if ("DOS".equals(request.getType()) || "ADMIN".equals(request.getType())) {
             notificationSpi.sendGroupNotification(
                     FEED_NOTICE,
                     CONTENT,
