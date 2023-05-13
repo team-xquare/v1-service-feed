@@ -3,11 +3,13 @@ package com.xquare.v1servicefeed.comment.api.impl;
 import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.comment.Comment;
 import com.xquare.v1servicefeed.comment.api.CommentApi;
+import com.xquare.v1servicefeed.comment.api.dto.event.SaveCommentEvent;
 import com.xquare.v1servicefeed.comment.api.dto.request.CreateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
 import com.xquare.v1servicefeed.comment.api.dto.response.CommentDomainElement;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
+import com.xquare.v1servicefeed.configuration.spi.EventPublisherSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
@@ -34,9 +36,7 @@ public class CommentApiImpl implements CommentApi {
     private final CommandCommentSpi commandCommentSpi;
     private final QueryCommentSpi queryCommentSpi;
     private final SecuritySpi securitySpi;
-    private final NotificationSpi notificationSpi;
-    private static final String FEED_COMMENT = "FEED_COMMENT";
-    private static final String CONTENT = "댓글이 달렸습니다.";
+    private final EventPublisherSpi eventPublisherSpi;
 
     @Override
     public void saveComment(CreateCommentDomainRequest request) {
@@ -52,12 +52,7 @@ public class CommentApiImpl implements CommentApi {
                         .build()
         );
 
-        notificationSpi.sendNotification(
-                feed.getUserId(),
-                FEED_COMMENT,
-                CONTENT,
-                feed.getId().toString()
-        );
+        eventPublisherSpi.publishEvent(new SaveCommentEvent(feed.getUserId(), feed.getId()));
     }
 
     @Override
