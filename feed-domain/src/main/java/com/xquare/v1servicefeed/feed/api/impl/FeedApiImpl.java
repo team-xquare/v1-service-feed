@@ -7,17 +7,18 @@ import com.xquare.v1servicefeed.feed.Category;
 import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
+import com.xquare.v1servicefeed.feed.api.dto.event.SaveFeedEvent;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.response.*;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
+import com.xquare.v1servicefeed.configuration.spi.EventPublisherSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryCategorySpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
-import com.xquare.v1servicefeed.notification.NotificationSpi;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.exception.InvalidRoleException;
 import com.xquare.v1servicefeed.user.role.UserAuthority;
@@ -47,10 +48,7 @@ public class FeedApiImpl implements FeedApi {
     private final QueryCategorySpi queryCategorySpi;
     private final CommandFeedLikeSpi commandFeedLikeSpi;
     private final FeedAuthoritySpi feedAuthoritySpi;
-    private final NotificationSpi notificationSpi;
-    private static final String FEED_NOTICE = "FEED_NOTICE";
-    private static final String CONTENT = "새로운 공지가 등록되었습니다.";
-    private static final String THREAD_ID = "FEED_NOTICE";
+    private final EventPublisherSpi eventPublisherSpi;
 
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
@@ -70,14 +68,7 @@ public class FeedApiImpl implements FeedApi {
                 .build();
 
         UUID feedId = commandFeedSpi.saveFeed(feed);
-
-        if ("DOS".equals(request.getType()) || "ADMIN".equals(request.getType())) {
-            notificationSpi.sendGroupNotification(
-                    FEED_NOTICE,
-                    CONTENT,
-                    THREAD_ID
-            );
-        }
+        eventPublisherSpi.publishEvent(new SaveFeedEvent(request.getType()));
         return new SaveFeedResponse(feedId);
     }
 
