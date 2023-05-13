@@ -1,11 +1,14 @@
 package com.xquare.v1servicefeed.feedlike.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
+import com.xquare.v1servicefeed.configuration.spi.EventPublisherSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Feed;
+import com.xquare.v1servicefeed.feed.api.dto.event.SaveFeedEvent;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
+import com.xquare.v1servicefeed.feedlike.api.dto.event.SaveFeedLikeEvent;
 import com.xquare.v1servicefeed.feedlike.exception.FeedLikeExistsException;
 import com.xquare.v1servicefeed.feedlike.exception.FeedLikeNotFoundException;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
@@ -22,7 +25,7 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     private final QueryFeedSpi queryFeedSpi;
     private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final SecuritySpi securitySpi;
-    private final NotificationSpi notificationSpi;
+    private final EventPublisherSpi eventPublisherSpi;
 
     @Override
     public void saveFeedLike(UUID feedId) {
@@ -40,12 +43,7 @@ public class FeedLikeApiImpl implements FeedLikeApi {
                         .build()
         );
 
-        notificationSpi.sendNotification(
-                feed.getUserId(),
-                "FEED_LIKE",
-                "좋아요가 달렸습니다.",
-                feed.getId().toString()
-        );
+        eventPublisherSpi.publishEvent(new SaveFeedLikeEvent(feed.getUserId(), feed.getId()));
     }
 
     @Override
