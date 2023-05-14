@@ -13,7 +13,6 @@ public class FeedEventListener {
     private final NotificationSpi notificationSpi;
     private static final String FEED_NOTICE = "FEED_NOTICE";
     private static final String CONTENT = "새로운 공지가 등록되었습니다.";
-    private static final String THREAD_ID = "FEED_NOTICE";
 
     @EventListener
     public void onSaveFeed(SaveFeedEvent event) {
@@ -21,7 +20,7 @@ public class FeedEventListener {
             notificationSpi.sendGroupNotification(
                     FEED_NOTICE,
                     CONTENT,
-                    THREAD_ID
+                    FEED_NOTICE
             );
         }
     }
