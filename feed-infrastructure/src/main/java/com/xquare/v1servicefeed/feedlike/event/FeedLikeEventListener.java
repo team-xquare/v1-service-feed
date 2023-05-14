@@ -11,13 +11,15 @@ import org.springframework.stereotype.Component;
 public class FeedLikeEventListener {
 
     private final NotificationSpi notificationSpi;
+    private static final String TOPIC = "FEED_LIKE";
+    private static final String CONTENT = "좋아요가 달렸습니다.";
 
     @EventListener
     public void onSaveFeedLike(SaveFeedLikeEvent event) {
         notificationSpi.sendNotification(
                 event.getFeedUserId(),
-                "FEED_LIKE",
-                "좋아요가 달렸습니다.",
+                TOPIC,
+                CONTENT,
                 event.getFeedId().toString()
         );
     }
