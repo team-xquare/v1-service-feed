@@ -26,7 +26,7 @@ public class ReportApiImpl implements ReportApi {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
         UUID userId = securitySpi.getCurrentUserId();
 
-        if(feed.getUserId().equals(feed.getUserId())) {
+        if(userId.equals(feed.getUserId())) {
             throw CannotReportMyFeedException.EXCEPTION;
         }
 
