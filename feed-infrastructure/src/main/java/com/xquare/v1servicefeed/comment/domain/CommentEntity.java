@@ -30,7 +30,6 @@ public class CommentEntity extends BaseUUIDEntity {
     @Column(columnDefinition = "BINARY(16)", nullable = false)
     private UUID userId;
 
-
     @Column(nullable = false)
     private LocalDateTime createAt;
 
