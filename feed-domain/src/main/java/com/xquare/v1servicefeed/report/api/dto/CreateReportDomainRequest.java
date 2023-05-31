@@ -9,8 +9,5 @@ import java.util.UUID;
 @Builder
 public class CreateReportDomainRequest {
     private UUID feedId;
-
-    private UUID reportUserId;
-
     private String content;
 }
