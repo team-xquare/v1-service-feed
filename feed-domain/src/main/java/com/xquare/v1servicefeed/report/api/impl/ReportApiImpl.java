@@ -21,11 +21,11 @@ public class ReportApiImpl implements ReportApi {
     @Override
     public void saveReport(CreateReportDomainRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
-
+        
         commandReportSpi.saveReport(
                 Report.builder()
                         .userId(securitySpi.getCurrentUserId())
-                        .reportUserId(request.getReportUserId())
+                        .reportUserId(feed.getUserId())
                         .feedId(feed.getId())
                         .content(request.getContent())
                         .build()
