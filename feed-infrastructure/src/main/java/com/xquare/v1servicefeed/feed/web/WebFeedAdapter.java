@@ -90,7 +90,6 @@ public class WebFeedAdapter {
 
         CreateReportDomainRequest domainRequest = CreateReportDomainRequest.builder()
                 .feedId(request.getFeedId())
-                .reportUserId(request.getReportUserId())
                 .content(request.getContent())
                 .build();
 
