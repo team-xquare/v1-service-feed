@@ -45,20 +45,19 @@ public class FeedLikeApiImpl implements FeedLikeApi {
         );
 
         if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
-            notificationSpi.sendNotification(
-                    feed.getUserId(),
-                    FEED_NOTICE_LIKE,
-                    CONTENT,
-                    feed.getId().toString()
-            );
+            sendNotification(FEED_NOTICE_LIKE, feed);
         } else {
-            notificationSpi.sendNotification(
-                    feed.getUserId(),
-                    FEED_BAMBOO_LIKE,
-                    CONTENT,
-                    feed.getId().toString()
-            );
+            sendNotification(FEED_BAMBOO_LIKE, feed);
         }
+    }
+
+    private void sendNotification(String topic, Feed feed) {
+        notificationSpi.sendNotification(
+                feed.getUserId(),
+                topic,
+                CONTENT,
+                feed.getId().toString()
+        );
     }
 
     @Override

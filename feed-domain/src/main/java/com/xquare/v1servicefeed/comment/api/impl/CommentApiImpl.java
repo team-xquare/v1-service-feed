@@ -55,20 +55,19 @@ public class CommentApiImpl implements CommentApi {
         );
 
         if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
-            notificationSpi.sendNotification(
-                    feed.getUserId(),
-                    FEED_NOTICE_COMMENT,
-                    CONTENT,
-                    feed.getId().toString()
-            );
+            sendNotification(FEED_NOTICE_COMMENT, feed);
         } else {
-            notificationSpi.sendNotification(
-                    feed.getUserId(),
-                    FEED_BAMBOO_COMMENT,
-                    CONTENT,
-                    feed.getId().toString()
-            );
+            sendNotification(FEED_BAMBOO_COMMENT, feed);
         }
+    }
+
+    private void sendNotification(String topic, Feed feed) {
+        notificationSpi.sendNotification(
+                feed.getUserId(),
+                topic,
+                CONTENT,
+                feed.getId().toString()
+        );
     }
 
     @Override
