@@ -2,6 +2,7 @@ package com.xquare.v1servicefeed.feedlike.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
+import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
@@ -23,6 +24,9 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final SecuritySpi securitySpi;
     private final NotificationSpi notificationSpi;
+    private static final String FEED_NOTICE_LIKE = "FEED_NOTICE_COMMENT";
+    private static final String FEED_BAMBOO_LIKE = "FEED_BAMBOO_COMMENT";
+    private static final String CONTENT = "좋아요가 달렸습니다.";
 
     @Override
     public void saveFeedLike(UUID feedId) {
@@ -40,12 +44,21 @@ public class FeedLikeApiImpl implements FeedLikeApi {
                         .build()
         );
 
-        notificationSpi.sendNotification(
-                feed.getUserId(),
-                "FEED_LIKE",
-                "좋아요가 달렸습니다.",
-                feed.getId().toString()
-        );
+        if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
+            notificationSpi.sendNotification(
+                    feed.getUserId(),
+                    FEED_NOTICE_LIKE,
+                    CONTENT,
+                    feed.getId().toString()
+            );
+        } else {
+            notificationSpi.sendNotification(
+                    feed.getUserId(),
+                    FEED_BAMBOO_LIKE,
+                    CONTENT,
+                    feed.getId().toString()
+            );
+        }
     }
 
     @Override

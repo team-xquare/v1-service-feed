@@ -9,6 +9,7 @@ import com.xquare.v1servicefeed.comment.api.dto.response.CommentDomainElement;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
+import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.notification.NotificationSpi;
@@ -35,7 +36,8 @@ public class CommentApiImpl implements CommentApi {
     private final QueryCommentSpi queryCommentSpi;
     private final SecuritySpi securitySpi;
     private final NotificationSpi notificationSpi;
-    private static final String FEED_COMMENT = "FEED_COMMENT";
+    private static final String FEED_NOTICE_COMMENT = "FEED_NOTICE_COMMENT";
+    private static final String FEED_BAMBOO_COMMENT = "FEED_BAMBOO_COMMENT";
     private static final String CONTENT = "댓글이 달렸습니다.";
 
     @Override
@@ -52,12 +54,21 @@ public class CommentApiImpl implements CommentApi {
                         .build()
         );
 
-        notificationSpi.sendNotification(
-                feed.getUserId(),
-                FEED_COMMENT,
-                CONTENT,
-                feed.getId().toString()
-        );
+        if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
+            notificationSpi.sendNotification(
+                    feed.getUserId(),
+                    FEED_NOTICE_COMMENT,
+                    CONTENT,
+                    feed.getId().toString()
+            );
+        } else {
+            notificationSpi.sendNotification(
+                    feed.getUserId(),
+                    FEED_BAMBOO_COMMENT,
+                    CONTENT,
+                    feed.getId().toString()
+            );
+        }
     }
 
     @Override
