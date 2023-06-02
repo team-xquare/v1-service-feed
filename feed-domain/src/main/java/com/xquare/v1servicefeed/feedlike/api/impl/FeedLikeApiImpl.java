@@ -47,7 +47,6 @@ public class FeedLikeApiImpl implements FeedLikeApi {
         if (!feed.getUserId().equals(userId)) {
             sendNotification(feed);
         }
-
     }
 
     private void sendNotification(Feed feed) {
@@ -66,7 +65,6 @@ public class FeedLikeApiImpl implements FeedLikeApi {
                     feed.getId().toString()
             );
         }
-
     }
 
     @Override

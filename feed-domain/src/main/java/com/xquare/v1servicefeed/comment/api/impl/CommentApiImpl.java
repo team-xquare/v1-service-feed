@@ -60,7 +60,7 @@ public class CommentApiImpl implements CommentApi {
         }
     }
 
-    private void sendNotification( Feed feed) {
+    private void sendNotification(Feed feed) {
         if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
             notificationSpi.sendNotification(
                     feed.getUserId(),
