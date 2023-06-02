@@ -55,7 +55,7 @@ public class CommentApiImpl implements CommentApi {
                         .build()
         );
 
-        if(feed.getUserId().equals(userId)) {
+        if(!feed.getUserId().equals(userId)) {
             sendNotification(feed);
         }
     }
