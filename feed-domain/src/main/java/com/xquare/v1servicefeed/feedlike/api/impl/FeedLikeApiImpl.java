@@ -40,24 +40,33 @@ public class FeedLikeApiImpl implements FeedLikeApi {
         commandFeedLikeSpi.saveFeedLike(
                 FeedLike.builder()
                         .feedId(feed.getId())
-                        .userId(securitySpi.getCurrentUserId())
+                        .userId(userId)
                         .build()
         );
 
-        if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
-            sendNotification(FEED_NOTICE_LIKE, feed);
-        } else {
-            sendNotification(FEED_BAMBOO_LIKE, feed);
+        if (!feed.getUserId().equals(userId)) {
+            sendNotification(feed);
         }
+
     }
 
-    private void sendNotification(String topic, Feed feed) {
-        notificationSpi.sendNotification(
-                feed.getUserId(),
-                topic,
-                CONTENT,
-                feed.getId().toString()
-        );
+    private void sendNotification(Feed feed) {
+        if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
+            notificationSpi.sendNotification(
+                    feed.getUserId(),
+                    FEED_NOTICE_LIKE,
+                    CONTENT,
+                    feed.getId().toString()
+            );
+        } else {
+            notificationSpi.sendNotification(
+                    feed.getUserId(),
+                    FEED_BAMBOO_LIKE,
+                    CONTENT,
+                    feed.getId().toString()
+            );
+        }
+
     }
 
     @Override

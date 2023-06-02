@@ -43,31 +43,39 @@ public class CommentApiImpl implements CommentApi {
     @Override
     public void saveComment(CreateCommentDomainRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
+        UUID userId = securitySpi.getCurrentUserId();
 
         commandCommentSpi.saveComment(
                 Comment.builder()
                         .content(request.getContent())
                         .feedId(feed.getId())
-                        .userId(securitySpi.getCurrentUserId())
+                        .userId(userId)
                         .createAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
                         .build()
         );
 
-        if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
-            sendNotification(FEED_NOTICE_COMMENT, feed);
-        } else {
-            sendNotification(FEED_BAMBOO_COMMENT, feed);
+        if(feed.getUserId().equals(userId)) {
+            sendNotification(feed);
         }
     }
 
-    private void sendNotification(String topic, Feed feed) {
-        notificationSpi.sendNotification(
-                feed.getUserId(),
-                topic,
-                CONTENT,
-                feed.getId().toString()
-        );
+    private void sendNotification( Feed feed) {
+        if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
+            notificationSpi.sendNotification(
+                    feed.getUserId(),
+                    FEED_NOTICE_COMMENT,
+                    CONTENT,
+                    feed.getId().toString()
+            );
+        } else {
+            notificationSpi.sendNotification(
+                    feed.getUserId(),
+                    FEED_BAMBOO_COMMENT,
+                    CONTENT,
+                    feed.getId().toString()
+            );
+        }
     }
 
     @Override
