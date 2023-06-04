@@ -24,8 +24,8 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final SecuritySpi securitySpi;
     private final NotificationSpi notificationSpi;
-    private static final String FEED_NOTICE_LIKE = "FEED_NOTICE_COMMENT";
-    private static final String FEED_BAMBOO_LIKE = "FEED_BAMBOO_COMMENT";
+    private static final String FEED_NOTICE_LIKE = "FEED_NOTICE_LIKE";
+    private static final String FEED_BAMBOO_LIKE = "FEED_BAMBOO_LIKE";
     private static final String CONTENT = "좋아요가 달렸습니다.";
 
     @Override
