@@ -64,8 +64,8 @@ public class CommentApiImpl implements CommentApi {
     }
 
     private void sendNotification(Feed feed) {
-        Category category = categorySpi.queryCategoryById(feed.getCategoryId());
-        if (category.getName().equals(CategoryEnum.NOTICE.getName())) {
+        String feedCategoryName = categorySpi.queryCategoryNameById(feed.getCategoryId());
+        if (feedCategoryName.equals(CategoryEnum.NOTICE.getName())) {
             notificationSpi.sendNotification(
                     feed.getUserId(),
                     FEED_NOTICE_COMMENT,

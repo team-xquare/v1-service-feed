@@ -2,8 +2,10 @@ package com.xquare.v1servicefeed.feedlike.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
+import com.xquare.v1servicefeed.feed.Category;
 import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
+import com.xquare.v1servicefeed.feed.spi.CategorySpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
@@ -24,6 +26,7 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     private final QueryFeedLikeSpi queryFeedLikeSpi;
     private final SecuritySpi securitySpi;
     private final NotificationSpi notificationSpi;
+    private final CategorySpi categorySpi;
     private static final String FEED_NOTICE_LIKE = "FEED_NOTICE_LIKE";
     private static final String FEED_BAMBOO_LIKE = "FEED_BAMBOO_LIKE";
     private static final String CONTENT = "좋아요가 달렸습니다.";
@@ -50,7 +53,8 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     }
 
     private void sendNotification(Feed feed) {
-        if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
+        String feedCategoryName = categorySpi.queryCategoryNameById(feed.getCategoryId());
+        if (feedCategoryName.equals(CategoryEnum.NOTICE.getName())) {
             notificationSpi.sendNotification(
                     feed.getUserId(),
                     FEED_NOTICE_LIKE,
