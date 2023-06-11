@@ -20,16 +20,15 @@ public class CategoryRepositoryAdapter implements CategorySpi {
 
     @Override
     public Category queryCategoryById(UUID categoryId) {
-        CategoryEntity categoryEntity = getCategoryEntityById(categoryId);
+        CategoryEntity categoryEntity = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> CategoryNotFoundException.EXCEPTION);
 
         return categoryMapper.entityToDomain(categoryEntity);
     }
 
     @Override
     public String queryCategoryNameById(UUID categoryId) {
-        CategoryEntity category = getCategoryEntityById(categoryId);
-
-        return category.getName();
+        return categoryRepository.findNameById(categoryId);
     }
 
     @Override
@@ -38,10 +37,5 @@ public class CategoryRepositoryAdapter implements CategorySpi {
                 .stream()
                 .map(categoryMapper::entityToDomain)
                 .toList();
-    }
-
-    private CategoryEntity getCategoryEntityById(UUID categoryId) {
-        return categoryRepository.findById(categoryId)
-                .orElseThrow(() -> CategoryNotFoundException.EXCEPTION);
     }
 }
