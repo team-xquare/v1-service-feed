@@ -33,7 +33,7 @@ public class WebFeedAdapter {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .categoryId(request.getCategoryId())
-                .type(request.getType())
+                .authorityType(request.getType())
                 .build();
 
         return feedApi.saveFeed(domainRequest);

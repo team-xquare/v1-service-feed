@@ -17,6 +17,6 @@ public class FeedWeakElement {
     private final LocalDateTime createdAt;
     private final String profile;
     private final String name;
-    private final String type;
+    private final String authorityType;
     private final List<String> attachmentsUrl;
 }

@@ -24,7 +24,7 @@ public class Feed {
 
     private final UUID categoryId;
 
-    private final String type;
+    private final String authorityType;
 
     private final Integer commentCount;
 }
