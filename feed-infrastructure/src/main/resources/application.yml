@@ -25,7 +25,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     show-sql: ${sql.show}
     properties:
       hibernate:

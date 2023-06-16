@@ -27,11 +27,6 @@ public class CategoryRepositoryAdapter implements CategorySpi {
     }
 
     @Override
-    public String queryCategoryNameById(UUID categoryId) {
-        return categoryRepository.findNameById(categoryId);
-    }
-
-    @Override
     public List<Category> queryAllCategory() {
         return categoryRepository.findAll()
                 .stream()

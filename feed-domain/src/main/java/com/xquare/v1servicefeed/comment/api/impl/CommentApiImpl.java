@@ -95,8 +95,8 @@ public class CommentApiImpl implements CommentApi {
                     return CommentDomainElement.builder()
                             .commentId(comment.getId())
                             .content(comment.getContent())
-                            .name(UserAuthority.UKN.name().equals(feed.getType()) ? "" : user.getName())
-                            .profile(UserAuthority.UKN.name().equals(feed.getType()) ? "" : user.getProfileFileName())
+                            .name(UserAuthority.UKN.name().equals(feed.getAuthorityType()) ? "" : user.getName())
+                            .profile(UserAuthority.UKN.name().equals(feed.getAuthorityType()) ? "" : user.getProfileFileName())
                             .updatedAt(comment.getUpdatedAt())
                             .isMine(isMine)
                             .build();

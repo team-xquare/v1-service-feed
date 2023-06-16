@@ -22,7 +22,7 @@ public class FeedMapper {
                 .content(feedEntity.getContent())
                 .createdAt(feedEntity.getCreatedAt())
                 .categoryId(feedEntity.getCategoryEntity().getId())
-                .authorityType(feedEntity.getAuthorityType())
+                .authorityType(feedEntity.getAuthoritytype())
                 .build();
     }
 
@@ -37,7 +37,7 @@ public class FeedMapper {
                 .content(feed.getContent())
                 .createdAt(feed.getCreatedAt())
                 .categoryEntity(categoryEntity)
-                .authorityType(feed.getAuthorityType())
+                .authoritytype(feed.getAuthorityType())
                 .build();
     }
 }
