@@ -10,6 +10,4 @@ public interface QueryCategorySpi {
     Category queryCategoryById(UUID categoryId);
 
     List<Category> queryAllCategory();
-
-    String queryCategoryNameById(UUID categoryId);
 }
