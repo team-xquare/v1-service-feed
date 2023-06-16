@@ -71,7 +71,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.userId,
                         feedEntity.title,
                         feedEntity.content,
-                        feedEntity.authoritytype,
+                        feedEntity.authorityType,
                         feedEntity.createdAt,
                         feedLikeEntity.countDistinct(),
                         commentEntity.countDistinct()
@@ -108,7 +108,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .selectFrom(feedEntity).distinct()
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
-                .where(categoryIdEq(categoryId), feedEntity.authoritytype.eq("UKN").not())
+                .where(categoryIdEq(categoryId), feedEntity.authorityType.eq("UKN").not())
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 
@@ -125,7 +125,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.userId,
                         feedEntity.title,
                         feedEntity.content,
-                        feedEntity.authoritytype,
+                        feedEntity.authorityType,
                         feedEntity.createdAt,
                         feedLikeEntity.countDistinct(),
                         commentEntity.countDistinct()
