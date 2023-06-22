@@ -9,6 +9,7 @@ import com.xquare.v1servicefeed.comment.api.dto.response.CommentDomainElement;
 import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
+import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.CategorySpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
@@ -39,6 +40,8 @@ public class CommentApiImpl implements CommentApi {
     private final NotificationSpi notificationSpi;
     private final CategorySpi categorySpi;
     private final SecuritySpi securitySpi;
+    private final String FEED_NOTICE_COMMENT = "FEED_NOTICE_COMMENT";
+    private final String FEED_BAMBOO_COMMENT = "FEED_NOTICE_COMMENT";
 
     @Override
     public void saveComment(CreateCommentDomainRequest request) {
@@ -56,8 +59,16 @@ public class CommentApiImpl implements CommentApi {
         );
 
         if(!feed.getUserId().equals(userId)) {
-            NotificationUtil notificationUtil = new CommentNotificationUtilImpl(notificationSpi, categorySpi);
-            notificationUtil.sendNotification(feed);
+            sendNotification(feed);
+        }
+    }
+
+    private void sendNotification(Feed feed) {
+        NotificationUtil notificationUtil = new CommentNotificationUtilImpl(notificationSpi);
+        if(CategoryEnum.NOTICE.getName().equals(categorySpi.queryCategoryById(feed.getCategoryId()).getName())) {
+            notificationUtil.sendNotification(feed, FEED_NOTICE_COMMENT);
+        } else {
+            notificationUtil.sendNotification(feed, FEED_BAMBOO_COMMENT);
         }
     }
 

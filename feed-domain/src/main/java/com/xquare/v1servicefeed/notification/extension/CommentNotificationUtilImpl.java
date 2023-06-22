@@ -5,20 +5,14 @@ import com.xquare.v1servicefeed.feed.spi.CategorySpi;
 import com.xquare.v1servicefeed.notification.NotificationSpi;
 
 public class CommentNotificationUtilImpl extends NotificationUtil {
-    private static final String COMMENT = "COMMENT";
     private static final String CONTENT = "댓글이 달렸습니다.";
 
-    public CommentNotificationUtilImpl(NotificationSpi notificationSpi, CategorySpi categorySpi) {
-        super(notificationSpi, categorySpi);
-    }
-
-    protected String getTopic() {
-        return COMMENT;
+    public CommentNotificationUtilImpl(NotificationSpi notificationSpi) {
+        super(notificationSpi);
     }
 
     protected String getContent() {
         return CONTENT;
     }
-
 
 }
