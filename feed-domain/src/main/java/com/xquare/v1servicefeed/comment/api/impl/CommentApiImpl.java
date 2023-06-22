@@ -41,7 +41,7 @@ public class CommentApiImpl implements CommentApi {
     private final CategorySpi categorySpi;
     private final SecuritySpi securitySpi;
     private final String FEED_NOTICE_COMMENT = "FEED_NOTICE_COMMENT";
-    private final String FEED_BAMBOO_COMMENT = "FEED_NOTICE_COMMENT";
+    private final String FEED_BAMBOO_COMMENT = "FEED_BAMBOO_COMMENT";
 
     @Override
     public void saveComment(CreateCommentDomainRequest request) {

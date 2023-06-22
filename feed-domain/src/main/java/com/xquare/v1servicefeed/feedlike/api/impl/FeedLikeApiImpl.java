@@ -29,7 +29,7 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     private final CategorySpi categorySpi;
     private final SecuritySpi securitySpi;
     private final String FEED_NOTICE_LIKE = "FEED_NOTICE_LIKE";
-    private final String FEED_BAMBOO_LIKE = "FEED_NOTICE_LIKE";
+    private final String FEED_BAMBOO_LIKE = "FEED_BAMBOO_LIKE";
 
     @Override
     public void saveFeedLike(UUID feedId) {
