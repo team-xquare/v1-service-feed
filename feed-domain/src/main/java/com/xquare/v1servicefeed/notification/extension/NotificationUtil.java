@@ -1,7 +1,6 @@
 package com.xquare.v1servicefeed.notification.extension;
 
 import com.xquare.v1servicefeed.feed.Feed;
-import com.xquare.v1servicefeed.feed.spi.CategorySpi;
 import com.xquare.v1servicefeed.notification.NotificationSpi;
 
 public abstract class NotificationUtil {

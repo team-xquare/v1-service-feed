@@ -13,7 +13,6 @@ import com.xquare.v1servicefeed.feedlike.exception.FeedLikeNotFoundException;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
 import com.xquare.v1servicefeed.notification.NotificationSpi;
-import com.xquare.v1servicefeed.notification.extension.CommentNotificationUtilImpl;
 import com.xquare.v1servicefeed.notification.extension.LikeNotificationUtilImpl;
 import com.xquare.v1servicefeed.notification.extension.NotificationUtil;
 import lombok.RequiredArgsConstructor;
@@ -48,14 +47,14 @@ public class FeedLikeApiImpl implements FeedLikeApi {
                         .build()
         );
 
-        if(!feed.getUserId().equals(userId)) {
+        if (!feed.getUserId().equals(userId)) {
             sendNotification(feed);
         }
     }
 
     private void sendNotification(Feed feed) {
         NotificationUtil notificationUtil = new LikeNotificationUtilImpl(notificationSpi);
-        if(CategoryEnum.NOTICE.getName().equals(categorySpi.queryCategoryById(feed.getCategoryId()).getName())) {
+        if (CategoryEnum.NOTICE.getName().equals(categorySpi.queryCategoryById(feed.getCategoryId()).getName())) {
             notificationUtil.sendNotification(feed, FEED_NOTICE_LIKE);
         } else {
             notificationUtil.sendNotification(feed, FEED_BAMBOO_LIKE);
