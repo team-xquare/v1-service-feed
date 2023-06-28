@@ -13,9 +13,7 @@ import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.spi.CategorySpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
-import com.xquare.v1servicefeed.notification.NotificationSpi;
 import com.xquare.v1servicefeed.notification.extension.CommentNotificationUtilImpl;
-import com.xquare.v1servicefeed.notification.extension.NotificationUtil;
 import com.xquare.v1servicefeed.user.User;
 import com.xquare.v1servicefeed.user.role.UserAuthority;
 import com.xquare.v1servicefeed.user.role.UserRole;
@@ -37,7 +35,7 @@ public class CommentApiImpl implements CommentApi {
     private final CommentUserSpi commentUserSpi;
     private final CommandCommentSpi commandCommentSpi;
     private final QueryCommentSpi queryCommentSpi;
-    private final NotificationSpi notificationSpi;
+    private final CommentNotificationUtilImpl commentNotificationUtil;
     private final CategorySpi categorySpi;
     private final SecuritySpi securitySpi;
     private final String FEED_NOTICE_COMMENT = "FEED_NOTICE_COMMENT";
@@ -64,11 +62,10 @@ public class CommentApiImpl implements CommentApi {
     }
 
     private void sendNotification(Feed feed) {
-        NotificationUtil notificationUtil = new CommentNotificationUtilImpl(notificationSpi);
         if(CategoryEnum.NOTICE.getName().equals(categorySpi.queryCategoryById(feed.getCategoryId()).getName())) {
-            notificationUtil.sendNotification(feed, FEED_NOTICE_COMMENT);
+            commentNotificationUtil.sendNotification(feed, FEED_NOTICE_COMMENT);
         } else {
-            notificationUtil.sendNotification(feed, FEED_BAMBOO_COMMENT);
+            commentNotificationUtil.sendNotification(feed, FEED_BAMBOO_COMMENT);
         }
     }
 
