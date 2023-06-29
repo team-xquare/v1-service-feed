@@ -40,7 +40,7 @@ public class FeedEntity extends BaseUUIDEntity {
     private CategoryEntity categoryEntity;
 
     @Column(nullable = false)
-    private String type;
+    private String authorityType;
 
     @OneToMany(mappedBy = "feedEntity")
     private Set<FeedImageEntity> feedImageEntities;

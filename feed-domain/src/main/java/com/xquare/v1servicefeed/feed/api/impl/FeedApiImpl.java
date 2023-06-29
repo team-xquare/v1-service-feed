@@ -66,7 +66,7 @@ public class FeedApiImpl implements FeedApi {
                 .content(request.getContent())
                 .categoryId(request.getCategoryId())
                 .userId(securitySpi.getCurrentUserId())
-                .type(request.getType())
+                .authorityType(request.getAuthorityType())
                 .build();
 
         UUID feedId = commandFeedSpi.saveFeed(feed);
@@ -104,7 +104,7 @@ public class FeedApiImpl implements FeedApi {
     @Override
     public FeedWeakElement getFeed(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
-        UserAuthority userAuthority = UserAuthority.valueOf(feed.getType());
+        UserAuthority userAuthority = UserAuthority.valueOf(feed.getAuthorityType());
         return FeedWeakElement.builder()
                 .createdAt(feed.getCreatedAt())
                 .attachmentsUrl(queryFeedImageSpi.queryAllAttachmentsUrl(feed.getId()))
@@ -113,7 +113,7 @@ public class FeedApiImpl implements FeedApi {
                 .name(userAuthority.getName())
                 .profile(userAuthority.getProfile())
                 .title(feed.getTitle())
-                .type(feed.getType())
+                .authorityType(feed.getAuthorityType())
                 .build();
     }
 
@@ -129,9 +129,9 @@ public class FeedApiImpl implements FeedApi {
         FeedPageList feedPageList = queryFeedSpi.queryAllFeedByCategory(categoryId, dateTime, limit);
         List<FeedElement> feedList = feedPageList.getFeedLists()
                 .stream()
-                .filter(feed -> !isTest || !feed.getType().equals(UserAuthority.UKN.name()))
+                .filter(feed -> !isTest || !feed.getAuthorityType().equals(UserAuthority.UKN.name()))
                 .map(feed -> {
-                    UserAuthority userAuthority = UserAuthority.valueOf(feed.getType());
+                    UserAuthority userAuthority = UserAuthority.valueOf(feed.getAuthorityType());
                     User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
                     boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
                     boolean isMine = user != null && feed.getUserId().equals(currentUserId);
@@ -180,7 +180,7 @@ public class FeedApiImpl implements FeedApi {
         List<FeedElement> feedList = queryFeedSpi.queryAllFeedByUserId(user.getId())
                 .stream()
                 .map(feed -> {
-                    UserAuthority userAuthority = UserAuthority.valueOf(feed.getType());
+                    UserAuthority userAuthority = UserAuthority.valueOf(feed.getAuthorityType());
                     boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
                     return builderFeedElement(feed, user, userAuthority, attachmentsUrl, true, isLike);
@@ -199,8 +199,8 @@ public class FeedApiImpl implements FeedApi {
                 .content(feed.getContent())
                 .createdAt(feed.getCreatedAt())
                 .profile(userAuthority.getProfile())
-                .name(UserAuthority.UKN.name().equals(feed.getType()) ? "" : user.getName())
-                .type(userAuthority.getName())
+                .name(UserAuthority.UKN.name().equals(feed.getAuthorityType()) ? "" : user.getName())
+                .authorityType(userAuthority.getName())
                 .likeCount(feed.getLikeCount())
                 .commentCount(feed.getCommentCount())
                 .isMine(isMine)

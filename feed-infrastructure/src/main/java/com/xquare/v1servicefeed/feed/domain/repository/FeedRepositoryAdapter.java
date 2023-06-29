@@ -71,7 +71,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.userId,
                         feedEntity.title,
                         feedEntity.content,
-                        feedEntity.type,
+                        feedEntity.authorityType,
                         feedEntity.createdAt,
                         feedLikeEntity.countDistinct(),
                         commentEntity.countDistinct()
@@ -93,7 +93,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .feedId(feedListVO.getFeedId())
                         .userId(feedListVO.getUserId())
                         .content(feedListVO.getContent())
-                        .type(feedListVO.getType())
+                        .authorityType(feedListVO.getAuthorityType())
                         .createdAt(feedListVO.getCreatedAt())
                         .likeCount(feedListVO.getLikeCount())
                         .commentCount(feedListVO.getCommentCount())
@@ -108,7 +108,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .selectFrom(feedEntity).distinct()
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
-                .where(categoryIdEq(categoryId), feedEntity.type.eq("UKN").not())
+                .where(categoryIdEq(categoryId), feedEntity.authorityType.eq("UKN").not())
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 
@@ -125,7 +125,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.userId,
                         feedEntity.title,
                         feedEntity.content,
-                        feedEntity.type,
+                        feedEntity.authorityType,
                         feedEntity.createdAt,
                         feedLikeEntity.countDistinct(),
                         commentEntity.countDistinct()
@@ -146,7 +146,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .userId(feedListVO.getUserId())
                         .title(feedListVO.getTitle())
                         .content(feedListVO.getContent())
-                        .type(feedListVO.getType())
+                        .authorityType(feedListVO.getAuthorityType())
                         .createdAt(feedListVO.getCreatedAt())
                         .likeCount(feedListVO.getLikeCount())
                         .commentCount(feedListVO.getCommentCount())

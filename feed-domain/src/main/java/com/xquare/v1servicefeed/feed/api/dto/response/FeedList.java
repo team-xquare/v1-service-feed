@@ -13,7 +13,7 @@ public class FeedList {
     private final UUID userId;
     private final String title;
     private final String content;
-    private final String type;
+    private final String authorityType;
     private final LocalDateTime createdAt;
     private final Long likeCount;
     private final Long commentCount;

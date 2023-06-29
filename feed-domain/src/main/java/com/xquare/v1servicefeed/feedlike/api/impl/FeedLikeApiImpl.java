@@ -4,6 +4,7 @@ import com.xquare.v1servicefeed.annotation.DomainService;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.CategoryEnum;
 import com.xquare.v1servicefeed.feed.Feed;
+import com.xquare.v1servicefeed.feed.spi.CategorySpi;
 import com.xquare.v1servicefeed.feed.spi.QueryFeedSpi;
 import com.xquare.v1servicefeed.feedlike.FeedLike;
 import com.xquare.v1servicefeed.feedlike.api.FeedLikeApi;
@@ -11,7 +12,7 @@ import com.xquare.v1servicefeed.feedlike.exception.FeedLikeExistsException;
 import com.xquare.v1servicefeed.feedlike.exception.FeedLikeNotFoundException;
 import com.xquare.v1servicefeed.feedlike.spi.CommandFeedLikeSpi;
 import com.xquare.v1servicefeed.feedlike.spi.QueryFeedLikeSpi;
-import com.xquare.v1servicefeed.notification.NotificationSpi;
+import com.xquare.v1servicefeed.notification.extension.LikeNotificationUtilImpl;
 import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
@@ -22,11 +23,11 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     private final CommandFeedLikeSpi commandFeedLikeSpi;
     private final QueryFeedSpi queryFeedSpi;
     private final QueryFeedLikeSpi queryFeedLikeSpi;
+    private final CategorySpi categorySpi;
     private final SecuritySpi securitySpi;
-    private final NotificationSpi notificationSpi;
-    private static final String FEED_NOTICE_LIKE = "FEED_NOTICE_LIKE";
-    private static final String FEED_BAMBOO_LIKE = "FEED_BAMBOO_LIKE";
-    private static final String CONTENT = "좋아요가 달렸습니다.";
+    private final LikeNotificationUtilImpl likeNotificationUtil;
+    private final String FEED_NOTICE_LIKE = "FEED_NOTICE_LIKE";
+    private final String FEED_BAMBOO_LIKE = "FEED_BAMBOO_LIKE";
 
     @Override
     public void saveFeedLike(UUID feedId) {
@@ -50,20 +51,10 @@ public class FeedLikeApiImpl implements FeedLikeApi {
     }
 
     private void sendNotification(Feed feed) {
-        if (feed.getType().equals(CategoryEnum.NOTICE.getName())) {
-            notificationSpi.sendNotification(
-                    feed.getUserId(),
-                    FEED_NOTICE_LIKE,
-                    CONTENT,
-                    feed.getId().toString()
-            );
+        if (CategoryEnum.NOTICE.getName().equals(categorySpi.queryCategoryById(feed.getCategoryId()).getName())) {
+            likeNotificationUtil.sendNotification(feed, FEED_NOTICE_LIKE);
         } else {
-            notificationSpi.sendNotification(
-                    feed.getUserId(),
-                    FEED_BAMBOO_LIKE,
-                    CONTENT,
-                    feed.getId().toString()
-            );
+            likeNotificationUtil.sendNotification(feed, FEED_BAMBOO_LIKE);
         }
     }
 

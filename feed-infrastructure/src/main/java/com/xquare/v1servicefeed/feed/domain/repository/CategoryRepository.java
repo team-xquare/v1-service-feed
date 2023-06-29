@@ -12,4 +12,6 @@ public interface CategoryRepository extends CrudRepository<CategoryEntity, UUID>
 
     @Override
     List<CategoryEntity> findAll();
+
+    String findNameById(UUID categoryId);
 }
