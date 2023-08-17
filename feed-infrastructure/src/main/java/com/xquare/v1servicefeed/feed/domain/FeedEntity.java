@@ -42,11 +42,18 @@ public class FeedEntity extends BaseUUIDEntity {
     @Column(nullable = false)
     private String authorityType;
 
+    @Column(columnDefinition = "BIT(1) default 0", nullable = false)
+    private Boolean isDeleted;
+
     @OneToMany(mappedBy = "feedEntity")
     private Set<FeedImageEntity> feedImageEntities;
 
     public void updateFeedContent(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void updateIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

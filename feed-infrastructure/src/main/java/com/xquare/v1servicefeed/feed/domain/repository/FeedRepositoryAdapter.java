@@ -43,9 +43,8 @@ public class FeedRepositoryAdapter implements FeedSpi {
 
     @Override
     public void deleteFeed(Feed feed) {
-        feedRepository.delete(
-                feedMapper.domainToEntity(feed)
-        );
+        FeedEntity feedEntity = getFeedEntityById(feed.getId());
+        feedEntity.updateIsDeleted(true);
     }
 
     @Transactional
@@ -81,7 +80,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feedEntity.id))
-                .where(expression.and(categoryIdEq(categoryId)))
+                .where(expression.and(categoryIdEq(categoryId)), feedEntity.isDeleted.eq(false))
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
                 .limit(limit)
@@ -108,7 +107,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .selectFrom(feedEntity).distinct()
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
-                .where(categoryIdEq(categoryId), feedEntity.authorityType.eq("UKN").not())
+                .where(categoryIdEq(categoryId), feedEntity.authorityType.eq("UKN").not(), feedEntity.isDeleted.eq(false))
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
 
@@ -135,7 +134,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feedEntity.id))
-                .where(feedEntity.userId.eq(userId))
+                .where(feedEntity.userId.eq(userId), feedEntity.isDeleted.eq(false))
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
                 .fetch();
