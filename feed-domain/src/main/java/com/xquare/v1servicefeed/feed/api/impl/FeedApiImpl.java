@@ -105,6 +105,7 @@ public class FeedApiImpl implements FeedApi {
     public FeedWeakElement getFeed(UUID feedId) {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
         UserAuthority userAuthority = UserAuthority.valueOf(feed.getAuthorityType());
+        UUID currentUserId = securitySpi.getCurrentUserId();
         return FeedWeakElement.builder()
                 .createdAt(feed.getCreatedAt())
                 .attachmentsUrl(queryFeedImageSpi.queryAllAttachmentsUrl(feed.getId()))
@@ -113,6 +114,7 @@ public class FeedApiImpl implements FeedApi {
                 .name(userAuthority.getName())
                 .profile(userAuthority.getProfile())
                 .title(feed.getTitle())
+                .isMine(currentUserId.equals(feed.getUserId()))
                 .authorityType(feed.getAuthorityType())
                 .build();
     }
