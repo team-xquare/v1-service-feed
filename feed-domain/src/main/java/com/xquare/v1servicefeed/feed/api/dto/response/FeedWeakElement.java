@@ -19,4 +19,5 @@ public class FeedWeakElement {
     private final String name;
     private final String authorityType;
     private final List<String> attachmentsUrl;
+    private final Boolean isMine;
 }
