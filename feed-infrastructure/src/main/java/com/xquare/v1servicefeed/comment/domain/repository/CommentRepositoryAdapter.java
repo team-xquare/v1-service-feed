@@ -39,19 +39,14 @@ public class CommentRepositoryAdapter implements CommentSpi {
 
     @Override
     public void deleteCommentById(UUID commentId) {
-        commentRepository.deleteById(commentId);
+        CommentEntity comment = getCommentById(commentId);
+        comment.updatedIsDeleted(true);
     }
 
     @Override
     public void updateComment(UpdateCommentDomainRequest request) {
         CommentEntity comment = getCommentById(request.getCommentId());
         commentRepository.save(comment.updateComment(request.getContent()));
-    }
-
-    @Transactional
-    @Override
-    public void deleteAllCommentByFeedId(UUID feedId) {
-        commentRepository.deleteAllByFeedEntityId(feedId);
     }
 
     @Override
@@ -68,7 +63,8 @@ public class CommentRepositoryAdapter implements CommentSpi {
                 .on(feedEntity.id.eq(feed.getId()))
                 .where(
                         feedEntity.id.eq(feed.getId()),
-                        feedEntity.authorityType.eq("UKN").not()
+                        feedEntity.authorityType.eq("UKN").not(),
+                        commentEntity.isDeleted.eq(false)
                 )
                 .orderBy(commentEntity.createAt.desc())
                 .fetch();

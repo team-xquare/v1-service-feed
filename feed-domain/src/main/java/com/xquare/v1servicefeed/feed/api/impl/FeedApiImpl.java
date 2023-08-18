@@ -71,7 +71,7 @@ public class FeedApiImpl implements FeedApi {
 
         UUID feedId = commandFeedSpi.saveFeed(feed);
 
-        if (category.getName().equals(CategoryEnum.NOTICE.getName())) {
+        if (CategoryEnum.NOTICE.getName().equals(category.getName())) {
             notificationSpi.sendGroupNotification(
                     FEED_NOTICE,
                     CONTENT,
@@ -95,7 +95,6 @@ public class FeedApiImpl implements FeedApi {
         Feed feed = queryFeedSpi.queryFeedById(feedId);
         UUID currentUserId = securitySpi.getCurrentUserId();
         feedUserSpi.validateUserId(feed.getUserId(), currentUserId);
-        commandCommentSpi.deleteAllCommentByFeedId(feedId);
         commandFeedImageSpi.deleteAllFeedImage(feedId);
         commandFeedLikeSpi.deleteFeedLikeByFeedId(feedId);
         commandFeedSpi.deleteFeed(feed);

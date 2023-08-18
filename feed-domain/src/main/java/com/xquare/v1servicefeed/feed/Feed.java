@@ -27,4 +27,6 @@ public class Feed {
     private final String authorityType;
 
     private final Integer commentCount;
+
+    private final Boolean isDeleted = false;
 }

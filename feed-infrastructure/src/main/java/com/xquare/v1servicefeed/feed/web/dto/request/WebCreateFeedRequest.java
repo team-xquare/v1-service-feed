@@ -24,5 +24,5 @@ public class WebCreateFeedRequest {
     private UUID categoryId;
 
     @NotBlank
-    private String type;
+    private String authorityType;
 }

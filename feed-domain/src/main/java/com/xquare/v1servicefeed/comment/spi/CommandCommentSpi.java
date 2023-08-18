@@ -13,6 +13,4 @@ public interface CommandCommentSpi {
     void deleteCommentById(UUID commentId);
 
     void updateComment(UpdateCommentDomainRequest request);
-
-    void deleteAllCommentByFeedId(UUID feedId);
 }
