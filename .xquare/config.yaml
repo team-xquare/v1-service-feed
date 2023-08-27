@@ -1,5 +1,5 @@
 config:
   name: feed
-  prefix: /feeds
+  prefix: /feeds/
   service_type: be
   port: 8080
