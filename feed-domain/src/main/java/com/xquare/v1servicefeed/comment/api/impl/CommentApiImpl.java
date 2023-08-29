@@ -53,7 +53,6 @@ public class CommentApiImpl implements CommentApi {
                         .userId(userId)
                         .createAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
-                        .deleted(false)
                         .build()
         );
 
