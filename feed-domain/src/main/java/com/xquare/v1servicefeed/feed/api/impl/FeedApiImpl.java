@@ -38,7 +38,6 @@ public class FeedApiImpl implements FeedApi {
 
     private final CommandFeedSpi commandFeedSpi;
     private final FeedUserSpi feedUserSpi;
-    private final CommandCommentSpi commandCommentSpi;
     private final CommandFeedImageSpi commandFeedImageSpi;
     private final SecuritySpi securitySpi;
     private final QueryFeedSpi queryFeedSpi;
@@ -67,6 +66,7 @@ public class FeedApiImpl implements FeedApi {
                 .categoryId(request.getCategoryId())
                 .userId(securitySpi.getCurrentUserId())
                 .authorityType(request.getAuthorityType())
+                .isDeleted(false)
                 .build();
 
         UUID feedId = commandFeedSpi.saveFeed(feed);

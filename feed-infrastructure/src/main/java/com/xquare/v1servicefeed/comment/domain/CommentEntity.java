@@ -37,7 +37,7 @@ public class CommentEntity extends BaseUUIDEntity {
     private LocalDateTime updatedAt;
 
     @Column(columnDefinition = "BIT(1) default 0", nullable = false)
-    private Boolean isDeleted;
+    private boolean isDeleted;
 
     public CommentEntity updateComment(String content) {
         this.content = content;
@@ -45,7 +45,7 @@ public class CommentEntity extends BaseUUIDEntity {
         return this;
     }
 
-    public void updatedIsDeleted(Boolean isDeleted) {
+    public void updatedIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 }
