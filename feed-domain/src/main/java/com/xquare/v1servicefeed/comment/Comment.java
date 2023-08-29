@@ -24,5 +24,5 @@ public class Comment {
 
     private final LocalDateTime updatedAt;
 
-    private final Boolean isDeleted = false;
+    private final boolean deleted;
 }

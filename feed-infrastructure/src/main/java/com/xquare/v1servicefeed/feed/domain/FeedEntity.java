@@ -43,7 +43,7 @@ public class FeedEntity extends BaseUUIDEntity {
     private String authorityType;
 
     @Column(columnDefinition = "BIT(1) default 0", nullable = false)
-    private Boolean isDeleted;
+    private boolean deleted;
 
     @OneToMany(mappedBy = "feedEntity")
     private Set<FeedImageEntity> feedImageEntities;
@@ -53,7 +53,7 @@ public class FeedEntity extends BaseUUIDEntity {
         this.content = content;
     }
 
-    public void updateIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
+    public void delete(boolean deleted) {
+        this.deleted = deleted;
     }
 }

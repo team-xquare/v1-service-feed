@@ -23,6 +23,7 @@ public class CommentMapper {
                 .userId(commentEntity.getUserId())
                 .createAt(commentEntity.getCreateAt())
                 .updatedAt(commentEntity.getUpdatedAt())
+                .deleted(false)
                 .build();
     }
 
@@ -37,6 +38,7 @@ public class CommentMapper {
                 .userId(comment.getUserId())
                 .createAt(comment.getCreateAt())
                 .updatedAt(comment.getUpdatedAt())
+                .deleted(false)
                 .build();
     }
 }

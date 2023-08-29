@@ -38,7 +38,6 @@ public class FeedApiImpl implements FeedApi {
 
     private final CommandFeedSpi commandFeedSpi;
     private final FeedUserSpi feedUserSpi;
-    private final CommandCommentSpi commandCommentSpi;
     private final CommandFeedImageSpi commandFeedImageSpi;
     private final SecuritySpi securitySpi;
     private final QueryFeedSpi queryFeedSpi;
