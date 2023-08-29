@@ -40,7 +40,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
     @Override
     public void deleteCommentById(UUID commentId) {
         CommentEntity comment = getCommentById(commentId);
-        comment.updatedIsDeleted(true);
+        comment.delete(true);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
                 .where(
                         feedEntity.id.eq(feed.getId()),
                         feedEntity.authorityType.eq("UKN").not(),
-                        commentEntity.isDeleted.eq(false)
+                        commentEntity.deleted.eq(false)
                 )
                 .orderBy(commentEntity.createAt.desc())
                 .fetch();

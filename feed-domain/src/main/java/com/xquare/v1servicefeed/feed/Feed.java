@@ -28,5 +28,5 @@ public class Feed {
 
     private final Integer commentCount;
 
-    private final boolean isDeleted;
+    private final boolean deleted;
 }

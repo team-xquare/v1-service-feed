@@ -23,6 +23,7 @@ public class FeedMapper {
                 .createdAt(feedEntity.getCreatedAt())
                 .categoryId(feedEntity.getCategoryEntity().getId())
                 .authorityType(feedEntity.getAuthorityType())
+                .deleted(false)
                 .build();
     }
 
@@ -38,6 +39,7 @@ public class FeedMapper {
                 .createdAt(feed.getCreatedAt())
                 .categoryEntity(categoryEntity)
                 .authorityType(feed.getAuthorityType())
+                .deleted(false)
                 .build();
     }
 }
