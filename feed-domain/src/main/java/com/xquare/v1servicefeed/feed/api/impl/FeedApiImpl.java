@@ -1,7 +1,6 @@
 package com.xquare.v1servicefeed.feed.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
-import com.xquare.v1servicefeed.comment.spi.CommandCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Category;
 import com.xquare.v1servicefeed.feed.CategoryEnum;
@@ -9,7 +8,16 @@ import com.xquare.v1servicefeed.feed.Feed;
 import com.xquare.v1servicefeed.feed.api.FeedApi;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainCreateFeedRequest;
 import com.xquare.v1servicefeed.feed.api.dto.request.DomainUpdateFeedRequest;
-import com.xquare.v1servicefeed.feed.api.dto.response.*;
+import com.xquare.v1servicefeed.feed.api.dto.response.AuthorityElement;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryElement;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedCategoryListResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedElement;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedList;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedListPageResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedListResponse;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedPageList;
+import com.xquare.v1servicefeed.feed.api.dto.response.FeedWeakElement;
+import com.xquare.v1servicefeed.feed.api.dto.response.SaveFeedResponse;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedImageSpi;
 import com.xquare.v1servicefeed.feed.spi.CommandFeedSpi;
 import com.xquare.v1servicefeed.feed.spi.QueryCategorySpi;
@@ -36,6 +44,9 @@ import java.util.stream.Collectors;
 @DomainService
 public class FeedApiImpl implements FeedApi {
 
+    private static final String FEED_NOTICE = "FEED_NOTICE";
+    private static final String CONTENT = "새로운 공지가 등록되었습니다.";
+    private static final String THREAD_ID = "FEED_NOTICE";
     private final CommandFeedSpi commandFeedSpi;
     private final FeedUserSpi feedUserSpi;
     private final CommandFeedImageSpi commandFeedImageSpi;
@@ -47,9 +58,6 @@ public class FeedApiImpl implements FeedApi {
     private final CommandFeedLikeSpi commandFeedLikeSpi;
     private final FeedAuthoritySpi feedAuthoritySpi;
     private final NotificationSpi notificationSpi;
-    private static final String FEED_NOTICE = "FEED_NOTICE";
-    private static final String CONTENT = "새로운 공지가 등록되었습니다.";
-    private static final String THREAD_ID = "FEED_NOTICE";
 
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
