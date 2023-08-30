@@ -38,6 +38,7 @@ public class CommentRepositoryAdapter implements CommentSpi {
     }
 
     @Override
+    @Transactional
     public void deleteCommentById(UUID commentId) {
         CommentEntity comment = getCommentById(commentId);
         comment.delete(true);
