@@ -42,6 +42,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
     }
 
     @Override
+    @Transactional
     public void deleteFeed(Feed feed) {
         FeedEntity feedEntity = getFeedEntityById(feed.getId());
         feedEntity.delete(true);
@@ -62,7 +63,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
     @Override
     public FeedPageList queryAllFeedByCategory(UUID categoryId, LocalDateTime time, long limit) {
         BooleanBuilder expression = new BooleanBuilder();
-        if(time != null) expression.and(feedEntity.createdAt.lt(time));
+        if (time != null) expression.and(feedEntity.createdAt.lt(time));
 
         List<FeedListVO> voList = query
                 .select(new QFeedListVO(
@@ -88,16 +89,16 @@ public class FeedRepositoryAdapter implements FeedSpi {
 
         return new FeedPageList(
                 voList.stream()
-                .map(feedListVO -> FeedList.builder()
-                        .feedId(feedListVO.getFeedId())
-                        .userId(feedListVO.getUserId())
-                        .content(feedListVO.getContent())
-                        .authorityType(feedListVO.getAuthorityType())
-                        .createdAt(feedListVO.getCreatedAt())
-                        .likeCount(feedListVO.getLikeCount())
-                        .commentCount(feedListVO.getCommentCount())
-                        .build())
-                .collect(Collectors.toList())
+                        .map(feedListVO -> FeedList.builder()
+                                .feedId(feedListVO.getFeedId())
+                                .userId(feedListVO.getUserId())
+                                .content(feedListVO.getContent())
+                                .authorityType(feedListVO.getAuthorityType())
+                                .createdAt(feedListVO.getCreatedAt())
+                                .likeCount(feedListVO.getLikeCount())
+                                .commentCount(feedListVO.getCommentCount())
+                                .build())
+                        .collect(Collectors.toList())
         );
     }
 
