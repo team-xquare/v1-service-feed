@@ -122,6 +122,7 @@ public class FeedApiImpl implements FeedApi {
                 .title(feed.getTitle())
                 .isMine(currentUserId.equals(feed.getUserId()))
                 .authorityType(feed.getAuthorityType())
+                .categoryId(feed.getCategoryId())
                 .build();
     }
 
