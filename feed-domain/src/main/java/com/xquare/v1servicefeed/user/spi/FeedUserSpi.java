@@ -13,6 +13,5 @@ public interface FeedUserSpi {
     List<User> queryUserByIds(List<UUID> ids);
     void validateUserId(UUID userId, UUID currentUserId);
     List<User> queryAllUserByRole(String role);
-
     Optional<User> queryUserById(UUID id);
 }
