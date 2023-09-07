@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -68,5 +69,24 @@ public class UserRepositoryAdapter implements FeedUserSpi, CommentUserSpi {
                         .profileFileName(userInfoElement.getProfileFileName())
                         .build())
                 .toList();
+    }
+
+    @Override
+    public Optional<User> queryUserById(UUID id) {
+        UserInfoElement userInfoElement = userClient.getUserInfoByUserId(id);
+
+        return Optional.of(
+                User.builder()
+                        .id(userInfoElement.getId())
+                        .accountId(userInfoElement.getAccountId())
+                        .name(userInfoElement.getName())
+                        .password(userInfoElement.getPassword())
+                        .birthDay(userInfoElement.getBirthDay())
+                        .grade(userInfoElement.getGrade())
+                        .classNum(userInfoElement.getClassNum())
+                        .num(userInfoElement.getNum())
+                        .profileFileName(userInfoElement.getProfileFileName())
+                        .build()
+        );
     }
 }
