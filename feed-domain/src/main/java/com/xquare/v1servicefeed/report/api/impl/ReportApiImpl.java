@@ -10,13 +10,11 @@ import com.xquare.v1servicefeed.report.api.dto.CreateReportDomainRequest;
 import com.xquare.v1servicefeed.report.exception.CannotReportMyFeedException;
 import com.xquare.v1servicefeed.report.spi.CommandReportSpi;
 import com.xquare.v1servicefeed.user.User;
+import com.xquare.v1servicefeed.user.exception.UserNotFoundException;
 import com.xquare.v1servicefeed.user.spi.FeedUserSpi;
 import com.xquare.v1servicefeed.webhook.SlackReport;
 import com.xquare.v1servicefeed.webhook.spi.SendWebhookSpi;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @DomainService
@@ -31,16 +29,16 @@ public class ReportApiImpl implements ReportApi {
     @Override
     public void saveReport(CreateReportDomainRequest request) {
         Feed feed = queryFeedSpi.queryFeedById(request.getFeedId());
-        UUID userId = securitySpi.getCurrentUserId();
-        User user = feedUserSpi.queryUserByIds(List.of(userId)).get(0);
+        User user = feedUserSpi.queryUserById(securitySpi.getCurrentUserId())
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        if (userId.equals(feed.getUserId())) {
+        if (user.getId().equals(feed.getUserId())) {
             throw CannotReportMyFeedException.EXCEPTION;
         }
 
         commandReportSpi.saveReport(
                 Report.builder()
-                        .userId(userId)
+                        .userId(user.getId())
                         .reportUserId(feed.getUserId())
                         .feedId(feed.getId())
                         .content(request.getContent())
