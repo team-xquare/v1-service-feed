@@ -1,30 +1,28 @@
 package com.xquare.v1servicefeed.webhook;
 
-import com.xquare.v1servicefeed.webhook.spi.SendWebhookSpi;
-import lombok.RequiredArgsConstructor;
 import net.gpedro.integrations.slack.SlackApi;
 import net.gpedro.integrations.slack.SlackAttachment;
 import net.gpedro.integrations.slack.SlackMessage;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
 @Component
-public class SendWebhookAdapter implements SendWebhookSpi {
+public class SendWebhookEventListener {
 
     private static final String REPORT_MESSAGE = "피드 신고 발생";
     private static final String REPORT_USER_NAME = "신고자";
     private static final String REPORT_CONTENT = "신고 내용";
-    private static final String REPORT_FEED_CONTENT = "신고한 게시글 내용";
+    private static final String REPORT_FEED_CONTENT = "신고된 게시글 내용";
     private static final String MESSAGE_COLOR = "#9650FA";
-    private static final String FALLBACK = "Required plain-text summary of the attachment";
+    private static final String FALLBACK = "새로운 피드 신고가 도착했습니다.";
 
     @Value("${webhook.url}")
     private String webhookUrl;
 
-    @Override
     @Async
+    @EventListener
     public void sendReportToSlack(SlackReport slackReport) {
         SlackAttachment slackAttachment = createSlackAttachment(slackReport);
         SlackMessage slackMessage = new SlackMessage("").addAttachments(slackAttachment);
