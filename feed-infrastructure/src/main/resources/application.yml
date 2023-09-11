@@ -46,3 +46,6 @@ springdoc:
     display-request-duration: true
   cache:
     disabled: true
+
+webhook:
+  url: ${webhook.url}

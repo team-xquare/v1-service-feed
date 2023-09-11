@@ -5,12 +5,11 @@ import com.xquare.v1servicefeed.report.domain.ReportEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
 @RequiredArgsConstructor
 @Component
 public class ReportMapperImpl implements ReportMapper {
-    public Report entityToDomain(ReportEntity reportEntity) {
 
+    public Report entityToDomain(ReportEntity reportEntity) {
         return Report.builder()
                 .id(reportEntity.getId())
                 .userId(reportEntity.getUserId())
@@ -21,7 +20,6 @@ public class ReportMapperImpl implements ReportMapper {
     }
 
     public ReportEntity domainToEntity(Report report) {
-
         return ReportEntity.builder()
                 .id(report.getId())
                 .userId(report.getUserId())

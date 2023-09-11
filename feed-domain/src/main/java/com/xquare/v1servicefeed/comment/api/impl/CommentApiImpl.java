@@ -56,13 +56,13 @@ public class CommentApiImpl implements CommentApi {
                         .build()
         );
 
-        if(!feed.getUserId().equals(userId)) {
+        if (!feed.getUserId().equals(userId)) {
             sendNotification(feed);
         }
     }
 
     private void sendNotification(Feed feed) {
-        if(CategoryEnum.NOTICE.getName().equals(categorySpi.queryCategoryById(feed.getCategoryId()).getName())) {
+        if (CategoryEnum.NOTICE.getName().equals(categorySpi.queryCategoryById(feed.getCategoryId()).getName())) {
             commentNotificationUtil.sendNotification(feed, FEED_NOTICE_COMMENT);
         } else {
             commentNotificationUtil.sendNotification(feed, FEED_BAMBOO_COMMENT);
