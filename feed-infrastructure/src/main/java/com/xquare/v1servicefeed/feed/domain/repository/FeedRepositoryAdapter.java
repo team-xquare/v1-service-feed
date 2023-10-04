@@ -82,9 +82,8 @@ public class FeedRepositoryAdapter implements FeedSpi {
                 .leftJoin(commentEntity)
                 .on(feedEntity.id.eq(commentEntity.feedEntity.id))
                 .where(
-                        commentEntity.deleted.eq(false).or(
-                                expression.and(feedEntity.deleted.eq(false).and(categoryIdEq(categoryId)))
-                        )
+                        expression.and(categoryIdEq(categoryId)), commentEntity.deleted.eq(false)
+                                .or(expression.and(categoryIdEq(categoryId)).and(feedEntity.deleted.eq(false)))
                 )
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
