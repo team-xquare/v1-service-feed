@@ -118,7 +118,9 @@ public class CommentRepositoryAdapter implements CommentSpi {
                 .innerJoin(feedEntity)
                 .on(commentEntity.feedEntity.id.eq(feedEntity.id))
                 .where(
-                        expression.and(commentEntity.deleted.eq(false))
+                        expression
+                                .and(commentEntity.feedEntity.id.eq(feedId))
+                                .and(commentEntity.deleted.eq(false))
                                 .and(expression.and(feedEntity.deleted.eq(false)).and(commentEntity.feedEntity.id.eq(feedId)))
                 ).fetchFirst();
     }
