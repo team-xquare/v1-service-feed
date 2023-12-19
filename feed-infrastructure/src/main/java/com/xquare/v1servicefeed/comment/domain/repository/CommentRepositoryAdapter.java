@@ -119,7 +119,6 @@ public class CommentRepositoryAdapter implements CommentSpi {
                         commentEntity.feedEntity.id.eq(feedId)
                                 .and(commentEntity.deleted.eq(false))
                                 .and(feedEntity.deleted.eq(false))
-                                .and(commentEntity.feedEntity.id.eq(feedId))
                 ).fetchFirst();
     }
 
