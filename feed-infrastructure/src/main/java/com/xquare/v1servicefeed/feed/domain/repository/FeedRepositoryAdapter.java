@@ -73,8 +73,7 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.content,
                         feedEntity.authorityType,
                         feedEntity.createdAt,
-                        feedLikeEntity.countDistinct(),
-                        commentEntity.countDistinct()
+                        feedLikeEntity.countDistinct()
                 ))
                 .from(feedEntity)
                 .leftJoin(feedLikeEntity)
@@ -99,7 +98,6 @@ public class FeedRepositoryAdapter implements FeedSpi {
                                 .authorityType(feedListVO.getAuthorityType())
                                 .createdAt(feedListVO.getCreatedAt())
                                 .likeCount(feedListVO.getLikeCount())
-                                .commentCount(feedListVO.getCommentCount())
                                 .build())
                         .collect(Collectors.toList())
         );
@@ -130,14 +128,11 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         feedEntity.content,
                         feedEntity.authorityType,
                         feedEntity.createdAt,
-                        feedLikeEntity.countDistinct(),
-                        commentEntity.countDistinct()
+                        feedLikeEntity.countDistinct()
                 ))
                 .from(feedEntity)
                 .leftJoin(feedLikeEntity)
                 .on(feedEntity.id.eq(feedLikeEntity.feedEntity.id))
-                .leftJoin(commentEntity)
-                .on(feedEntity.id.eq(commentEntity.feedEntity.id))
                 .where(feedEntity.userId.eq(userId), feedEntity.deleted.eq(false))
                 .groupBy(feedEntity.id)
                 .orderBy(feedEntity.createdAt.desc())
@@ -152,7 +147,6 @@ public class FeedRepositoryAdapter implements FeedSpi {
                         .authorityType(feedListVO.getAuthorityType())
                         .createdAt(feedListVO.getCreatedAt())
                         .likeCount(feedListVO.getLikeCount())
-                        .commentCount(feedListVO.getCommentCount())
                         .build())
                 .collect(Collectors.toList());
     }

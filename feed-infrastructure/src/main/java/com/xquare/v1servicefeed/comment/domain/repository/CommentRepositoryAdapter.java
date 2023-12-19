@@ -1,5 +1,6 @@
 package com.xquare.v1servicefeed.comment.domain.repository;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.xquare.v1servicefeed.comment.Comment;
 import com.xquare.v1servicefeed.comment.api.dto.request.UpdateCommentDomainRequest;
@@ -105,6 +106,20 @@ public class CommentRepositoryAdapter implements CommentSpi {
     @Override
     public boolean existByUserId(UUID userId) {
         return commentRepository.existsByUserId(userId);
+    }
+
+    @Override
+    public Long queryCommentCountByFeedId(UUID feedId) {
+        return query
+                .select(commentEntity.count())
+                .from(commentEntity)
+                .innerJoin(feedEntity)
+                .on(commentEntity.feedEntity.id.eq(feedEntity.id))
+                .where(
+                        commentEntity.feedEntity.id.eq(feedId)
+                                .and(commentEntity.deleted.eq(false))
+                                .and(feedEntity.deleted.eq(false))
+                ).fetchFirst();
     }
 
     private CommentEntity getCommentById(UUID commentId) {

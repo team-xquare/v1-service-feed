@@ -16,10 +16,9 @@ public class FeedListVO {
     private final String authorityType;
     private final LocalDateTime createdAt;
     private final Long likeCount;
-    private final Long commentCount;
 
     @QueryProjection
-    public FeedListVO(UUID feedId, UUID userId, String title, String content, String authorityType, LocalDateTime createdAt, Long likeCount, Long commentCount) {
+    public FeedListVO(UUID feedId, UUID userId, String title, String content, String authorityType, LocalDateTime createdAt, Long likeCount) {
         this.feedId = feedId;
         this.userId = userId;
         this.title = title;
@@ -27,6 +26,5 @@ public class FeedListVO {
         this.authorityType = authorityType;
         this.createdAt = createdAt;
         this.likeCount = likeCount;
-        this.commentCount = commentCount;
     }
 }

@@ -17,4 +17,6 @@ public interface QueryCommentSpi {
     List<Comment> queryAllCommentByFeed(Feed feed);
 
     boolean existByUserId(UUID userId);
+
+    Long queryCommentCountByFeedId(UUID feedId);
 }

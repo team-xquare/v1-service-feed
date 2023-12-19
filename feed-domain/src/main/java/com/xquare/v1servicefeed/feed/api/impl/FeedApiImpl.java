@@ -1,6 +1,8 @@
 package com.xquare.v1servicefeed.feed.api.impl;
 
 import com.xquare.v1servicefeed.annotation.DomainService;
+import com.xquare.v1servicefeed.comment.Comment;
+import com.xquare.v1servicefeed.comment.spi.QueryCommentSpi;
 import com.xquare.v1servicefeed.configuration.spi.SecuritySpi;
 import com.xquare.v1servicefeed.feed.Category;
 import com.xquare.v1servicefeed.feed.CategoryEnum;
@@ -58,6 +60,7 @@ public class FeedApiImpl implements FeedApi {
     private final CommandFeedLikeSpi commandFeedLikeSpi;
     private final FeedAuthoritySpi feedAuthoritySpi;
     private final NotificationSpi notificationSpi;
+    private final QueryCommentSpi queryCommentSpi;
 
     @Override
     public SaveFeedResponse saveFeed(DomainCreateFeedRequest request) {
@@ -142,10 +145,11 @@ public class FeedApiImpl implements FeedApi {
                 .map(feed -> {
                     UserAuthority userAuthority = UserAuthority.valueOf(feed.getAuthorityType());
                     User user = hashMap.getOrDefault(feed.getUserId(), defaultUser);
+                    Long commentCount = queryCommentSpi.queryCommentCountByFeedId(feed.getFeedId());
                     boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
                     boolean isMine = user != null && feed.getUserId().equals(currentUserId);
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
-                    return builderFeedElement(feed, user, userAuthority, attachmentsUrl, isMine, isLike);
+                    return builderFeedElement(feed, user, userAuthority, attachmentsUrl, isMine, isLike, commentCount);
                 })
                 .toList();
 
@@ -192,7 +196,8 @@ public class FeedApiImpl implements FeedApi {
                     UserAuthority userAuthority = UserAuthority.valueOf(feed.getAuthorityType());
                     boolean isLike = queryFeedLikeSpi.existsByUserIdAndFeedId(currentUserId, feed.getFeedId());
                     List<String> attachmentsUrl = queryFeedImageSpi.queryAllAttachmentsUrl(feed.getFeedId());
-                    return builderFeedElement(feed, user, userAuthority, attachmentsUrl, true, isLike);
+                    Long commentCount = queryCommentSpi.queryCommentCountByFeedId(feed.getFeedId());
+                    return builderFeedElement(feed, user, userAuthority, attachmentsUrl, true, isLike, commentCount);
                 })
                 .toList();
 
@@ -200,7 +205,8 @@ public class FeedApiImpl implements FeedApi {
     }
 
     private FeedElement builderFeedElement(
-            FeedList feed, User user, UserAuthority userAuthority, List<String> attachmentsUrl, boolean isMine, boolean isLike
+            FeedList feed, User user, UserAuthority userAuthority, List<String> attachmentsUrl,
+            boolean isMine, boolean isLike, Long commentCount
     ) {
         return FeedElement.builder()
                 .feedId(feed.getFeedId())
@@ -211,7 +217,7 @@ public class FeedApiImpl implements FeedApi {
                 .name(UserAuthority.UKN.name().equals(feed.getAuthorityType()) ? "" : user.getName())
                 .authorityType(userAuthority.getName())
                 .likeCount(feed.getLikeCount())
-                .commentCount(feed.getCommentCount())
+                .commentCount(commentCount)
                 .isMine(isMine)
                 .isLike(isLike)
                 .attachmentsUrl(attachmentsUrl)
